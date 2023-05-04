@@ -66,32 +66,30 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbCategory = new javax.swing.JTable();
+        tbProductCategory = new javax.swing.JTable();
         btnDelete = new javax.swing.JButton();
         btnModify = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         setClosable(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setTitle("Categoria de Productos");
 
         pnlDetail.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
         pnlDetail.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        pnlDetail.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 240, -1));
+        pnlDetail.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 240, -1));
         pnlDetail.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
         lblId.setEditable(false);
-        pnlDetail.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 190, -1));
+        pnlDetail.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 240, -1));
 
         jLabel1.setText("Id:");
-        pnlDetail.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        pnlDetail.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         jLabel2.setText("Nombre:");
-        pnlDetail.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+        pnlDetail.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
-        getContentPane().add(pnlDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 6, 367, 114));
-
-        tbCategory.setModel(new javax.swing.table.DefaultTableModel(
+        tbProductCategory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -102,14 +100,12 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2"
             }
         ));
-        tbCategory.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbProductCategory.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbCategoryMouseClicked(evt);
+                tbProductCategoryMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tbCategory);
-
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 178, 367, 163));
+        jScrollPane2.setViewportView(tbProductCategory);
 
         btnDelete.setText("Eliminar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +113,6 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
                 btnDeleteActionPerformed(evt);
             }
         });
-        getContentPane().add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, -1, -1));
 
         btnModify.setText("Modificar");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
@@ -125,7 +120,6 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
                 btnModifyActionPerformed(evt);
             }
         });
-        getContentPane().add(btnModify, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, -1, -1));
 
         btnAdd.setText("Agregar");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -133,7 +127,6 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
                 btnAddActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
         jButton1.setText("Limpiar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -141,14 +134,52 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, -1, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(pnlDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(btnAdd)
+                        .addGap(6, 6, 6)
+                        .addComponent(btnModify)
+                        .addGap(19, 19, 19)
+                        .addComponent(jButton1)
+                        .addGap(10, 10, 10)
+                        .addComponent(btnDelete))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(pnlDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAdd)
+                    .addComponent(btnModify)
+                    .addComponent(jButton1)
+                    .addComponent(btnDelete))
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tbCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCategoryMouseClicked
+    private void tbProductCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProductCategoryMouseClicked
         tbEventMouseClick(evt);
-    }//GEN-LAST:event_tbCategoryMouseClicked
+    }//GEN-LAST:event_tbProductCategoryMouseClicked
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         deleteProductCategory();
@@ -186,7 +217,7 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
 
                 table.addRow(registros);
             }
-            tbCategory.setModel(table);
+            tbProductCategory.setModel(table);
 
         }
 
@@ -253,13 +284,13 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
     }
 
     private void tbEventMouseClick(MouseEvent evt) {
-        int fila = tbCategory.getSelectedRow();
-        String Cod = tbCategory.getValueAt(fila, 0).toString();
+        int fila = tbProductCategory.getSelectedRow();
+        String Cod = tbProductCategory.getValueAt(fila, 0).toString();
 
         {
-            int seleccion = tbCategory.rowAtPoint(evt.getPoint());
-            lblId.setText(String.valueOf(tbCategory.getValueAt(seleccion, 0)));
-            txtNombre.setText(String.valueOf(tbCategory.getValueAt(seleccion, 1)));
+            int seleccion = tbProductCategory.rowAtPoint(evt.getPoint());
+            lblId.setText(String.valueOf(tbProductCategory.getValueAt(seleccion, 0)));
+            txtNombre.setText(String.valueOf(tbProductCategory.getValueAt(seleccion, 1)));
 
         }
     }
@@ -276,7 +307,7 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField lblId;
     public javax.swing.JLabel lblUsuario;
     private javax.swing.JPanel pnlDetail;
-    private javax.swing.JTable tbCategory;
+    private javax.swing.JTable tbProductCategory;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 

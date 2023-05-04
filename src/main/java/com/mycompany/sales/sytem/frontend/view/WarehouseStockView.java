@@ -28,6 +28,7 @@ public class WarehouseStockView extends javax.swing.JInternalFrame {
      */
     public WarehouseStockView() {
         initComponents();
+        listWarehouseStock();
     }
 
     public List<WarehouseStock> listAll() throws Exception {
@@ -37,7 +38,7 @@ public class WarehouseStockView extends javax.swing.JInternalFrame {
         return response.body();
     }
 
-    public void save(WarehouseStock warehouseStock) throws Exception {
+    /*public void save(WarehouseStock warehouseStock) throws Exception {
         WarehouseStockService service = RetrofitClient.createService(WarehouseStockService.class);
         Call<HttpStatus> call = service.save(warehouseStock);
         call.execute();
@@ -53,6 +54,31 @@ public class WarehouseStockView extends javax.swing.JInternalFrame {
         WarehouseStockService service = RetrofitClient.createService(WarehouseStockService.class);
         Call<HttpStatus> call = service.delete(id);
         call.execute();
+    }*/
+    
+    public void listWarehouseStock() {
+        List<WarehouseStock> lista = new ArrayList<>();
+
+        try {
+            lista = listAll();
+        } catch (Exception ex) {
+            Logger.getLogger(StoreStockView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (lista != null) {
+            String cabecera[] = {"Id", "Producto", "Cantidad"};
+            DefaultTableModel table = new DefaultTableModel(null, cabecera);
+            String[] registros = new String[3];
+            for (WarehouseStock response : lista) {
+                registros[0] = String.valueOf(response.getId());
+                registros[1] = response.getProduct().getName();
+                registros[2] = String.valueOf(response.getQuantity());
+
+                table.addRow(registros);
+            }
+            tbWarehouseStock.setModel(table);
+
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -60,7 +86,7 @@ public class WarehouseStockView extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane5 = new javax.swing.JScrollPane();
-        tbSupplier = new javax.swing.JTable();
+        tbWarehouseStock = new javax.swing.JTable();
         jInternalFrame1 = new javax.swing.JInternalFrame();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -152,9 +178,9 @@ public class WarehouseStockView extends javax.swing.JInternalFrame {
         txtSearch4 = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
 
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setTitle("Stock en Almacen");
 
-        tbSupplier.setModel(new javax.swing.table.DefaultTableModel(
+        tbWarehouseStock.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -165,14 +191,12 @@ public class WarehouseStockView extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3"
             }
         ));
-        tbSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbWarehouseStock.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbSupplierMouseClicked(evt);
+                tbWarehouseStockMouseClicked(evt);
             }
         });
-        jScrollPane5.setViewportView(tbSupplier);
-
-        getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 630, 270));
+        jScrollPane5.setViewportView(tbWarehouseStock);
 
         jInternalFrame1.setClosable(true);
         jInternalFrame1.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -269,8 +293,6 @@ public class WarehouseStockView extends javax.swing.JInternalFrame {
         jLabel4.setText("Buscar:");
         jInternalFrame1.getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 170, -1, 20));
 
-        getContentPane().add(jInternalFrame1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
         jInternalFrame2.setClosable(true);
         jInternalFrame2.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -365,8 +387,6 @@ public class WarehouseStockView extends javax.swing.JInternalFrame {
 
         jLabel14.setText("Buscar:");
         jInternalFrame2.getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 170, -1, 20));
-
-        getContentPane().add(jInternalFrame2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jInternalFrame3.setClosable(true);
         jInternalFrame3.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -463,8 +483,6 @@ public class WarehouseStockView extends javax.swing.JInternalFrame {
         jLabel20.setText("Buscar:");
         jInternalFrame3.getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 170, -1, 20));
 
-        getContentPane().add(jInternalFrame3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
         jInternalFrame4.setClosable(true);
         jInternalFrame4.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -560,42 +578,57 @@ public class WarehouseStockView extends javax.swing.JInternalFrame {
         jLabel26.setText("Buscar:");
         jInternalFrame4.getContentPane().add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 170, -1, 20));
 
-        getContentPane().add(jInternalFrame4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
         txtSearch4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSearch4ActionPerformed(evt);
             }
         });
-        getContentPane().add(txtSearch4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 290, -1));
 
         jLabel27.setText("Buscar:");
-        getContentPane().add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 20));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addComponent(txtSearch4, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jInternalFrame4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel27))
+            .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jInternalFrame3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jInternalFrame4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jInternalFrame3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtSearch4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tbSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSupplierMouseClicked
-        int fila = tbSupplier.getSelectedRow();
-        String Cod = tbSupplier.getValueAt(fila, 0).toString();
+    private void tbWarehouseStockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbWarehouseStockMouseClicked
 
-        {
-            int seleccion = tbSupplier.rowAtPoint(evt.getPoint());
-
-        }
-    }//GEN-LAST:event_tbSupplierMouseClicked
+    }//GEN-LAST:event_tbWarehouseStockMouseClicked
 
     private void tbProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProductMouseClicked
-        int fila = tbProduct.getSelectedRow();
-        String Cod = tbProduct.getValueAt(fila, 0).toString();
 
-        {
-            int seleccion = tbProduct.rowAtPoint(evt.getPoint());
-            //lblCantidad.setText(String.valueOf(tbProduct.getValueAt(seleccion, 0)));
-            cboCategory.setSelectedItem(String.valueOf(tbProduct.getValueAt(seleccion, 1)));
-            txtNombre.setText(String.valueOf(tbProduct.getValueAt(seleccion, 2)));
-
-        }
     }//GEN-LAST:event_tbProductMouseClicked
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -615,16 +648,7 @@ public class WarehouseStockView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtSearchActionPerformed
 
     private void tbProduct1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProduct1MouseClicked
-        int fila = tbProduct.getSelectedRow();
-        String Cod = tbProduct.getValueAt(fila, 0).toString();
-
-        {
-            int seleccion = tbProduct.rowAtPoint(evt.getPoint());
-            //lblCantidad.setText(String.valueOf(tbProduct.getValueAt(seleccion, 0)));
-            cboCategory.setSelectedItem(String.valueOf(tbProduct.getValueAt(seleccion, 1)));
-            txtNombre.setText(String.valueOf(tbProduct.getValueAt(seleccion, 2)));
-
-        }
+       
     }//GEN-LAST:event_tbProduct1MouseClicked
 
     private void btnDelete1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete1ActionPerformed
@@ -644,16 +668,7 @@ public class WarehouseStockView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtSearch1ActionPerformed
 
     private void tbProduct2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProduct2MouseClicked
-        int fila = tbProduct.getSelectedRow();
-        String Cod = tbProduct.getValueAt(fila, 0).toString();
-
-        {
-            int seleccion = tbProduct.rowAtPoint(evt.getPoint());
-            //  lblCantidad.setText(String.valueOf(tbProduct.getValueAt(seleccion, 0)));
-            cboCategory.setSelectedItem(String.valueOf(tbProduct.getValueAt(seleccion, 1)));
-            txtNombre.setText(String.valueOf(tbProduct.getValueAt(seleccion, 2)));
-
-        }
+       
     }//GEN-LAST:event_tbProduct2MouseClicked
 
     private void btnDelete2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete2ActionPerformed
@@ -776,7 +791,7 @@ public class WarehouseStockView extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbProduct1;
     private javax.swing.JTable tbProduct2;
     private javax.swing.JTable tbProduct3;
-    private javax.swing.JTable tbSupplier;
+    private javax.swing.JTable tbWarehouseStock;
     private javax.swing.JTextArea txaDescription;
     private javax.swing.JTextArea txaDescription1;
     private javax.swing.JTextArea txaDescription2;

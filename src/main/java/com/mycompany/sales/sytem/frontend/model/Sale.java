@@ -28,26 +28,29 @@ public class Sale implements Serializable {
 
     @JsonProperty("id")
     private int id;
-
-    @JsonProperty("userId")
-    private int userId;
-
-    @JsonProperty("customerId")
-    private int customerId;
-
-    @JsonProperty("storeId")
-    private int storeId;
+    
+    @JsonProperty("userSystem")
+    private UserSystem userSystem;
+    
+    @JsonProperty("customer")
+    private Customer customer;
+    
+    @JsonProperty("store")
+    private Store store;
 
     @JsonProperty("date")
-    private LocalDate date;
+    private String date;
 
     @JsonProperty("price")
-    private BigDecimal price;
+    private BigDecimal price = new BigDecimal("0.00");
 
     @JsonProperty("discount")
     private BigDecimal discount = new BigDecimal("0.00");
 
     @JsonProperty("total_price")
     private BigDecimal totalPrice = new BigDecimal("0.00");
+    
+    //@JsonProperty("saleDetail")
+    //private List<SaleDetail> saleDetail= new ArrayList<>();
 
 }

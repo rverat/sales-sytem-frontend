@@ -27,11 +27,11 @@ public class SaleDetail implements Serializable {
     @JsonProperty("id")
     private int id;
 
-    @JsonProperty("idSale")
-    private int idSale;
+    @JsonProperty("sale")
+    private Sale sale;
 
-    @JsonProperty("idProduct")
-    private int idProduct;
+    @JsonProperty("product")
+    private Product product;
 
     @JsonProperty("quantity")
     private int quantity;

@@ -24,16 +24,16 @@ import retrofit2.http.Path;
  */
 public interface StoreService {
 
-    @GET
+    @GET("/store")
     Call<List<Store>> getAll();
     
-    @POST
+    @POST("/store")
     Call<HttpStatus> save(@Body Store store);
     
-    @PATCH
+    @PATCH("/store")
     Call<HttpStatus> update(@Body Store store);
     
-    @DELETE("{id}")
+    @DELETE("/store/{id}")
     Call<HttpStatus> delete(@Path("id") int id);
 
 }

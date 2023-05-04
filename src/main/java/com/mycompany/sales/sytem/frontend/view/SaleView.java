@@ -97,7 +97,7 @@ public class SaleView extends javax.swing.JInternalFrame {
         tbSupplier1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setTitle("Ventas");
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -115,13 +115,9 @@ public class SaleView extends javax.swing.JInternalFrame {
         lblId.setEditable(false);
         jPanel5.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 190, -1));
 
-        cboC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel5.add(cboC, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 30, 200, -1));
 
-        cboC1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel5.add(cboC1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 260, -1));
-
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 980, 90));
 
         btnModify.setText("Ejecutar Venta");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +125,6 @@ public class SaleView extends javax.swing.JInternalFrame {
                 btnModifyActionPerformed(evt);
             }
         });
-        getContentPane().add(btnModify, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, -1, -1));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -141,7 +136,6 @@ public class SaleView extends javax.swing.JInternalFrame {
         jPanel6.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
         jPanel6.add(lblUsuario4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
-        cboC2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel6.add(cboC2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 260, -1));
         jPanel6.add(jSpinner2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 120, -1));
 
@@ -177,9 +171,6 @@ public class SaleView extends javax.swing.JInternalFrame {
 
         jPanel6.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 910, 140));
 
-        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 960, 270));
-        jPanel6.getAccessibleContext().setAccessibleName("Detalles del producto");
-
         tbSupplier1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -202,10 +193,43 @@ public class SaleView extends javax.swing.JInternalFrame {
             tbSupplier1.getColumnModel().getColumn(7).setHeaderValue("Title 8");
         }
 
-        getContentPane().add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 960, 210));
-
         jButton1.setText("Ver detalle de la venta");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 400, -1, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 980, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(btnModify)
+                .addGap(31, 31, 31)
+                .addComponent(jButton1))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnModify)
+                    .addComponent(jButton1))
+                .addGap(11, 11, 11)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel6.getAccessibleContext().setAccessibleName("Detalles del producto");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

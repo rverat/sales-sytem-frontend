@@ -23,16 +23,16 @@ import retrofit2.http.Path;
  */
 public interface ProductEntryWarehouseService {
 
-    @GET
+    @GET("/product-entry-warehouse")
     Call<List<ProductEntryWarehouse>> getAll();
     
-    @POST
+    @POST("/product-entry-warehouse")
     Call<HttpStatus> save(@Body ProductEntryWarehouse productEntryWarehouse);
     
-    @PATCH
+    @PATCH("/product-entry-warehouse")
     Call<HttpStatus> update(@Body ProductEntryWarehouse productEntryWarehouse);
     
-    @DELETE("{id}")
+    @DELETE("/product-entry-warehouse/{id}")
     Call<HttpStatus> delete(@Path("id") int id);
 
 }

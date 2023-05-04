@@ -7,6 +7,8 @@ package com.mycompany.sales.sytem.frontend.view;
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
 import com.mycompany.sales.sytem.frontend.model.Supplier;
 import com.mycompany.sales.sytem.frontend.restclient.SupplierService;
+import java.awt.HeadlessException;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,6 +30,7 @@ public class SupplierView extends javax.swing.JInternalFrame {
      */
     public SupplierView() {
         initComponents();
+        listSupplier();
     }
 
     public List<Supplier> listAll() throws Exception {
@@ -70,13 +73,12 @@ public class SupplierView extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         lblUsuario4 = new javax.swing.JLabel();
-        lblId1 = new javax.swing.JTextField();
-        txtNombre1 = new javax.swing.JTextField();
-        txtRUC1 = new javax.swing.JTextField();
+        lblId = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Proveedor");
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnAdd.setText("Agregar");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -84,7 +86,6 @@ public class SupplierView extends javax.swing.JInternalFrame {
                 btnAddActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
 
         btnModify.setText("Modificar");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
@@ -92,7 +93,6 @@ public class SupplierView extends javax.swing.JInternalFrame {
                 btnModifyActionPerformed(evt);
             }
         });
-        getContentPane().add(btnModify, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, -1, -1));
 
         btnDelete.setText("Eliminar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +100,6 @@ public class SupplierView extends javax.swing.JInternalFrame {
                 btnDeleteActionPerformed(evt);
             }
         });
-        getContentPane().add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, -1));
 
         tbSupplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -120,10 +119,7 @@ public class SupplierView extends javax.swing.JInternalFrame {
         });
         jScrollPane5.setViewportView(tbSupplier);
 
-        getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 440, 300));
-
         btnLimpiar.setText("Limpiar");
-        getContentPane().add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, -1, -1));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -138,37 +134,164 @@ public class SupplierView extends javax.swing.JInternalFrame {
         jPanel6.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
         jPanel6.add(lblUsuario4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
-        lblId1.setEditable(false);
-        jPanel6.add(lblId1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 190, -1));
-        jPanel6.add(txtNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 240, -1));
-        jPanel6.add(txtRUC1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 240, -1));
+        lblId.setEditable(false);
+        jPanel6.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 190, -1));
+        jPanel6.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 240, -1));
+        jPanel6.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 240, -1));
 
-        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 410, 156));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(btnAdd)
+                .addGap(16, 16, 16)
+                .addComponent(btnModify)
+                .addGap(19, 19, 19)
+                .addComponent(btnDelete)
+                .addGap(16, 16, 16)
+                .addComponent(btnLimpiar))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAdd)
+                    .addComponent(btnModify)
+                    .addComponent(btnDelete)
+                    .addComponent(btnLimpiar))
+                .addGap(21, 21, 21)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        saveSupplier();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed
-        // TODO add your handling code here:
+        updateSupplier();
     }//GEN-LAST:event_btnModifyActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        deleteSupplier();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void tbSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSupplierMouseClicked
+        tbSupplierMouseClick(evt);
+    }//GEN-LAST:event_tbSupplierMouseClicked
+
+    private void listSupplier() {
+        List<Supplier> lista = new ArrayList<>();
+
+        try {
+            lista = listAll();
+        } catch (Exception ex) {
+            Logger.getLogger(SupplierView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (lista != null) {
+            String cabecera[] = {"Id", "Nombre", "Teléfono"};
+            DefaultTableModel table = new DefaultTableModel(null, cabecera);
+            String[] registros = new String[3];
+            for (Supplier response : lista) {
+                registros[0] = String.valueOf(response.getId());
+                registros[1] = response.getName();
+                registros[2] = response.getPhoneNumber();
+
+                table.addRow(registros);
+            }
+            tbSupplier.setModel(table);
+
+        }
+    }
+
+    private void saveSupplier() throws HeadlessException {
+        try {
+
+            Supplier supplier = new Supplier();
+
+            supplier.setId(0);
+            supplier.setName(txtNombre.getText());
+            supplier.setPhoneNumber(txtTelefono.getText());
+
+            save(supplier);
+            JOptionPane.showMessageDialog(null, "Registrado");
+            listSupplier();
+            clear();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Ocurrio un error");
+        }
+    }
+
+    private void updateSupplier() throws HeadlessException {
+        try {
+
+            Supplier supplier = new Supplier();
+
+            supplier.setId(Integer.parseInt(lblId.getText()));
+            supplier.setName(txtNombre.getText());
+            supplier.setPhoneNumber(txtTelefono.getText());
+
+            update(supplier);
+            JOptionPane.showMessageDialog(null, "Actualizado");
+            listSupplier();
+            clear();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Ocurrio un error");
+        }
+    }
+
+    private boolean deleteSupplier() throws NumberFormatException, HeadlessException {
+        if (lblId.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccionar el registro a Eliminar", "Atentamente el Sistema", JOptionPane.WARNING_MESSAGE);
+            return true;
+        }
+        int id = Integer.parseInt(lblId.getText().trim());
+        try {
+            delete(id);
+        } catch (Exception ex) {
+            Logger.getLogger(SupplierView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(null, "Eliminado");
+        listSupplier();
+        clear();
+        return false;
+    }
+
+    private void clear() {
+        lblId.setText("");
+        txtNombre.setText("");
+        txtTelefono.setText("");
+    }
+
+    private void tbSupplierMouseClick(MouseEvent evt) {
         int fila = tbSupplier.getSelectedRow();
         String Cod = tbSupplier.getValueAt(fila, 0).toString();
 
         {
             int seleccion = tbSupplier.rowAtPoint(evt.getPoint());
+            lblId.setText(String.valueOf(tbSupplier.getValueAt(seleccion, 0)));
+            txtNombre.setText(String.valueOf(tbSupplier.getValueAt(seleccion, 1)));
+            txtTelefono.setText(String.valueOf(tbSupplier.getValueAt(seleccion, 2)));
 
         }
-    }//GEN-LAST:event_tbSupplierMouseClicked
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -181,10 +304,10 @@ public class SupplierView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTextField lblId1;
+    private javax.swing.JTextField lblId;
     public javax.swing.JLabel lblUsuario4;
     private javax.swing.JTable tbSupplier;
-    private javax.swing.JTextField txtNombre1;
-    private javax.swing.JTextField txtRUC1;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

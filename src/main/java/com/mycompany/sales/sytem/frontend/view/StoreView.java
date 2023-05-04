@@ -7,6 +7,8 @@ package com.mycompany.sales.sytem.frontend.view;
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
 import com.mycompany.sales.sytem.frontend.model.Store;
 import com.mycompany.sales.sytem.frontend.restclient.StoreService;
+import java.awt.HeadlessException;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -71,6 +73,7 @@ public class StoreView extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbEquipo = new javax.swing.JTable();
+        btnLimpiar = new javax.swing.JButton();
         jInternalFrame2 = new javax.swing.JInternalFrame();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -106,24 +109,24 @@ public class StoreView extends javax.swing.JInternalFrame {
         btnDelete = new javax.swing.JButton();
         btnModify = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
 
         setClosable(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setTitle("Tiendas");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setText("Id:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
-        jPanel2.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 240, -1));
+        jPanel2.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 240, -1));
 
         jLabel7.setText("Nombre:");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
         jPanel2.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
         txtIdEquipo1.setEditable(false);
-        jPanel2.add(txtIdEquipo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 190, -1));
+        jPanel2.add(txtIdEquipo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 240, -1));
 
         jButton1.setText("Agregar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -164,39 +167,51 @@ public class StoreView extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tbEquipo);
 
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
         jInternalFrame1Layout.setHorizontalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton2)
-                        .addGap(44, 44, 44)
-                        .addComponent(jButton3)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnLimpiar)
+                                .addGap(24, 24, 24)
+                                .addComponent(jButton3)
+                                .addGap(11, 11, 11)))
+                        .addGap(0, 11, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(btnLimpiar))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                .addContainerGap())
         );
-
-        getContentPane().add(jInternalFrame1, new org.netbeans.lib.awtextra.AbsoluteConstraints(428, 263, 0, 0));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -378,8 +393,6 @@ public class StoreView extends javax.swing.JInternalFrame {
                     .addContainerGap(176, Short.MAX_VALUE)))
         );
 
-        getContentPane().add(jInternalFrame2, new org.netbeans.lib.awtextra.AbsoluteConstraints(428, 263, 0, 0));
-
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -391,10 +404,14 @@ public class StoreView extends javax.swing.JInternalFrame {
         jPanel5.add(lblUsuario3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
         lblId.setEditable(false);
-        jPanel5.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 190, -1));
-        jPanel5.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 240, -1));
+        jPanel5.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 240, -1));
 
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 380, 120));
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+        jPanel5.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 240, -1));
 
         tbStore.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -414,15 +431,12 @@ public class StoreView extends javax.swing.JInternalFrame {
         });
         jScrollPane5.setViewportView(tbStore);
 
-        getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 211, 380, 160));
-
         btnDelete.setText("Eliminar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
             }
         });
-        getContentPane().add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, -1, -1));
 
         btnModify.setText("Modificar");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
@@ -430,7 +444,6 @@ public class StoreView extends javax.swing.JInternalFrame {
                 btnModifyActionPerformed(evt);
             }
         });
-        getContentPane().add(btnModify, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, -1, -1));
 
         btnAdd.setText("Agregar");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -438,36 +451,63 @@ public class StoreView extends javax.swing.JInternalFrame {
                 btnAddActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
 
-        jButton10.setText("Limpiar");
-        getContentPane().add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, -1, -1));
+        btnClear.setText("Limpiar");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(btnAdd)
+                        .addGap(17, 17, 17)
+                        .addComponent(btnModify)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnClear)
+                        .addGap(10, 10, 10)
+                        .addComponent(btnDelete))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAdd)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnClear)
+                        .addComponent(btnModify))
+                    .addComponent(btnDelete))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+       saveStore();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+       updateStore();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+       deleteStore();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void tbEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbEquipoMouseClicked
-        int fila = tbEquipo.getSelectedRow();
-        String Cod = tbEquipo.getValueAt(fila, 0).toString();
-
-        {
-            int seleccion = tbEquipo.rowAtPoint(evt.getPoint());
-
-            txtDescripcion.setText(String.valueOf(tbEquipo.getValueAt(seleccion, 2)));
-
-        }
+        tbStoreMouseClick(evt);
     }//GEN-LAST:event_tbEquipoMouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -509,13 +549,7 @@ public class StoreView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbEquipo2MouseClicked
 
     private void tbStoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbStoreMouseClicked
-        int fila = tbEquipo.getSelectedRow();
-        String Cod = tbEquipo.getValueAt(fila, 0).toString();
-
-        {
-            int seleccion = tbEquipo.rowAtPoint(evt.getPoint());
-
-        }
+        
     }//GEN-LAST:event_tbStoreMouseClicked
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -530,13 +564,119 @@ public class StoreView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddActionPerformed
 
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+      clear();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void listStore() {
+        List<Store> lista = new ArrayList<>();
+
+        try {
+            lista = listAll();
+        } catch (Exception ex) {
+            Logger.getLogger(StoreView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (lista != null) {
+            String cabecera[] = {"Id", "Nombre"};
+            DefaultTableModel table = new DefaultTableModel(null, cabecera);
+            String[] registros = new String[2];
+            for (Store response : lista) {
+                registros[0] = String.valueOf(response.getId());
+                registros[1] = response.getName();
+
+                table.addRow(registros);
+            }
+            tbStore.setModel(table);
+
+        }
+
+    }
+
+    private void saveStore() throws HeadlessException {
+        try {
+
+            Store store = new Store();
+
+            store.setId(0);
+            store.setName(txtNombre.getText());
+
+            save(store);
+            JOptionPane.showMessageDialog(null, "Registrado");
+            listStore();
+            clear();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Ocurrio un error");
+        }
+    }
+
+    private void updateStore() throws HeadlessException {
+        try {
+
+            Store store = new Store();
+
+            store.setId(Integer.parseInt(lblId.getText()));
+            store.setName(txtNombre.getText());
+
+            update(store);
+            JOptionPane.showMessageDialog(null, "Actualizado");
+            listStore();
+            clear();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Ocurrio un error");
+        }
+    }
+
+    private boolean deleteStore() throws NumberFormatException, HeadlessException {
+        if (lblId.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccionar el registro a Eliminar", "Atentamente el Sistema", JOptionPane.WARNING_MESSAGE);
+            return true;
+        }
+        int id = Integer.parseInt(lblId.getText().trim());
+        try {
+            delete(id);
+        } catch (Exception ex) {
+            Logger.getLogger(StoreView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(null, "Eliminado");
+        listStore();
+        clear();
+        return false;
+    }
+
+    private void clear() {
+        lblId.setText("");
+        txtNombre.setText("");
+    }
+
+    private void tbStoreMouseClick(MouseEvent evt) {
+        int fila = tbStore.getSelectedRow();
+        String Cod = tbStore.getValueAt(fila, 0).toString();
+
+        {
+            int seleccion = tbStore.rowAtPoint(evt.getPoint());
+            lblId.setText(String.valueOf(tbStore.getValueAt(seleccion, 0)));
+            txtNombre.setText(String.valueOf(tbStore.getValueAt(seleccion, 1)));
+
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModify;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

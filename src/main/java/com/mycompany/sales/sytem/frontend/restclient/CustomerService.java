@@ -5,7 +5,6 @@
 package com.mycompany.sales.sytem.frontend.restclient;
 
 import com.mycompany.sales.sytem.frontend.model.Customer;
-import com.mycompany.sales.sytem.frontend.model.ProductCategory;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import retrofit2.Call;
@@ -22,16 +21,16 @@ import retrofit2.http.Path;
  */
 public interface CustomerService {
 
-    @GET
+    @GET("/customer")
     Call<List<Customer>> getAll();
     
-    @POST
+    @POST("/customer")
     Call<HttpStatus> save(@Body Customer customer);
     
-    @PATCH
+    @PATCH("/customer")
     Call<HttpStatus> update(@Body Customer customer);
     
-    @DELETE("{id}")
+    @DELETE("/customer/{id}")
     Call<HttpStatus> delete(@Path("id") int id);
 
 }

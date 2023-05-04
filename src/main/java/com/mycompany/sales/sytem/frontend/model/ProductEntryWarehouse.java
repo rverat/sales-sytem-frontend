@@ -27,16 +27,16 @@ public class ProductEntryWarehouse implements Serializable {
 
     @JsonProperty("id")
     private int id;
+    
+    @JsonProperty("userSystem")
+    private UserSystem userSystem;
 
-    @JsonProperty("idUser")
-    private int idUser;
+    @JsonProperty("product")
+    private Product product;
 
-    @JsonProperty("idProduct")
-    private int idProduct;
-
-    @JsonProperty("idSupplier")
-    private int idSupplier;
-
+    @JsonProperty("supplier")
+    private Supplier supplier;
+    
     @JsonProperty("quantity")
     private int quantity;
 
@@ -50,10 +50,9 @@ public class ProductEntryWarehouse implements Serializable {
     private BigDecimal discount = new BigDecimal("0.00");
 
     @JsonProperty("date")
-    private LocalDate date;
+    private String date;
 
     @JsonProperty("ticketCancelled")
     private boolean ticketCancelled = false;
-
-
+    
 }

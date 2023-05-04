@@ -4,10 +4,7 @@
  */
 package com.mycompany.sales.sytem.frontend.restclient;
 
-import com.mycompany.sales.sytem.frontend.model.Customer;
 import com.mycompany.sales.sytem.frontend.model.Product;
-import com.mycompany.sales.sytem.frontend.model.ProductCategory;
-import com.mycompany.sales.sytem.frontend.view.ProductView;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import retrofit2.Call;
@@ -24,16 +21,16 @@ import retrofit2.http.Path;
  */
 public interface ProductService {
 
-    @GET
+    @GET("/products")
     Call<List<Product>> getAll();
     
-    @POST
+    @POST("/products")
     Call<HttpStatus> save(@Body Product product);
     
-    @PATCH
+    @PATCH("/products")
     Call<HttpStatus> update(@Body Product product);
     
-    @DELETE("{id}")
+    @DELETE("/products/{id}")
     Call<HttpStatus> delete(@Path("id") int id);
 
 }

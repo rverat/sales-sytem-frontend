@@ -5,8 +5,15 @@
 package com.mycompany.sales.sytem.frontend.view;
 
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
+import com.mycompany.sales.sytem.frontend.model.Product;
 import com.mycompany.sales.sytem.frontend.model.ProductEntryWarehouse;
+import com.mycompany.sales.sytem.frontend.model.Supplier;
 import com.mycompany.sales.sytem.frontend.restclient.ProductEntryWarehouseService;
+import com.mycompany.sales.sytem.frontend.restclient.ProductService;
+import com.mycompany.sales.sytem.frontend.restclient.SupplierService;
+import java.awt.event.MouseEvent;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,6 +35,8 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
      */
     public ProductEntryWarehouseView() {
         initComponents();
+        listProductEntryWarehouse();
+        loadPtoductAndSupplier();
     }
 
     public List<ProductEntryWarehouse> listAll() throws Exception {
@@ -55,29 +64,52 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
         call.execute();
     }
 
+    public List<Product> listProduct() throws Exception {
+        ProductService service = RetrofitClient.createService(ProductService.class);
+        Call<List<Product>> call = service.getAll();
+        Response<List<Product>> response = call.execute();
+        return response.body();
+    }
+
+    public List<Supplier> listSuppler() throws Exception {
+        SupplierService service = RetrofitClient.createService(SupplierService.class);
+        Call<List<Supplier>> call = service.getAll();
+        Response<List<Supplier>> response = call.execute();
+        return response.body();
+    }
+
+    private void loadPtoductAndSupplier() {
+        try {
+            List<Product> listP = listProduct();
+            List<Supplier> listS = listSuppler();
+
+            for (Product product : listP) {
+                cboProduct.addItem(String.valueOf(product.getId()) + ", " + product.getName());
+            }
+            for (Supplier supplier : listS) {
+                cboSupplier.addItem(String.valueOf(supplier.getId()) + ", " + supplier.getName());
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        lblDate = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         cboProduct = new javax.swing.JComboBox<>();
         lblId = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        spnAmount = new javax.swing.JSpinner();
+        spnQuantity = new javax.swing.JSpinner();
         cboSupplier = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
-        spnPrice = new javax.swing.JSpinner();
-        chbIsCancel = new javax.swing.JCheckBox();
-        jLabel9 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbInventoryE = new javax.swing.JTable();
+        tbProductEntryWarehouse = new javax.swing.JTable();
         btnDelete = new javax.swing.JButton();
         btnModify = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
@@ -85,7 +117,6 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Entrada de productos al almacen");
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -93,66 +124,41 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
         jLabel3.setText("Id:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        lblDate.setEditable(false);
-        jPanel2.add(lblDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 70, 190, -1));
-
         jLabel6.setText("proveedor");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, -1, -1));
-
-        jLabel1.setText("Fecha de registro:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, 120, -1));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, -1, -1));
 
         jLabel7.setText("Producto:");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
         jPanel2.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
-        cboProduct.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(cboProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 320, -1));
+        jPanel2.add(cboProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 210, -1));
 
         lblId.setEditable(false);
         jPanel2.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 190, -1));
 
-        jLabel4.setText("Precio Total:");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 100, -1));
-
         jLabel8.setText("Cantidad:");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 70, -1));
-        jPanel2.add(spnAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 130, -1));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 70, -1));
+        jPanel2.add(spnQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, 130, -1));
 
-        cboSupplier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(cboSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 270, -1));
+        jPanel2.add(cboSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 270, -1));
 
-        jLabel5.setText("Precio Unitario:");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 100, -1));
-        jPanel2.add(spnPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 130, -1));
-
-        chbIsCancel.setText("Cancelar entrada al almacen");
-        jPanel2.add(chbIsCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 150, -1, -1));
-
-        jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 130, 20));
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 914, 193));
-
-        tbInventoryE.setModel(new javax.swing.table.DefaultTableModel(
+        tbProductEntryWarehouse.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
             }
         ));
-        tbInventoryE.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbProductEntryWarehouse.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbInventoryEMouseClicked(evt);
+                tbProductEntryWarehouseMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tbInventoryE);
-
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 246, 914, 263));
+        jScrollPane2.setViewportView(tbProductEntryWarehouse);
 
         btnDelete.setText("Eliminar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -160,7 +166,6 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
                 btnDeleteActionPerformed(evt);
             }
         });
-        getContentPane().add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 200, -1, -1));
 
         btnModify.setText("Modificar");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
@@ -168,7 +173,6 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
                 btnModifyActionPerformed(evt);
             }
         });
-        getContentPane().add(btnModify, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, -1, -1));
 
         btnAdd.setText("Agregar");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -176,36 +180,192 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
                 btnAddActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
 
         jButton1.setText("Limpiar");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 200, -1, -1));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 890, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 914, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(56, 56, 56)
+                            .addComponent(btnAdd)
+                            .addGap(16, 16, 16)
+                            .addComponent(btnModify)
+                            .addGap(19, 19, 19)
+                            .addComponent(jButton1)
+                            .addGap(20, 20, 20)
+                            .addComponent(btnDelete))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAdd)
+                    .addComponent(btnModify)
+                    .addComponent(jButton1)
+                    .addComponent(btnDelete))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tbInventoryEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbInventoryEMouseClicked
-        int fila = tbInventoryE.getSelectedRow();
-        String Cod = tbInventoryE.getValueAt(fila, 0).toString();
-
-        {
-            int seleccion = tbInventoryE.rowAtPoint(evt.getPoint());
-
-        }
-    }//GEN-LAST:event_tbInventoryEMouseClicked
+    private void tbProductEntryWarehouseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProductEntryWarehouseMouseClicked
+        tbEventMouseClick(evt);
+    }//GEN-LAST:event_tbProductEntryWarehouseMouseClicked
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        deleteProductEntryWarehouse();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed
-        // TODO add your handling code here:
+        updateProductEntryWarehouse();
     }//GEN-LAST:event_btnModifyActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        saveProductEntryWarehouse();
     }//GEN-LAST:event_btnAddActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        clear();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void listProductEntryWarehouse() {
+        List<ProductEntryWarehouse> lista = new ArrayList<>();
+
+        try {
+            lista = listAll();
+        } catch (Exception ex) {
+            Logger.getLogger(ProductEntryWarehouseView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (lista != null) {
+            String cabecera[] = {"Id", "Id Usuario", "Id Producto", "Id Proveedor", "Cantidad", "Fecha"};
+            DefaultTableModel table = new DefaultTableModel(null, cabecera);
+            String[] registros = new String[10];
+            for (ProductEntryWarehouse response : lista) {
+                registros[0] = String.valueOf(response.getId());
+                registros[1] = String.valueOf(response.getUserSystem().getId() + ", " + response.getUserSystem().getName());
+                registros[2] = String.valueOf(response.getProduct().getId() + ", " + response.getProduct().getName());
+                registros[3] = String.valueOf(response.getSupplier().getId() + ", " + response.getSupplier().getName());
+                registros[4] = String.valueOf(response.getQuantity());
+                registros[5] = String.valueOf(response.getDate());
+
+                table.addRow(registros);
+            }
+            tbProductEntryWarehouse.setModel(table);
+
+        }
+
+    }
+
+    private void saveProductEntryWarehouse() {
+        try {
+
+            ProductEntryWarehouse productEntryWarehouse = new ProductEntryWarehouse();
+
+            String selectedItem = (String) cboProduct.getSelectedItem();
+            String product = selectedItem.substring(0, selectedItem.indexOf(","));
+
+            String selectedItemS = (String) cboSupplier.getSelectedItem();
+            String supplier = selectedItemS.substring(0, selectedItemS.indexOf(","));
+            
+            productEntryWarehouse.setId(0);
+            productEntryWarehouse.getUserSystem().setId(1);
+            productEntryWarehouse.getProduct().setId(Integer.parseInt(product));
+            productEntryWarehouse.getSupplier().setId(Integer.parseInt(supplier));
+            productEntryWarehouse.setQuantity(Integer.parseInt(spnQuantity.getValue().toString()));
+            productEntryWarehouse.setDate(LocalDate.now().toString());
+
+            save(productEntryWarehouse);
+            JOptionPane.showMessageDialog(null, "Registrado");
+            listProductEntryWarehouse();
+            clear();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Ocurrio un error");
+        }
+    }
+
+    private void updateProductEntryWarehouse() {
+        try {
+            ProductEntryWarehouse productEntryWarehouse = new ProductEntryWarehouse();
+
+            String selectedItem = (String) cboProduct.getSelectedItem();
+            String product = selectedItem.substring(0, selectedItem.indexOf(","));
+
+            String selectedItemS = (String) cboSupplier.getSelectedItem();
+            String supplier = selectedItemS.substring(0, selectedItemS.indexOf(","));
+
+            productEntryWarehouse.setId(Integer.parseInt(lblId.getText()));
+            productEntryWarehouse.getUserSystem().setId(1);
+            productEntryWarehouse.getProduct().setId(Integer.parseInt(product));
+            productEntryWarehouse.getSupplier().setId(Integer.parseInt(supplier));
+            productEntryWarehouse.setQuantity(Integer.parseInt(spnQuantity.getValue().toString()));
+            productEntryWarehouse.setDate(LocalDate.now().toString());
+
+            update(productEntryWarehouse);
+            JOptionPane.showMessageDialog(null, "Actualizado");
+            listProductEntryWarehouse();
+            clear();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Ocurrio un error");
+        }
+    }
+
+    private boolean deleteProductEntryWarehouse() {
+
+        if (lblId.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccionar el registro a Eliminar", "Atentamente el Sistema", JOptionPane.WARNING_MESSAGE);
+            return true;
+        }
+        int id = Integer.parseInt(lblId.getText().trim());
+        try {
+            delete(id);
+        } catch (Exception ex) {
+            Logger.getLogger(ProductEntryWarehouseView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(null, "Eliminado");
+        listProductEntryWarehouse();
+        clear();
+        return false;
+    }
+
+    private void clear() {
+        lblId.setText("");
+        cboProduct.setSelectedIndex(-1);
+        cboSupplier.setSelectedIndex(-1);
+        spnQuantity.setValue(0);
+    }
+
+    private void tbEventMouseClick(MouseEvent evt) {
+        int seleccion = tbProductEntryWarehouse.rowAtPoint(evt.getPoint());
+        lblId.setText(String.valueOf(tbProductEntryWarehouse.getValueAt(seleccion, 0)));
+        cboProduct.setSelectedItem(tbProductEntryWarehouse.getValueAt(seleccion, 2));
+        cboSupplier.setSelectedItem(tbProductEntryWarehouse.getValueAt(seleccion, 3));
+        spnQuantity.setValue(BigDecimal.valueOf(Double.parseDouble(tbProductEntryWarehouse.getValueAt(seleccion, 4).toString())));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -213,23 +373,16 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnModify;
     private javax.swing.JComboBox<String> cboProduct;
     private javax.swing.JComboBox<String> cboSupplier;
-    private javax.swing.JCheckBox chbIsCancel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField lblDate;
     private javax.swing.JTextField lblId;
     public javax.swing.JLabel lblUsuario;
-    private javax.swing.JSpinner spnAmount;
-    private javax.swing.JSpinner spnPrice;
-    private javax.swing.JTable tbInventoryE;
+    private javax.swing.JSpinner spnQuantity;
+    private javax.swing.JTable tbProductEntryWarehouse;
     // End of variables declaration//GEN-END:variables
 }

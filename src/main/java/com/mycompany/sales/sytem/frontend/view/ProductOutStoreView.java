@@ -5,8 +5,13 @@
 package com.mycompany.sales.sytem.frontend.view;
 
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
+import com.mycompany.sales.sytem.frontend.model.Product;
 import com.mycompany.sales.sytem.frontend.model.ProductOutStore;
+import com.mycompany.sales.sytem.frontend.model.Store;
 import com.mycompany.sales.sytem.frontend.restclient.ProductOutStoreService;
+import com.mycompany.sales.sytem.frontend.restclient.ProductService;
+import com.mycompany.sales.sytem.frontend.restclient.StoreService;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,6 +33,8 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
      */
     public ProductOutStoreView() {
         initComponents();
+        loadPtoductAndStore();
+        listProductOutStore();
     }
 
     public List<ProductOutStore> listAll() throws Exception {
@@ -49,6 +56,36 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
         call.execute();
     }
 
+    public List<Product> listProduct() throws Exception {
+        ProductService service = RetrofitClient.createService(ProductService.class);
+        Call<List<Product>> call = service.getAll();
+        Response<List<Product>> response = call.execute();
+        return response.body();
+    }
+
+    public List<Store> listStore() throws Exception {
+        StoreService service = RetrofitClient.createService(StoreService.class);
+        Call<List<Store>> call = service.getAll();
+        Response<List<Store>> response = call.execute();
+        return response.body();
+    }
+
+    private void loadPtoductAndStore() {
+        try {
+            List<Product> listP = listProduct();
+            List<Store> listS = listStore();
+
+            for (Product product : listP) {
+                cboProduct.addItem(String.valueOf(product.getId()) + ", " + product.getName());
+            }
+            for (Store store : listS) {
+                cboStore.addItem(String.valueOf(store.getId()) + ", " + store.getName());
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -60,22 +97,20 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
-        cboStore = new javax.swing.JComboBox<>();
+        cboProduct = new javax.swing.JComboBox<>();
         lblId = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        spnAmoun = new javax.swing.JSpinner();
-        cboStore1 = new javax.swing.JComboBox<>();
-        chbIsCancel = new javax.swing.JCheckBox();
+        spnQuantity = new javax.swing.JSpinner();
+        cboStore = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbInventoryO = new javax.swing.JTable();
+        tbProductOutStore = new javax.swing.JTable();
         btnDelete = new javax.swing.JButton();
         btnModify = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("Salida a Tienda");
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setTitle("Salida de Productos a Tienda");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -96,30 +131,18 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
         jPanel2.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
-        cboStore.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(cboStore, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 250, -1));
+        jPanel2.add(cboProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 250, -1));
 
         lblId.setEditable(false);
         jPanel2.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 190, -1));
 
         jLabel8.setText("Cantidad:");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 70, -1));
-        jPanel2.add(spnAmoun, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 130, -1));
+        jPanel2.add(spnQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 130, -1));
 
-        cboStore1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(cboStore1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 250, -1));
+        jPanel2.add(cboStore, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 250, -1));
 
-        chbIsCancel.setText("Cancelar envio a Tienda");
-        chbIsCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbIsCancelActionPerformed(evt);
-            }
-        });
-        jPanel2.add(chbIsCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, -1, -1));
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 6, 770, 177));
-
-        tbInventoryO.setModel(new javax.swing.table.DefaultTableModel(
+        tbProductOutStore.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -130,14 +153,12 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
             }
         ));
-        tbInventoryO.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbProductOutStore.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbInventoryOMouseClicked(evt);
+                tbProductOutStoreMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tbInventoryO);
-
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 229, 780, 270));
+        jScrollPane2.setViewportView(tbProductOutStore);
 
         btnDelete.setText("Eliminar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -145,7 +166,6 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
                 btnDeleteActionPerformed(evt);
             }
         });
-        getContentPane().add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, -1, -1));
 
         btnModify.setText("Modificar");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
@@ -153,7 +173,6 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
                 btnModifyActionPerformed(evt);
             }
         });
-        getContentPane().add(btnModify, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, -1, -1));
 
         btnAdd.setText("Agregar");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -161,49 +180,195 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
                 btnAddActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
 
         jButton1.setText("Limpiar");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, -1, -1));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(btnAdd)
+                .addGap(16, 16, 16)
+                .addComponent(btnModify)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addGap(29, 29, 29)
+                .addComponent(btnDelete))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAdd)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnModify)
+                        .addComponent(jButton1)
+                        .addComponent(btnDelete)))
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tbInventoryOMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbInventoryOMouseClicked
-        int fila = tbInventoryO.getSelectedRow();
-        String Cod = tbInventoryO.getValueAt(fila, 0).toString();
-
-        {
-            int seleccion = tbInventoryO.rowAtPoint(evt.getPoint());
-            lblDate.setText(String.valueOf(tbInventoryO.getValueAt(seleccion, 0)));
-
-        }
-    }//GEN-LAST:event_tbInventoryOMouseClicked
+    private void tbProductOutStoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProductOutStoreMouseClicked
+        //tbProductOutStoreMouseClicked(evt);
+    }//GEN-LAST:event_tbProductOutStoreMouseClicked
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        deleteProductOutStore();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed
-        // TODO add your handling code here:
+       updateProductOutStore();
     }//GEN-LAST:event_btnModifyActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        saveProductOutStore();
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void chbIsCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbIsCancelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbIsCancelActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        clear();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void listProductOutStore() {
+        List<ProductOutStore> lista = new ArrayList<>();
+
+        try {
+            lista = listAll();
+        } catch (Exception ex) {
+            Logger.getLogger(ProductOutStoreView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (lista != null) {
+            String cabecera[] = {"Id", "Id Producto", "Id Tienda", "Cantidad", "Fecha"};
+            DefaultTableModel table = new DefaultTableModel(null, cabecera);
+            String[] registros = new String[5];
+            for (ProductOutStore response : lista) {
+                registros[0] = String.valueOf(response.getId());
+                registros[1] = String.valueOf(response.getProduct().getId() + ", " + response.getProduct().getName());
+                registros[2] = String.valueOf(response.getStore().getId() + ", " + response.getStore().getName());
+                registros[3] = String.valueOf(response.getQuantity());
+                registros[4] = String.valueOf(response.getDate());
+
+                table.addRow(registros);
+            }
+            tbProductOutStore.setModel(table);
+        }
+    }
+
+    private void saveProductOutStore() {
+        try {
+            ProductOutStore productOutStore = new ProductOutStore();
+
+            String selectedItem = (String) cboProduct.getSelectedItem();
+            String product = selectedItem.substring(0, selectedItem.indexOf(","));
+
+            String selectedItemS = (String) cboStore.getSelectedItem();
+            String store = selectedItemS.substring(0, selectedItemS.indexOf(","));
+
+            productOutStore.setId(0);
+            productOutStore.getProduct().setId(Integer.parseInt(product));
+            productOutStore.getStore().setId(Integer.parseInt(store));
+            productOutStore.setQuantity(Integer.parseInt(spnQuantity.getValue().toString()));
+            productOutStore.setDate(LocalDate.now().toString());
+
+            save(productOutStore);
+            JOptionPane.showMessageDialog(null, "Registrado");
+            listProductOutStore();
+            clear();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Ocurrio un error");
+        }
+    }
+
+    private void updateProductOutStore() {
+        try {
+
+            ProductOutStore productOutStore = new ProductOutStore();
+
+            productOutStore.setId(Integer.parseInt(lblId.getText()));
+
+            String selectedItem = (String) cboProduct.getSelectedItem();
+            String product = selectedItem.substring(0, selectedItem.indexOf(","));
+
+            String selectedItemS = (String) cboStore.getSelectedItem();
+            String store = selectedItemS.substring(0, selectedItemS.indexOf(","));
+
+            productOutStore.setId(Integer.parseInt(lblId.getText()));
+            productOutStore.getProduct().setId(Integer.parseInt(product));
+            productOutStore.getStore().setId(Integer.parseInt(store));
+            productOutStore.setQuantity(Integer.parseInt(spnQuantity.getValue().toString()));
+            productOutStore.setDate(LocalDate.now().toString());
+
+            update(productOutStore);
+            JOptionPane.showMessageDialog(null, "Actualizado");
+            listProductOutStore();
+            clear();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Ocurrio un error");
+        }
+    }
+
+    private boolean deleteProductOutStore() {
+        if (lblId.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccionar el registro a Eliminar", "Atentamente el Sistema", JOptionPane.WARNING_MESSAGE);
+            return true;
+        }
+        int id = Integer.parseInt(lblId.getText().trim());
+        try {
+            //delete(id);
+        } catch (Exception ex) {
+            Logger.getLogger(ProductOutStoreView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(null, "Eliminado");
+        listProductOutStore();
+        clear();
+        return false;
+    }
+
+    private void clear() {
+        lblId.setText("");
+        cboProduct.setSelectedIndex(-1);
+        cboStore.setSelectedIndex(-1);
+        spnQuantity.setValue(0);
+    }
+
+    /*private void tbProductOutStoreMouseClicked(MouseEvent evt) {
+        int seleccion = tbProductOutStore.rowAtPoint(evt.getPoint());
+        lblId.setText(String.valueOf(tbProductOutStore.getValueAt(seleccion, 0)));
+        cboProduct.setSelectedItem(String.valueOf(tbProductOutStore.getValueAt(seleccion, 1)));
+        cboStore.setSelectedItem(String.valueOf(tbProductOutStore.getValueAt(seleccion, 2)));
+        spnQuantity.setValue(BigDecimal.valueOf(Double.parseDouble(tbProductOutStore.getValueAt(seleccion, 3).toString())));
+
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnModify;
+    private javax.swing.JComboBox<String> cboProduct;
     private javax.swing.JComboBox<String> cboStore;
-    private javax.swing.JComboBox<String> cboStore1;
-    private javax.swing.JCheckBox chbIsCancel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -215,7 +380,7 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField lblDate;
     private javax.swing.JTextField lblId;
     public javax.swing.JLabel lblUsuario;
-    private javax.swing.JSpinner spnAmoun;
-    private javax.swing.JTable tbInventoryO;
+    private javax.swing.JSpinner spnQuantity;
+    private javax.swing.JTable tbProductOutStore;
     // End of variables declaration//GEN-END:variables
 }

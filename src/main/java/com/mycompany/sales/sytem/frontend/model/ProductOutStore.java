@@ -29,18 +29,18 @@ public class ProductOutStore implements Serializable {
     @JsonProperty("id")
     private int id;
 
-    @JsonProperty("productId")
-    private int productId;
+    @JsonProperty("product")
+    private Product product;
 
-    @JsonProperty("storeId")
-    private int storeId;
+    @JsonProperty("store")
+    private Store store;
 
     @JsonProperty("quantity")
     private int quantity;
 
     @JsonProperty("date")
-    private LocalDate date;
-
+    private String date;
+    
     @JsonProperty("ticket_Cancelled")
     private boolean ticketCancelled;
 
