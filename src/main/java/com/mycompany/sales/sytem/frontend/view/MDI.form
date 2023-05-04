@@ -6,7 +6,7 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="mnuCloseSession">
           <Properties>
-            <Property name="text" type="java.lang.String" value="usuario"/>
+            <Property name="text" type="java.lang.String" value="Usuario"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
@@ -21,7 +21,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jmenu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="product"/>
+            <Property name="text" type="java.lang.String" value="Product"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnuSeeProduct">
@@ -44,54 +44,65 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jmenut">
           <Properties>
-            <Property name="text" type="java.lang.String" value="entrada de productos"/>
+            <Property name="text" type="java.lang.String" value="Entrada de productos"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnuAddProductToInven">
               <Properties>
-                <Property name="text" type="java.lang.String" value="a&#xf1;adir productos al almacen"/>
+                <Property name="text" type="java.lang.String" value="a&#xf1;adir productos al almac&#xe9;n"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuAddProductToInvenActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuWerehouseStock">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="stock"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuWerehouseStockActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="salida de productos"/>
+            <Property name="text" type="java.lang.String" value="Salida de productos"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnuOuputProductToInven">
               <Properties>
-                <Property name="text" type="java.lang.String" value="registrar salida de almacen"/>
+                <Property name="text" type="java.lang.String" value="registrar salida de almac&#xe9;n"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuOuputProductToInvenActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuStoreStock">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="stock"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuStoreStockActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="ventas"/>
+            <Property name="text" type="java.lang.String" value="Ventas"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Realizar Venta"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Ver Ventas"/>
+                <Property name="text" type="java.lang.String" value="realizar venta"/>
               </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="tiendas"/>
+            <Property name="text" type="java.lang.String" value="Tiendas"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnuStore">
@@ -106,7 +117,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="proveedores"/>
+            <Property name="text" type="java.lang.String" value="Proveedores"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnuSupplier">

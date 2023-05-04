@@ -56,7 +56,9 @@ public class StoreStockView extends javax.swing.JInternalFrame {
         tbStoreStock = new javax.swing.JTable();
         txtSearch = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        btnRefresh = new javax.swing.JButton();
 
+        setClosable(true);
         setTitle("Stock en la tienda");
 
         tbStoreStock.setModel(new javax.swing.table.DefaultTableModel(
@@ -85,6 +87,13 @@ public class StoreStockView extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Buscar:");
 
+        btnRefresh.setText("Refrescar Stock");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -94,7 +103,9 @@ public class StoreStockView extends javax.swing.JInternalFrame {
                 .addComponent(jLabel4)
                 .addGap(28, 28, 28)
                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(413, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
+                .addComponent(btnRefresh)
+                .addGap(48, 48, 48))
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jScrollPane5)
@@ -106,7 +117,9 @@ public class StoreStockView extends javax.swing.JInternalFrame {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRefresh)))
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
                 .addContainerGap())
@@ -122,6 +135,10 @@ public class StoreStockView extends javax.swing.JInternalFrame {
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSearchActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+     listStoreStock();
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
     
     public void listStoreStock() {
@@ -153,6 +170,7 @@ public class StoreStockView extends javax.swing.JInternalFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable tbStoreStock;

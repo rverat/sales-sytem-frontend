@@ -120,6 +120,11 @@ public class SupplierView extends javax.swing.JInternalFrame {
         jScrollPane5.setViewportView(tbSupplier);
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -191,6 +196,10 @@ public class SupplierView extends javax.swing.JInternalFrame {
     private void tbSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSupplierMouseClicked
         tbSupplierMouseClick(evt);
     }//GEN-LAST:event_tbSupplierMouseClicked
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        clear();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void listSupplier() {
         List<Supplier> lista = new ArrayList<>();

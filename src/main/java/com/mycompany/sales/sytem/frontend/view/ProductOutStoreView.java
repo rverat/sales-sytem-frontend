@@ -8,6 +8,7 @@ import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
 import com.mycompany.sales.sytem.frontend.model.Product;
 import com.mycompany.sales.sytem.frontend.model.ProductOutStore;
 import com.mycompany.sales.sytem.frontend.model.Store;
+import com.mycompany.sales.sytem.frontend.model.Supplier;
 import com.mycompany.sales.sytem.frontend.restclient.ProductOutStoreService;
 import com.mycompany.sales.sytem.frontend.restclient.ProductService;
 import com.mycompany.sales.sytem.frontend.restclient.StoreService;
@@ -278,14 +279,20 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
             ProductOutStore productOutStore = new ProductOutStore();
 
             String selectedItem = (String) cboProduct.getSelectedItem();
-            String product = selectedItem.substring(0, selectedItem.indexOf(","));
+            String productId = selectedItem.substring(0, selectedItem.indexOf(","));
 
             String selectedItemS = (String) cboStore.getSelectedItem();
-            String store = selectedItemS.substring(0, selectedItemS.indexOf(","));
+            String storeId = selectedItemS.substring(0, selectedItemS.indexOf(","));
+            
+            Product product= new Product();
+            product.setId(Integer.parseInt(productId));
+            
+            Store store = new Store();
+            store.setId(Integer.parseInt(storeId));
 
             productOutStore.setId(0);
-            productOutStore.getProduct().setId(Integer.parseInt(product));
-            productOutStore.getStore().setId(Integer.parseInt(store));
+            productOutStore.setProduct(product);
+            productOutStore.setStore(store);
             productOutStore.setQuantity(Integer.parseInt(spnQuantity.getValue().toString()));
             productOutStore.setDate(LocalDate.now().toString());
 
@@ -308,14 +315,20 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
             productOutStore.setId(Integer.parseInt(lblId.getText()));
 
             String selectedItem = (String) cboProduct.getSelectedItem();
-            String product = selectedItem.substring(0, selectedItem.indexOf(","));
+            String productId = selectedItem.substring(0, selectedItem.indexOf(","));
 
             String selectedItemS = (String) cboStore.getSelectedItem();
-            String store = selectedItemS.substring(0, selectedItemS.indexOf(","));
+            String storeId = selectedItemS.substring(0, selectedItemS.indexOf(","));
+            
+            Product product= new Product();
+            product.setId(Integer.parseInt(productId));
+            
+            Store store = new Store();
+            store.setId(Integer.parseInt(storeId));
 
             productOutStore.setId(Integer.parseInt(lblId.getText()));
-            productOutStore.getProduct().setId(Integer.parseInt(product));
-            productOutStore.getStore().setId(Integer.parseInt(store));
+            productOutStore.setProduct(product);
+            productOutStore.setStore(store);
             productOutStore.setQuantity(Integer.parseInt(spnQuantity.getValue().toString()));
             productOutStore.setDate(LocalDate.now().toString());
 

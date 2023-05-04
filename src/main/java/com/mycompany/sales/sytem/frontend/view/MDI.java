@@ -39,11 +39,12 @@ public class MDI extends javax.swing.JFrame {
         mnuSeeCategory = new javax.swing.JMenuItem();
         jmenut = new javax.swing.JMenu();
         mnuAddProductToInven = new javax.swing.JMenuItem();
+        mnuWerehouseStock = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         mnuOuputProductToInven = new javax.swing.JMenuItem();
+        mnuStoreStock = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         mnuStore = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -62,7 +63,7 @@ public class MDI extends javax.swing.JFrame {
             .addGap(0, 529, Short.MAX_VALUE)
         );
 
-        mnuCloseSession.setText("usuario");
+        mnuCloseSession.setText("Usuario");
 
         jMenuItem1.setText("cerrar sesion");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -74,7 +75,7 @@ public class MDI extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuCloseSession);
 
-        jmenu.setText("product");
+        jmenu.setText("Product");
 
         mnuSeeProduct.setText("ver productos");
         mnuSeeProduct.addActionListener(new java.awt.event.ActionListener() {
@@ -94,9 +95,9 @@ public class MDI extends javax.swing.JFrame {
 
         jMenuBar1.add(jmenu);
 
-        jmenut.setText("entrada de productos");
+        jmenut.setText("Entrada de productos");
 
-        mnuAddProductToInven.setText("añadir productos al almacen");
+        mnuAddProductToInven.setText("añadir productos al almacén");
         mnuAddProductToInven.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuAddProductToInvenActionPerformed(evt);
@@ -104,11 +105,19 @@ public class MDI extends javax.swing.JFrame {
         });
         jmenut.add(mnuAddProductToInven);
 
+        mnuWerehouseStock.setText("stock");
+        mnuWerehouseStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuWerehouseStockActionPerformed(evt);
+            }
+        });
+        jmenut.add(mnuWerehouseStock);
+
         jMenuBar1.add(jmenut);
 
-        jMenu3.setText("salida de productos");
+        jMenu3.setText("Salida de productos");
 
-        mnuOuputProductToInven.setText("registrar salida de almacen");
+        mnuOuputProductToInven.setText("registrar salida de almacén");
         mnuOuputProductToInven.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuOuputProductToInvenActionPerformed(evt);
@@ -116,19 +125,24 @@ public class MDI extends javax.swing.JFrame {
         });
         jMenu3.add(mnuOuputProductToInven);
 
+        mnuStoreStock.setText("stock");
+        mnuStoreStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuStoreStockActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnuStoreStock);
+
         jMenuBar1.add(jMenu3);
 
-        jMenu1.setText("ventas");
+        jMenu1.setText("Ventas");
 
-        jMenuItem2.setText("Realizar Venta");
+        jMenuItem2.setText("realizar venta");
         jMenu1.add(jMenuItem2);
-
-        jMenuItem3.setText("Ver Ventas");
-        jMenu1.add(jMenuItem3);
 
         jMenuBar1.add(jMenu1);
 
-        jMenu5.setText("tiendas");
+        jMenu5.setText("Tiendas");
 
         mnuStore.setText("ver tiendas");
         mnuStore.addActionListener(new java.awt.event.ActionListener() {
@@ -140,7 +154,7 @@ public class MDI extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
-        jMenu6.setText("proveedores");
+        jMenu6.setText("Proveedores");
 
         mnuSupplier.setText("ver proveedores");
         mnuSupplier.addActionListener(new java.awt.event.ActionListener() {
@@ -226,6 +240,24 @@ public class MDI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mnuSupplierActionPerformed
 
+    private void mnuWerehouseStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuWerehouseStockActionPerformed
+      WarehouseStockView enr=new WarehouseStockView();
+      if (enr.isShowing()) {
+        } else {
+            enr.setVisible(true);
+            jDesktopPane.add(enr);
+        }
+    }//GEN-LAST:event_mnuWerehouseStockActionPerformed
+
+    private void mnuStoreStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuStoreStockActionPerformed
+      StoreStockView enr=new StoreStockView();
+      if (enr.isShowing()) {
+        } else {
+            enr.setVisible(true);
+            jDesktopPane.add(enr);
+        }
+    }//GEN-LAST:event_mnuStoreStockActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane;
     private javax.swing.JMenu jMenu1;
@@ -235,7 +267,6 @@ public class MDI extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenu jmenu;
     private javax.swing.JMenu jmenut;
     private javax.swing.JMenuItem mnuAddProductToInven;
@@ -244,6 +275,8 @@ public class MDI extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuSeeCategory;
     private javax.swing.JMenuItem mnuSeeProduct;
     private javax.swing.JMenuItem mnuStore;
+    private javax.swing.JMenuItem mnuStoreStock;
     private javax.swing.JMenuItem mnuSupplier;
+    private javax.swing.JMenuItem mnuWerehouseStock;
     // End of variables declaration//GEN-END:variables
 }

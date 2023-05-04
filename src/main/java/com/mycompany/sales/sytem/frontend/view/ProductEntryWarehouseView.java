@@ -8,6 +8,7 @@ import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
 import com.mycompany.sales.sytem.frontend.model.Product;
 import com.mycompany.sales.sytem.frontend.model.ProductEntryWarehouse;
 import com.mycompany.sales.sytem.frontend.model.Supplier;
+import com.mycompany.sales.sytem.frontend.model.UserSystem;
 import com.mycompany.sales.sytem.frontend.restclient.ProductEntryWarehouseService;
 import com.mycompany.sales.sytem.frontend.restclient.ProductService;
 import com.mycompany.sales.sytem.frontend.restclient.SupplierService;
@@ -283,15 +284,22 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
             ProductEntryWarehouse productEntryWarehouse = new ProductEntryWarehouse();
 
             String selectedItem = (String) cboProduct.getSelectedItem();
-            String product = selectedItem.substring(0, selectedItem.indexOf(","));
+            String productId = selectedItem.substring(0, selectedItem.indexOf(","));
 
             String selectedItemS = (String) cboSupplier.getSelectedItem();
-            String supplier = selectedItemS.substring(0, selectedItemS.indexOf(","));
+            String supplierId = selectedItemS.substring(0, selectedItemS.indexOf(","));
+            
+            Product product= new Product();
+            product.setId(Integer.parseInt(productId));
+            
+            Supplier supplier = new Supplier();
+            supplier.setId(Integer.parseInt(supplierId));
+            
             
             productEntryWarehouse.setId(0);
-            productEntryWarehouse.getUserSystem().setId(1);
-            productEntryWarehouse.getProduct().setId(Integer.parseInt(product));
-            productEntryWarehouse.getSupplier().setId(Integer.parseInt(supplier));
+            productEntryWarehouse.setUserSystem(new UserSystem(1, "", "","",""));
+            productEntryWarehouse.setProduct(product);
+            productEntryWarehouse.setSupplier(supplier);
             productEntryWarehouse.setQuantity(Integer.parseInt(spnQuantity.getValue().toString()));
             productEntryWarehouse.setDate(LocalDate.now().toString());
 
@@ -311,15 +319,21 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
             ProductEntryWarehouse productEntryWarehouse = new ProductEntryWarehouse();
 
             String selectedItem = (String) cboProduct.getSelectedItem();
-            String product = selectedItem.substring(0, selectedItem.indexOf(","));
+            String productId = selectedItem.substring(0, selectedItem.indexOf(","));
 
             String selectedItemS = (String) cboSupplier.getSelectedItem();
-            String supplier = selectedItemS.substring(0, selectedItemS.indexOf(","));
+            String supplierId = selectedItemS.substring(0, selectedItemS.indexOf(","));
+            
+            Product product= new Product();
+            product.setId(Integer.parseInt(productId));
+            
+            Supplier supplier = new Supplier();
+            supplier.setId(Integer.parseInt(supplierId));
 
             productEntryWarehouse.setId(Integer.parseInt(lblId.getText()));
-            productEntryWarehouse.getUserSystem().setId(1);
-            productEntryWarehouse.getProduct().setId(Integer.parseInt(product));
-            productEntryWarehouse.getSupplier().setId(Integer.parseInt(supplier));
+            productEntryWarehouse.setUserSystem(new UserSystem(1, "", "","",""));
+            productEntryWarehouse.setProduct(product);
+            productEntryWarehouse.setSupplier(supplier);
             productEntryWarehouse.setQuantity(Integer.parseInt(spnQuantity.getValue().toString()));
             productEntryWarehouse.setDate(LocalDate.now().toString());
 

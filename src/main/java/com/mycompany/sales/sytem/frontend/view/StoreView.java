@@ -30,6 +30,7 @@ public class StoreView extends javax.swing.JInternalFrame {
      */
     public StoreView() {
         initComponents();
+        listStore();
     }
 
     public List<Store> listAll() throws Exception {
@@ -181,10 +182,10 @@ public class StoreView extends javax.swing.JInternalFrame {
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
                         .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
                                 .addComponent(jButton1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton2)
@@ -193,7 +194,7 @@ public class StoreView extends javax.swing.JInternalFrame {
                                 .addGap(24, 24, 24)
                                 .addComponent(jButton3)
                                 .addGap(11, 11, 11)))
-                        .addGap(0, 11, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -453,6 +454,11 @@ public class StoreView extends javax.swing.JInternalFrame {
         });
 
         btnClear.setText("Limpiar");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -495,15 +501,15 @@ public class StoreView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       saveStore();
+        saveStore();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       updateStore();
+        updateStore();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       deleteStore();
+        deleteStore();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void tbEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbEquipoMouseClicked
@@ -523,13 +529,7 @@ public class StoreView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void tbEquipo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbEquipo1MouseClicked
-        int fila = tbEquipo.getSelectedRow();
-        String Cod = tbEquipo.getValueAt(fila, 0).toString();
 
-        {
-            int seleccion = tbEquipo.rowAtPoint(evt.getPoint());
-
-        }
     }//GEN-LAST:event_tbEquipo1MouseClicked
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -549,7 +549,7 @@ public class StoreView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbEquipo2MouseClicked
 
     private void tbStoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbStoreMouseClicked
-        
+        tbStoreMouseClick(evt);
     }//GEN-LAST:event_tbStoreMouseClicked
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -557,11 +557,11 @@ public class StoreView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed
-        // TODO add your handling code here:
+        updateStore();        // TODO add your handling code here:
     }//GEN-LAST:event_btnModifyActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        saveStore();        // TODO add your handling code here:
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -569,8 +569,12 @@ public class StoreView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-      clear();
+
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        clear();
+    }//GEN-LAST:event_btnClearActionPerformed
 
     private void listStore() {
         List<Store> lista = new ArrayList<>();
