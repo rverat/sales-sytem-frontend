@@ -100,12 +100,12 @@ public class SaleDetailView extends javax.swing.JInternalFrame {
         jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, -1, -1));
 
         lblId.setEditable(false);
-        jPanel5.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 190, -1));
+        jPanel5.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 240, -1));
         jPanel5.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 240, -1));
         jPanel5.add(txtRUC, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 240, -1));
 
-        jPanel5.add(cboC, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, 260, -1));
-        jPanel5.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 60, 178, 30));
+        jPanel5.add(cboC, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, 270, -1));
+        jPanel5.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 178, 30));
 
         btnAdd.setText("Agregar");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -130,6 +130,7 @@ public class SaleDetailView extends javax.swing.JInternalFrame {
 
         jButton1.setText("Limpiar");
 
+        tbSupplier.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
         tbSupplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -165,8 +166,8 @@ public class SaleDetailView extends javax.swing.JInternalFrame {
                 .addGap(16, 16, 16)
                 .addComponent(jButton1))
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 828, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 832, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,8 +179,9 @@ public class SaleDetailView extends javax.swing.JInternalFrame {
                     .addComponent(btnModify)
                     .addComponent(btnDelete)
                     .addComponent(jButton1))
-                .addGap(16, 16, 16)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();

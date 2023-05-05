@@ -4,19 +4,15 @@
  */
 package com.mycompany.sales.sytem.frontend.view;
 
-
 /**
  *
  * @author ro
  */
-
-
 public class MDI extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame
      */
-    
     public MDI() {
         initComponents();
     }
@@ -34,37 +30,45 @@ public class MDI extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuCloseSession = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jmenu = new javax.swing.JMenu();
+        mnuPr = new javax.swing.JMenu();
         mnuSeeProduct = new javax.swing.JMenuItem();
         mnuSeeCategory = new javax.swing.JMenuItem();
-        jmenut = new javax.swing.JMenu();
+        mnuEntAlm = new javax.swing.JMenu();
         mnuAddProductToInven = new javax.swing.JMenuItem();
         mnuWerehouseStock = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        mnuSalTien = new javax.swing.JMenu();
         mnuOuputProductToInven = new javax.swing.JMenuItem();
         mnuStoreStock = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        mnuVent = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
+        mnuTien = new javax.swing.JMenu();
         mnuStore = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
+        mnuProvee = new javax.swing.JMenu();
         mnuSupplier = new javax.swing.JMenuItem();
+        mnuClient = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jDesktopPane.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jDesktopPaneLayout = new javax.swing.GroupLayout(jDesktopPane);
         jDesktopPane.setLayout(jDesktopPaneLayout);
         jDesktopPaneLayout.setHorizontalGroup(
             jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1058, Short.MAX_VALUE)
+            .addGap(0, 1200, Short.MAX_VALUE)
         );
         jDesktopPaneLayout.setVerticalGroup(
             jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 529, Short.MAX_VALUE)
+            .addGap(0, 687, Short.MAX_VALUE)
         );
 
-        mnuCloseSession.setText("Usuario");
+        jMenuBar1.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
 
+        mnuCloseSession.setText("Usuario");
+        mnuCloseSession.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+
+        jMenuItem1.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         jMenuItem1.setText("cerrar sesion");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,96 +79,130 @@ public class MDI extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuCloseSession);
 
-        jmenu.setText("Product");
+        mnuPr.setText("Product");
+        mnuPr.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
 
+        mnuSeeProduct.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         mnuSeeProduct.setText("ver productos");
         mnuSeeProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuSeeProductActionPerformed(evt);
             }
         });
-        jmenu.add(mnuSeeProduct);
+        mnuPr.add(mnuSeeProduct);
 
+        mnuSeeCategory.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         mnuSeeCategory.setText("categorias");
         mnuSeeCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuSeeCategoryActionPerformed(evt);
             }
         });
-        jmenu.add(mnuSeeCategory);
+        mnuPr.add(mnuSeeCategory);
 
-        jMenuBar1.add(jmenu);
+        jMenuBar1.add(mnuPr);
 
-        jmenut.setText("Entrada de productos");
+        mnuEntAlm.setText("Entrada de productos");
+        mnuEntAlm.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
 
+        mnuAddProductToInven.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         mnuAddProductToInven.setText("añadir productos al almacén");
         mnuAddProductToInven.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuAddProductToInvenActionPerformed(evt);
             }
         });
-        jmenut.add(mnuAddProductToInven);
+        mnuEntAlm.add(mnuAddProductToInven);
 
+        mnuWerehouseStock.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         mnuWerehouseStock.setText("stock");
         mnuWerehouseStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuWerehouseStockActionPerformed(evt);
             }
         });
-        jmenut.add(mnuWerehouseStock);
+        mnuEntAlm.add(mnuWerehouseStock);
 
-        jMenuBar1.add(jmenut);
+        jMenuBar1.add(mnuEntAlm);
 
-        jMenu3.setText("Salida de productos");
+        mnuSalTien.setText("Salida de productos");
+        mnuSalTien.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
 
+        mnuOuputProductToInven.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         mnuOuputProductToInven.setText("registrar salida de almacén");
         mnuOuputProductToInven.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuOuputProductToInvenActionPerformed(evt);
             }
         });
-        jMenu3.add(mnuOuputProductToInven);
+        mnuSalTien.add(mnuOuputProductToInven);
 
+        mnuStoreStock.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         mnuStoreStock.setText("stock");
         mnuStoreStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuStoreStockActionPerformed(evt);
             }
         });
-        jMenu3.add(mnuStoreStock);
+        mnuSalTien.add(mnuStoreStock);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(mnuSalTien);
 
-        jMenu1.setText("Ventas");
+        mnuVent.setText("Ventas");
+        mnuVent.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
 
+        jMenuItem2.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         jMenuItem2.setText("realizar venta");
-        jMenu1.add(jMenuItem2);
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        mnuVent.add(jMenuItem2);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(mnuVent);
 
-        jMenu5.setText("Tiendas");
+        mnuTien.setText("Tiendas");
+        mnuTien.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
 
+        mnuStore.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         mnuStore.setText("ver tiendas");
         mnuStore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuStoreActionPerformed(evt);
             }
         });
-        jMenu5.add(mnuStore);
+        mnuTien.add(mnuStore);
 
-        jMenuBar1.add(jMenu5);
+        jMenuBar1.add(mnuTien);
 
-        jMenu6.setText("Proveedores");
+        mnuProvee.setText("Proveedores");
+        mnuProvee.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
 
+        mnuSupplier.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         mnuSupplier.setText("ver proveedores");
         mnuSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuSupplierActionPerformed(evt);
             }
         });
-        jMenu6.add(mnuSupplier);
+        mnuProvee.add(mnuSupplier);
 
-        jMenuBar1.add(jMenu6);
+        jMenuBar1.add(mnuProvee);
+
+        mnuClient.setText("Clientes");
+        mnuClient.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+
+        jMenuItem3.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        jMenuItem3.setText("ver clientes");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        mnuClient.add(jMenuItem3);
+
+        jMenuBar1.add(mnuClient);
 
         setJMenuBar(jMenuBar1);
 
@@ -187,8 +225,8 @@ public class MDI extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void mnuOuputProductToInvenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOuputProductToInvenActionPerformed
-      ProductOutStoreView enr=new ProductOutStoreView();
-      if (enr.isShowing()) {
+        ProductOutStoreView enr = new ProductOutStoreView();
+        if (enr.isShowing()) {
         } else {
             enr.setVisible(true);
             jDesktopPane.add(enr);
@@ -196,17 +234,17 @@ public class MDI extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuOuputProductToInvenActionPerformed
 
     private void mnuSeeProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSeeProductActionPerformed
-      ProductView enr=new ProductView();
-      if (enr.isShowing()) {
+        ProductView enr = new ProductView();
+        if (enr.isShowing()) {
         } else {
             enr.setVisible(true);
             jDesktopPane.add(enr);
-        } 
+        }
     }//GEN-LAST:event_mnuSeeProductActionPerformed
 
     private void mnuSeeCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSeeCategoryActionPerformed
-      ProductCategoryView enr=new ProductCategoryView();
-      if (enr.isShowing()) {
+        ProductCategoryView enr = new ProductCategoryView();
+        if (enr.isShowing()) {
         } else {
             enr.setVisible(true);
             jDesktopPane.add(enr);
@@ -214,8 +252,8 @@ public class MDI extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuSeeCategoryActionPerformed
 
     private void mnuAddProductToInvenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAddProductToInvenActionPerformed
-      ProductEntryWarehouseView enr=new ProductEntryWarehouseView();
-      if (enr.isShowing()) {
+        ProductEntryWarehouseView enr = new ProductEntryWarehouseView();
+        if (enr.isShowing()) {
         } else {
             enr.setVisible(true);
             jDesktopPane.add(enr);
@@ -223,8 +261,8 @@ public class MDI extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuAddProductToInvenActionPerformed
 
     private void mnuStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuStoreActionPerformed
-      StoreView enr=new StoreView();
-      if (enr.isShowing()) {
+        StoreView enr = new StoreView();
+        if (enr.isShowing()) {
         } else {
             enr.setVisible(true);
             jDesktopPane.add(enr);
@@ -232,8 +270,8 @@ public class MDI extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuStoreActionPerformed
 
     private void mnuSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSupplierActionPerformed
-      SupplierView enr=new SupplierView();
-      if (enr.isShowing()) {
+        SupplierView enr = new SupplierView();
+        if (enr.isShowing()) {
         } else {
             enr.setVisible(true);
             jDesktopPane.add(enr);
@@ -241,8 +279,8 @@ public class MDI extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuSupplierActionPerformed
 
     private void mnuWerehouseStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuWerehouseStockActionPerformed
-      WarehouseStockView enr=new WarehouseStockView();
-      if (enr.isShowing()) {
+        WarehouseStockView enr = new WarehouseStockView();
+        if (enr.isShowing()) {
         } else {
             enr.setVisible(true);
             jDesktopPane.add(enr);
@@ -250,33 +288,55 @@ public class MDI extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuWerehouseStockActionPerformed
 
     private void mnuStoreStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuStoreStockActionPerformed
-      StoreStockView enr=new StoreStockView();
-      if (enr.isShowing()) {
+        StoreStockView enr = new StoreStockView();
+        if (enr.isShowing()) {
         } else {
             enr.setVisible(true);
             jDesktopPane.add(enr);
         }
     }//GEN-LAST:event_mnuStoreStockActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        SaleView enr = new SaleView();
+        if (enr.isShowing()) {
+            //enr.getFocusListeners();
+        } else {
+            enr.setVisible(true);
+            jDesktopPane.add(enr);
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        CustomerView enr = new CustomerView();
+        if (enr.isShowing()) {
+            //enr.getFocusListeners();
+        } else {
+            enr.setVisible(true);
+            jDesktopPane.add(enr);
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenu jmenu;
-    private javax.swing.JMenu jmenut;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem mnuAddProductToInven;
+    private javax.swing.JMenu mnuClient;
     private javax.swing.JMenu mnuCloseSession;
+    private javax.swing.JMenu mnuEntAlm;
     private javax.swing.JMenuItem mnuOuputProductToInven;
+    private javax.swing.JMenu mnuPr;
+    private javax.swing.JMenu mnuProvee;
+    private javax.swing.JMenu mnuSalTien;
     private javax.swing.JMenuItem mnuSeeCategory;
     private javax.swing.JMenuItem mnuSeeProduct;
     private javax.swing.JMenuItem mnuStore;
     private javax.swing.JMenuItem mnuStoreStock;
     private javax.swing.JMenuItem mnuSupplier;
+    private javax.swing.JMenu mnuTien;
+    private javax.swing.JMenu mnuVent;
     private javax.swing.JMenuItem mnuWerehouseStock;
     // End of variables declaration//GEN-END:variables
 }

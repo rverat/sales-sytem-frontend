@@ -7,6 +7,7 @@ package com.mycompany.sales.sytem.frontend.view;
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
 import com.mycompany.sales.sytem.frontend.model.Customer;
 import com.mycompany.sales.sytem.frontend.restclient.CustomerService;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,6 +29,7 @@ public class CustomerView extends javax.swing.JInternalFrame {
      */
     public CustomerView() {
         initComponents();
+        listCustomers();
     }
 
     public List<Customer> listAll() throws Exception {
@@ -71,58 +73,86 @@ public class CustomerView extends javax.swing.JInternalFrame {
         lblUsuario3 = new javax.swing.JLabel();
         lblId = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
-        txtRUC = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
         btnModify = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        tbSupplier = new javax.swing.JTable();
+        tbCustomer = new javax.swing.JTable();
 
+        setClosable(true);
         setTitle("Clientes");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalles", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Noto Sans", 1, 14))); // NOI18N
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel6.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
         jLabel6.setText("Id:");
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
+        jLabel10.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
         jLabel10.setText("Email:");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
+        jLabel11.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
         jLabel11.setText("Nombre:");
         jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+
+        lblUsuario3.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
         jPanel5.add(lblUsuario3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
         lblId.setEditable(false);
-        jPanel5.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 190, -1));
-        jPanel5.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 240, -1));
-        jPanel5.add(txtRUC, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 240, -1));
+        lblId.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
+        jPanel5.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 240, -1));
 
+        txtNombre.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
+        jPanel5.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 240, -1));
+
+        txtEmail.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
+        jPanel5.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 240, -1));
+
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 390, 156));
+
+        btnAdd.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
         btnAdd.setText("Agregar");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
             }
         });
+        getContentPane().add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
+        btnModify.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
         btnModify.setText("Modificar");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModifyActionPerformed(evt);
             }
         });
+        getContentPane().add(btnModify, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
 
+        btnDelete.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
         btnDelete.setText("Eliminar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
             }
         });
+        getContentPane().add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, -1, -1));
 
-        jButton1.setText("Limpiar");
+        btnClear.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
+        btnClear.setText("Limpiar");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, -1, -1));
 
-        tbSupplier.setModel(new javax.swing.table.DefaultTableModel(
+        tbCustomer.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
+        tbCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -132,79 +162,143 @@ public class CustomerView extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3"
             }
         ));
-        tbSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbSupplierMouseClicked(evt);
+                tbCustomerMouseClicked(evt);
             }
         });
-        jScrollPane5.setViewportView(tbSupplier);
+        jScrollPane5.setViewportView(tbCustomer);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(btnAdd)
-                .addGap(16, 16, 16)
-                .addComponent(btnModify)
-                .addGap(19, 19, 19)
-                .addComponent(btnDelete)
-                .addGap(16, 16, 16)
-                .addComponent(jButton1))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAdd)
-                    .addComponent(btnModify)
-                    .addComponent(btnDelete)
-                    .addComponent(jButton1))
-                .addGap(16, 16, 16)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 215, 390, 294));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+saveCustomer();        // TODO add your handling code here:
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed
-        // TODO add your handling code here:
+       updateCustomer(); // TODO add your handling code here:
     }//GEN-LAST:event_btnModifyActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        deleteCustomer();// TODO add your handling code here:
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void tbSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSupplierMouseClicked
-        int fila = tbSupplier.getSelectedRow();
-        String Cod = tbSupplier.getValueAt(fila, 0).toString();
+    private void tbCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCustomerMouseClicked
+        tbEventMouseClick(evt);
+    }//GEN-LAST:event_tbCustomerMouseClicked
 
-        {
-            int seleccion = tbSupplier.rowAtPoint(evt.getPoint());
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        clear();
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void listCustomers() {
+
+        List<Customer> 
+        lista = new ArrayList<>();
+
+        try {
+            lista = listAll();
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (lista != null) {
+            String cabecera[] = {"Id", "Nombre", "Email"};
+            DefaultTableModel table = new DefaultTableModel(null, cabecera);
+            String[] registros = new String[3];
+            for (Customer response : lista) {
+                registros[0] = String.valueOf(response.getId());
+                registros[1] = response.getName();
+                registros[2] = response.getEmail();
+
+                table.addRow(registros);
+            }
+            tbCustomer.setModel(table);
 
         }
-    }//GEN-LAST:event_tbSupplierMouseClicked
+
+    }
+
+    private void saveCustomer() {
+        try {
+
+            Customer customer = new Customer();
+
+            customer.setId(0);
+            customer.setName(txtNombre.getText());
+            customer.setEmail(txtEmail.getText());
+
+            save(customer);
+            JOptionPane.showMessageDialog(null, "Registrado");
+            listCustomers();
+            clear();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Ocurrio un error");
+        }
+    }
+
+    private void updateCustomer() {
+        try {
+
+            Customer customer = new Customer();
+
+            customer.setId(Integer.parseInt(lblId.getText()));
+            customer.setName(txtNombre.getText());
+            customer.setEmail(txtEmail.getText());
+
+            update(customer);
+            JOptionPane.showMessageDialog(null, "Actualizado");
+            listCustomers();
+            clear();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Ocurrio un error");
+        }
+    }
+
+    private boolean deleteCustomer() {
+        if (lblId.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccionar el registro a Eliminar", "Atentamente el Sistema", JOptionPane.WARNING_MESSAGE);
+            return true;
+        }
+        int id = Integer.parseInt(lblId.getText().trim());
+        try {
+            delete(id);
+            listCustomers();
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(null, "Eliminado");
+        return false;
+
+    }
+
+    private void clear() {
+        lblId.setText("");
+        txtNombre.setText("");
+        txtEmail.setText("");
+    }
+
+    private void tbEventMouseClick(MouseEvent evt) {
+
+        int seleccion = tbCustomer.rowAtPoint(evt.getPoint());
+        lblId.setText(String.valueOf(tbCustomer.getValueAt(seleccion, 0)));
+        txtNombre.setText(String.valueOf(tbCustomer.getValueAt(seleccion, 1)));
+        txtEmail.setText(String.valueOf(tbCustomer.getValueAt(seleccion, 2)));
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnModify;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel6;
@@ -212,8 +306,8 @@ public class CustomerView extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextField lblId;
     public javax.swing.JLabel lblUsuario3;
-    private javax.swing.JTable tbSupplier;
+    private javax.swing.JTable tbCustomer;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtRUC;
     // End of variables declaration//GEN-END:variables
 }

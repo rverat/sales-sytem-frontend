@@ -132,14 +132,14 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
         jPanel2.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
-        jPanel2.add(cboProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 210, -1));
+        jPanel2.add(cboProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 240, -1));
 
         lblId.setEditable(false);
-        jPanel2.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 190, -1));
+        jPanel2.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 240, -1));
 
         jLabel8.setText("Cantidad:");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 70, -1));
-        jPanel2.add(spnQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, 130, -1));
+        jPanel2.add(spnQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, 150, -1));
 
         jPanel2.add(cboSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 270, -1));
 
@@ -205,11 +205,11 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
                             .addComponent(btnAdd)
                             .addGap(16, 16, 16)
                             .addComponent(btnModify)
-                            .addGap(19, 19, 19)
-                            .addComponent(jButton1)
-                            .addGap(20, 20, 20)
-                            .addComponent(btnDelete))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(18, 18, 18)
+                            .addComponent(btnDelete)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButton1))))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,9 +218,10 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAdd)
-                    .addComponent(btnModify)
-                    .addComponent(jButton1)
-                    .addComponent(btnDelete))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnModify)
+                        .addComponent(btnDelete)
+                        .addComponent(jButton1)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))

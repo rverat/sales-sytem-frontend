@@ -4,9 +4,8 @@
  */
 package com.mycompany.sales.sytem.frontend.restclient;
 
-import com.mycompany.sales.sytem.frontend.model.Customer;
-import com.mycompany.sales.sytem.frontend.model.ProductCategory;
 import com.mycompany.sales.sytem.frontend.model.Sale;
+import com.mycompany.sales.sytem.frontend.model.SaleDetail;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import retrofit2.Call;
@@ -27,7 +26,7 @@ public interface SaleService {
     Call<List<Sale>> getAll();
     
     @POST("/sale")
-    Call<HttpStatus> save(@Body Sale sale);
+    Call<HttpStatus> save(@Body List<SaleDetail> saleDetail);
     
     @PATCH("/sale")
     Call<HttpStatus> update(@Body Sale sale);

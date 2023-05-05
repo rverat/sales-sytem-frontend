@@ -77,18 +77,26 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
 
         pnlDetail.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
         pnlDetail.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        pnlDetail.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 240, -1));
+
+        txtNombre.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        pnlDetail.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 240, -1));
+
+        lblUsuario.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         pnlDetail.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
         lblId.setEditable(false);
+        lblId.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         pnlDetail.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 240, -1));
 
+        jLabel1.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         jLabel1.setText("Id:");
         pnlDetail.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         jLabel2.setText("Nombre:");
-        pnlDetail.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+        pnlDetail.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
+        tbProductCategory.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         tbProductCategory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -107,6 +115,7 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tbProductCategory);
 
+        btnDelete.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         btnDelete.setText("Eliminar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,6 +123,7 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
             }
         });
 
+        btnModify.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         btnModify.setText("Modificar");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +131,7 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
             }
         });
 
+        btnAdd.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         btnAdd.setText("Agregar");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,6 +139,7 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         jButton1.setText("Limpiar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,38 +152,38 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(pnlDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
                         .addComponent(btnAdd)
-                        .addGap(6, 6, 6)
-                        .addComponent(btnModify)
-                        .addGap(19, 19, 19)
-                        .addComponent(jButton1)
                         .addGap(10, 10, 10)
-                        .addComponent(btnDelete))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                        .addComponent(btnModify)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)))
+                .addContainerGap(19, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(pnlDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addContainerGap()
+                .addComponent(pnlDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAdd)
                     .addComponent(btnModify)
-                    .addComponent(jButton1)
-                    .addComponent(btnDelete))
-                .addGap(19, 19, 19)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnDelete)
+                        .addComponent(jButton1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();

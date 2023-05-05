@@ -12,6 +12,8 @@ import com.mycompany.sales.sytem.frontend.model.Supplier;
 import com.mycompany.sales.sytem.frontend.restclient.ProductOutStoreService;
 import com.mycompany.sales.sytem.frontend.restclient.ProductService;
 import com.mycompany.sales.sytem.frontend.restclient.StoreService;
+import java.awt.event.MouseEvent;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,9 +95,7 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        lblDate = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         cboProduct = new javax.swing.JComboBox<>();
@@ -119,14 +119,8 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
         jLabel3.setText("Id:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        lblDate.setEditable(false);
-        jPanel2.add(lblDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 190, -1));
-
         jLabel6.setText("Tienda:");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, -1, -1));
-
-        jLabel1.setText("Fecha de registro:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 120, -1));
 
         jLabel7.setText("Producto:");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
@@ -194,20 +188,23 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(btnAdd)
-                .addGap(16, 16, 16)
-                .addComponent(btnModify)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(29, 29, 29)
-                .addComponent(btnDelete))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(btnAdd)
+                        .addGap(16, 16, 16)
+                        .addComponent(btnModify)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1)
+                        .addGap(29, 29, 29)
+                        .addComponent(btnDelete))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,14 +219,15 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
                         .addComponent(jButton1)
                         .addComponent(btnDelete)))
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void tbProductOutStoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProductOutStoreMouseClicked
-        //tbProductOutStoreMouseClicked(evt);
+        tbProductOutStoreMouseClick(evt);
     }//GEN-LAST:event_tbProductOutStoreMouseClicked
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -367,14 +365,15 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
         spnQuantity.setValue(0);
     }
 
-    /*private void tbProductOutStoreMouseClicked(MouseEvent evt) {
+    private void tbProductOutStoreMouseClick(MouseEvent evt) {
+       
         int seleccion = tbProductOutStore.rowAtPoint(evt.getPoint());
         lblId.setText(String.valueOf(tbProductOutStore.getValueAt(seleccion, 0)));
         cboProduct.setSelectedItem(String.valueOf(tbProductOutStore.getValueAt(seleccion, 1)));
         cboStore.setSelectedItem(String.valueOf(tbProductOutStore.getValueAt(seleccion, 2)));
         spnQuantity.setValue(BigDecimal.valueOf(Double.parseDouble(tbProductOutStore.getValueAt(seleccion, 3).toString())));
 
-    }*/
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -383,14 +382,12 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cboProduct;
     private javax.swing.JComboBox<String> cboStore;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField lblDate;
     private javax.swing.JTextField lblId;
     public javax.swing.JLabel lblUsuario;
     private javax.swing.JSpinner spnQuantity;

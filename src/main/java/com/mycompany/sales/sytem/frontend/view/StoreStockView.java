@@ -21,9 +21,7 @@ import retrofit2.Response;
  */
 public class StoreStockView extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form StoreStockView
-     */
+
     public StoreStockView() {
         initComponents();
         listStoreStock();
