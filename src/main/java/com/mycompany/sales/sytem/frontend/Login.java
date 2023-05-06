@@ -6,6 +6,7 @@
 package com.mycompany.sales.sytem.frontend;
 
 import com.mycompany.sales.sytem.frontend.view.MDI;
+import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.security.MessageDigest;
@@ -17,12 +18,12 @@ import javax.swing.JOptionPane;
  *
  * @author uestadisticai
  */
-public class FrmLogin extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmLogin
      */
-    public FrmLogin() {
+    public Login() {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
@@ -33,143 +34,47 @@ public class FrmLogin extends javax.swing.JFrame {
         return this.txtContrasena.getPassword();
     }
 
-    private void IniciarSesion() {
+    private void iniciarSesion() {
 
-            
-        List<User> userList = new ArrayList<>();
-        
-        String user = txtNombre.getText();
-        String password = String.valueOf(txtContrasena.getPassword());
+        try {
+            List<User> userList = new ArrayList<>();
 
-        // Agregar algunos usuarios a la lista
-        userList.add(new User("John", "password123", "admin"));
-        userList.add(new User("Mary", "qwerty", "user"));
-        
-        if(user.equals(userList.get(1).getName()) && password.equals(userList.get(1).getPassword())){
-            
-            MDI formprincipal = new MDI();
-                formprincipal.setVisible(true);
+            String user = txtNombre.getText();
+            String password = String.valueOf(txtContrasena.getPassword());
+
+            // Agregar algunos usuarios a la lista
+            userList.add(new User("joAlvares", "JoeAdmin123", "admin"));
+            userList.add(new User("JOEglass", "joeglass2023", "user"));
+
+            if (user.equals(userList.get(1).getName()) && password.equals(userList.get(1).getPassword())) {
+
+                MDI mdi = new MDI();
+                mdi.setVisible(true);
                 this.setVisible(false);
-            
-            
-        }
-    }
-        
-       /* if(user.equals(userList.get(1).getName()) && password.equals(userList.get(1).getPassword())){
-            
-            MDI formprincipal = new MDI();
-                formprincipal.setVisible(true);
+                mdi.mnuClient.setEnabled(false);
+                mdi.mnuEntAlm.setEnabled(false);
+                mdi.mnuPr.setEnabled(false);
+                mdi.mnuPr.setEnabled(false);
+                mdi.mnuSalTien.setEnabled(false);
+                mdi.mnuTien.setEnabled(false);
+                mdi.mnuProvee.setEnabled(false);
+
+            } else if (user.equals(userList.get(0).getName()) && password.equals(userList.get(0).getPassword())) {
+
+                MDI mdi = new MDI();
+                mdi.setVisible(true);
                 this.setVisible(false);
-                  formprincipal.mniEquipSalidGupU.setEnabled(false);
-            
-        }
 
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario Incorrecto");
+            }
 
-                
-
-            
-                formprincipal.lblIdUsuario.setText(nombre + " " + apellido);
-                formprincipal.lblTipoUsuario.setText(tipo);
-                formprincipal.lblCodigo.setText(codigo);
-
-
-
-        } catch (Exception e) {
-
+        } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, e);
             JOptionPane.showMessageDialog(null, "Error en iniciar sesion");
-
         }
+
     }
-
-    /*private void IniciarSesionCopy(){
-		  ClsUsuarioCL login = new ClsUsuarioCL();
-                 ClsUsuarioCE dato = new ClsUsuarioCE();
-		  try{  
-			    dato.setUsu_Usuario(txtNombre.getText());
-                           dato.setUsu_Contrasena(String.valueOf(txtContrasena.getText()));
-			   
-			   ClsUsuarioCE  Dato1 = login.IniciarSesion(dato);
-			  
-		     if(Dato1 !=null){
-		 
-                        MDIAdmin formprincipal = new MDIAdmin();
-                        formprincipal.setVisible(true);
-                        this.setVisible(false);
-                        String codigo =Dato1.getUsu_Id();
-		    	String nombre =Dato1.getUsu_Nombre();
-                        String apellido =Dato1.getUsu_Apellido();
-                        String tipo =Dato1.getUsu_Tipo();
-                        
-                         //String tipo = lblTipoUsuario.getText();
-
-                         switch (tipo) {
-                             case "ADMINISTRADOR":
-                                 break;
-                             case "TÉCNICO":
-                                 formprincipal.nmiUsuario.setEnabled(false);
-                                 formprincipal.mniEquipoU.setEnabled(false);
-                                 formprincipal.mniMaterialU.setEnabled(false);
-                                 formprincipal.mniEquipoGrupoRU.setEnabled(false);
-                                 formprincipal.mniEquipSalidGupU.setEnabled(false);
-                                 formprincipal.mniEquipSalidIndU.setEnabled(false);
-                                 formprincipal.mniAcceNombU.setEnabled(false);
-                                 formprincipal.mniEquiNombU.setEnabled(false);
-                                 formprincipal.mniEquipSalidGupAU.setEnabled(false);
-                                 formprincipal.mniMateNombU.setEnabled(false);
-                                 formprincipal.mniMaterialSalidaU.setEnabled(false);
-                                 formprincipal.mniMaterialU.setEnabled(false);
-                                 formprincipal.mniOficNombU.setEnabled(false);
-                                 formprincipal.mniRepuestoU.setEnabled(false);
-                                 break;
-                             case "SECRETARIA":
-                                 formprincipal.nmiUsuario.setEnabled(false);
-                                 formprincipal.mniEquipoU.setEnabled(false);
-                                 formprincipal.mniMaterialU.setEnabled(false);
-                                 formprincipal.mniEquipoGrupoRU.setEnabled(false);
-                                 formprincipal.mniEquipSalidGupU.setEnabled(false);
-                                 formprincipal.mniEquipSalidIndU.setEnabled(false);
-                                 formprincipal.mniAcceNombU.setEnabled(false);
-                                 formprincipal.mniEquiNombU.setEnabled(false);
-                                 formprincipal.mniEquipSalidGupAU.setEnabled(false);
-                                 formprincipal.mniMateNombU.setEnabled(false);
-                                 formprincipal.mniMaterialSalidaU.setEnabled(false);
-                                 formprincipal.mniMaterialU.setEnabled(false);
-                                 formprincipal.mniOficNombU.setEnabled(false);
-                                 formprincipal.mniRepuestoU.setEnabled(false);
-                                 formprincipal.nmiUsuario.setEnabled(false);
-                                 formprincipal.mniEquipoW.setEnabled(false);
-                                 formprincipal.mniMaterialW.setEnabled(false);
-                                 formprincipal.mniEquipSalidGupW.setEnabled(false);
-                                 formprincipal.mniEquipSalidIndW.setEnabled(false);
-                                 formprincipal.mniAcceNombW.setEnabled(false);
-                                 formprincipal.mniEquiNombW.setEnabled(false);
-                                 formprincipal.mniEquipSalidGupAW.setEnabled(false);
-                                 formprincipal.mniMateNombW.setEnabled(false);
-                                 formprincipal.mniMaterialSalidaW.setEnabled(false);
-                                 formprincipal.mniMaterialW.setEnabled(false);
-                                 formprincipal.mniOficNombW.setEnabled(false);
-                                 formprincipal.mniRepuestoW.setEnabled(false);
-                                 break;
-                             default:
-                                 break;
-                         }
-                        
-		    	formprincipal.lblIdUsuario.setText(nombre+" "+apellido);
-		        formprincipal.lblTipoUsuario.setText(tipo);
-                        formprincipal.lblCodigo.setText(codigo);
-		 
-		     } else{
-                    //Limpiar();
-                     }
-		    	
-		        }catch(Exception e){
-                            
-		        JOptionPane.showMessageDialog(null, e);
-		        JOptionPane.showMessageDialog(null, "Error en iniciar sesion");
-                        
-		    }
-	} */
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -274,8 +179,7 @@ public class FrmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        IniciarSesion();
+        iniciarSesion();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtContrasenaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContrasenaKeyTyped
@@ -289,12 +193,12 @@ public class FrmLogin extends javax.swing.JFrame {
     private void txtContrasenaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContrasenaKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
-            if (txtNombre.getText() == "") {
+            if ("".equals(txtNombre.getText())) {
                 txtNombre.requestFocus();
-            } else if (txtContrasena.getText() == "") {
+            } else if ("".equals(txtContrasena.getText())) {
                 txtContrasena.requestFocus();
             } else {
-                IniciarSesion();
+                iniciarSesion();
             }
 
         }

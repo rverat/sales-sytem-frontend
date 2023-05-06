@@ -4,6 +4,8 @@
  */
 package com.mycompany.sales.sytem.frontend.view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ro
@@ -15,6 +17,9 @@ public class MDI extends javax.swing.JFrame {
      */
     public MDI() {
         initComponents();
+        setTitle("Inversiones y Representaciones JOE Glass");
+        this.setExtendedState(MDI.MAXIMIZED_BOTH);
+
     }
 
     /**
@@ -41,6 +46,7 @@ public class MDI extends javax.swing.JFrame {
         mnuStoreStock = new javax.swing.JMenuItem();
         mnuVent = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         mnuTien = new javax.swing.JMenu();
         mnuStore = new javax.swing.JMenuItem();
         mnuProvee = new javax.swing.JMenu();
@@ -49,6 +55,11 @@ public class MDI extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jDesktopPane.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
 
@@ -160,6 +171,15 @@ public class MDI extends javax.swing.JFrame {
         });
         mnuVent.add(jMenuItem2);
 
+        jMenuItem4.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        jMenuItem4.setText("Stock");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        mnuVent.add(jMenuItem4);
+
         jMenuBar1.add(mnuVent);
 
         mnuTien.setText("Tiendas");
@@ -221,7 +241,7 @@ public class MDI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+        cerrar();        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void mnuOuputProductToInvenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOuputProductToInvenActionPerformed
@@ -316,26 +336,50 @@ public class MDI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        cerrar();
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+       StoreStockView enr = new StoreStockView();
+        if (enr.isShowing()) {
+        } else {
+            enr.setVisible(true);
+            jDesktopPane.add(enr);
+        }
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void cerrar() {
+        Object[] opciones = {"Aceptar", "Cancelar"};
+        int eleccion = JOptionPane.showOptionDialog(rootPane, "En realidad desea cerrar la aplicacion", "Mensaje de Confirmacion",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+        if (eleccion == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        } else {
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem mnuAddProductToInven;
-    private javax.swing.JMenu mnuClient;
+    public javax.swing.JMenu mnuClient;
     private javax.swing.JMenu mnuCloseSession;
-    private javax.swing.JMenu mnuEntAlm;
+    public javax.swing.JMenu mnuEntAlm;
     private javax.swing.JMenuItem mnuOuputProductToInven;
-    private javax.swing.JMenu mnuPr;
-    private javax.swing.JMenu mnuProvee;
-    private javax.swing.JMenu mnuSalTien;
+    public javax.swing.JMenu mnuPr;
+    public javax.swing.JMenu mnuProvee;
+    public javax.swing.JMenu mnuSalTien;
     private javax.swing.JMenuItem mnuSeeCategory;
     private javax.swing.JMenuItem mnuSeeProduct;
     private javax.swing.JMenuItem mnuStore;
     private javax.swing.JMenuItem mnuStoreStock;
     private javax.swing.JMenuItem mnuSupplier;
-    private javax.swing.JMenu mnuTien;
+    public javax.swing.JMenu mnuTien;
     private javax.swing.JMenu mnuVent;
     private javax.swing.JMenuItem mnuWerehouseStock;
     // End of variables declaration//GEN-END:variables

@@ -4,6 +4,7 @@
  */
 package com.mycompany.sales.sytem.frontend.view;
 
+import com.google.gson.Gson;
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
 import com.mycompany.sales.sytem.frontend.model.Customer;
 import com.mycompany.sales.sytem.frontend.model.Product;
@@ -22,13 +23,10 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import kotlin.jvm.Throws;
 import org.springframework.http.HttpStatus;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -39,12 +37,11 @@ import retrofit2.Response;
  */
 public class SaleView extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form SaleView
-     */
+    List<Product> listProductsInCache = new ArrayList<>();
+
     public SaleView() {
         initComponents();
-        loadCustomersPtoductsStores();
+        loadCustomersProductsStores();
         listSales();
     }
 
@@ -124,21 +121,25 @@ public class SaleView extends javax.swing.JInternalFrame {
 
     }
 
-    private void loadCustomersPtoductsStores() {
+    private void loadCustomersProductsStores() {
         try {
             List<Customer> customers = listCustomers();
-            List<Product> products = listProducts();
             List<Store> stores = listStores();
+            List<Product> products = listProducts();
 
-            for (Customer customer : customers) {
-                cboCustomer.addItem(String.valueOf(customer.getId()) + ", " + customer.getName());
-            }
             for (Product product : products) {
                 cboProducts.addItem(String.valueOf(product.getId()) + ", " + product.getName());
+
+                listProductsInCache.add(product);
+
+            }
+            for (Customer customer : customers) {
+                cboCustomer.addItem(String.valueOf(customer.getId()) + ", " + customer.getName());
             }
             for (Store store : stores) {
                 cboStore.addItem(String.valueOf(store.getId()) + ", " + store.getName());
             }
+
         } catch (Exception e) {
 
         }
@@ -341,7 +342,11 @@ public class SaleView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteProductActionPerformed
-        addOrDeleteProducts(0);
+        try {
+            addOrDeleteProducts(0);
+        } catch (Exception ex) {
+            Logger.getLogger(SaleView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnDeleteProductActionPerformed
 
     private void btnAddSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSaleActionPerformed
@@ -361,11 +366,16 @@ public class SaleView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbSaleMouseClicked
 
     private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
-        addOrDeleteProducts(1);
+        try {
+            addOrDeleteProducts(1);
+        } catch (Exception ex) {
+            Logger.getLogger(SaleView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnAddProductActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        clearProducts();
+        clearForm();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void listSales() {
@@ -435,36 +445,35 @@ public class SaleView extends javax.swing.JInternalFrame {
                 Store store = new Store();
                 Sale sale = new Sale();
 
-                String selectedItem = (String) cboProducts.getSelectedItem();
-                int productId = Integer.parseInt(selectedItem.substring(0, selectedItem.indexOf(",")));
-
                 String selectedItemC = (String) cboCustomer.getSelectedItem();
                 int customerId = Integer.parseInt(selectedItemC.substring(0, selectedItemC.indexOf(",")));
 
                 String selectedItemSX = (String) cboStore.getSelectedItem();
                 int storeId = Integer.parseInt(selectedItemSX.substring(0, selectedItemSX.indexOf(",")));
 
-                product.setId(productId);
+                product.setId(saleDetail.getProduct().getId());
                 customer.setId(customerId);
                 store.setId(storeId);
 
                 sale.setId(0);
-                sale.setUserSystem(new UserSystem(1, "", "", "", ""));
+                sale.setUserSystem(new UserSystem(2, "", "", "", ""));
                 sale.setCustomer(customer);
                 sale.setStore(store);
 
                 saleDetail.setId(0);
                 saleDetail.setSale(sale);
                 saleDetail.setProduct(product);
-                saleDetail.setQuantity(Integer.parseInt(spnQuantity.getValue().toString()));
+                saleDetail.setQuantity(saleDetail.getQuantity());
 
                 saleDetailList.add(saleDetail);
             }
+
 
             save(saleDetailList);
 
             JOptionPane.showMessageDialog(null, "Registrado");
             listSales();
+            clearProducts();
             clearForm();
 
         } catch (Exception e) {
@@ -475,9 +484,9 @@ public class SaleView extends javax.swing.JInternalFrame {
 
     private void clearForm() {
         lblId.setText("");
-        cboCustomer.setSelectedIndex(-1);
-        cboStore.setSelectedIndex(-1);
-        cboProducts.setSelectedIndex(-1);
+        cboCustomer.setSelectedIndex(0);
+        cboStore.setSelectedIndex(0);
+        cboProducts.setSelectedIndex(0);
         spnQuantity.setValue(0);
         clearProducts();
 
@@ -485,20 +494,34 @@ public class SaleView extends javax.swing.JInternalFrame {
 
     private void clearProducts() {
         saleDetailsListInCache.clear();
-        DefaultTableModel model = (DefaultTableModel) tbSaleDetail.getModel();
+        model = (DefaultTableModel) tbSaleDetail.getModel();
         model.setRowCount(0);
     }
 
-    private void addOrDeleteProducts(int action) {
+    private void addOrDeleteProducts(int action) throws Exception {
         int quantity = (int) spnQuantity.getValue();
         //BigDecimal discount = BigDecimal.valueOf(Integer.parseInt(spnDiscountPdt.getValue().toString()));
 
         String selectedItem = (String) cboProducts.getSelectedItem();
-        String productId = selectedItem.substring(0, selectedItem.indexOf(","));
+        int productId = Integer.parseInt(selectedItem.substring(0, selectedItem.indexOf(",")));
 
+        //Valida el stock
+        String selectedItemS = (String) cboStore.getSelectedItem();
+        int storeIdforDB = Integer.parseInt(selectedItemS.substring(0, selectedItemS.indexOf(",")));
+
+        StoreStock storeStock = findByProductIdAndStoreId(productId, storeIdforDB);
+
+        if (storeStock.getQuantity() < quantity) {
+
+            JOptionPane.showMessageDialog(null, "El Stock del producto solicitado es menor al pedido");
+            throw new Exception("El Stock del producto solicitado es menor al pedido");
+
+        }
+
+        //fin de validacion de stovk
         Sale sale = new Sale();
         Product product = new Product();
-        product.setId(Integer.parseInt(productId));
+        product.setId(productId);
 
         SaleDetail saleDetail = new SaleDetail();
 
@@ -507,9 +530,21 @@ public class SaleView extends javax.swing.JInternalFrame {
         saleDetail.setQuantity(quantity);
         saleDetail.setDiscount(new BigDecimal(BigInteger.ZERO));
 
+        for (Product productInCache : listProductsInCache) {
+
+            if (productInCache.getId() == saleDetail.getProduct().getId()) {
+                saleDetail.setUnitPrice(productInCache.getPrice());
+            }
+        }
+
+        BigDecimal quantityB = new BigDecimal(saleDetail.getQuantity());
+        BigDecimal unitPrice = saleDetail.getUnitPrice();
+        BigDecimal finalPrice = quantityB.multiply(unitPrice);
+
+        saleDetail.setTotalPrice(finalPrice);
+
         if (action == 1) {
             saleDetail.setId(saleDetailsListInCache.size() + 1);
-            saleDetailsListInCache.add(saleDetail);
 
             Object[] row = new Object[7];
             row[0] = saleDetail.getId();
@@ -521,6 +556,10 @@ public class SaleView extends javax.swing.JInternalFrame {
             row[6] = saleDetail.getTotalPrice();
             model.addRow(row);
 
+            saleDetail.setId(0);
+
+            saleDetailsListInCache.add(saleDetail);
+
             tbSaleDetail.setModel(model);
             model.fireTableDataChanged();
         } else if (action == 0) {
@@ -530,6 +569,17 @@ public class SaleView extends javax.swing.JInternalFrame {
                 model.removeRow(selectedRowIndex);
                 model.fireTableDataChanged();
             }
+        }
+    }
+
+    private void confirmationSale() {
+        Object[] opciones = {"Aceptar", "Cancelar"};
+        int eleccion = JOptionPane.showOptionDialog(rootPane, "Realizar Venta", "Mensaje de Confirmacion",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+        if (eleccion == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        } else {
         }
     }
 

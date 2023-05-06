@@ -7,11 +7,15 @@ package com.mycompany.sales.sytem.frontend.view;
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
 import com.mycompany.sales.sytem.frontend.model.StoreStock;
 import com.mycompany.sales.sytem.frontend.restclient.StoreStockService;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -21,6 +25,7 @@ import retrofit2.Response;
  */
 public class StoreStockView extends javax.swing.JInternalFrame {
 
+private TableRowSorter trsFiltro;
 
     public StoreStockView() {
         initComponents();
@@ -52,13 +57,14 @@ public class StoreStockView extends javax.swing.JInternalFrame {
 
         jScrollPane5 = new javax.swing.JScrollPane();
         tbStoreStock = new javax.swing.JTable();
-        txtSearch = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         btnRefresh = new javax.swing.JButton();
+        txtSearch = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Stock en la tienda");
 
+        tbStoreStock.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
         tbStoreStock.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -77,18 +83,26 @@ public class StoreStockView extends javax.swing.JInternalFrame {
         });
         jScrollPane5.setViewportView(tbStoreStock);
 
+        jLabel4.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        jLabel4.setText("Buscar:");
+
+        btnRefresh.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        btnRefresh.setText("Refrescar Stock");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
+        txtSearch.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
         txtSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSearchActionPerformed(evt);
             }
         });
-
-        jLabel4.setText("Buscar:");
-
-        btnRefresh.setText("Refrescar Stock");
-        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefreshActionPerformed(evt);
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSearchKeyTyped(evt);
             }
         });
 
@@ -97,29 +111,28 @@ public class StoreStockView extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel4)
-                .addGap(28, 28, 28)
+                .addGap(29, 29, 29)
                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRefresh)
                 .addGap(48, 48, 48))
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPane5)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRefresh)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnRefresh)))
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -130,13 +143,27 @@ public class StoreStockView extends javax.swing.JInternalFrame {
        
     }//GEN-LAST:event_tbStoreStockMouseClicked
 
-    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSearchActionPerformed
-
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
      listStoreStock();
     }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+
+    }//GEN-LAST:event_txtSearchActionPerformed
+
+    private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
+        txtSearch.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(final KeyEvent e) {
+                String cadena = (txtSearch.getText());
+                txtSearch.setText(cadena);
+                repaint();
+                trsFiltro.setRowFilter(RowFilter.regexFilter(txtSearch.getText()));
+            }
+        });
+        trsFiltro = new TableRowSorter(tbStoreStock.getModel());
+        tbStoreStock.setRowSorter(trsFiltro);
+    }//GEN-LAST:event_txtSearchKeyTyped
 
     
     public void listStoreStock() {

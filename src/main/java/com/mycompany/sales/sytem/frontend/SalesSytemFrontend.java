@@ -48,7 +48,7 @@ public class SalesSytemFrontend {
         }*/
 
         java.awt.EventQueue.invokeLater(() -> {
-            new MDI().setVisible(true);
+            new Login().setVisible(true);
         });
 
     }
