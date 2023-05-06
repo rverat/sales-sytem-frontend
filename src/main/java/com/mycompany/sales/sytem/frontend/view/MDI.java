@@ -53,6 +53,7 @@ public class MDI extends javax.swing.JFrame {
         mnuSupplier = new javax.swing.JMenuItem();
         mnuClient = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -222,6 +223,14 @@ public class MDI extends javax.swing.JFrame {
         });
         mnuClient.add(jMenuItem3);
 
+        jMenuItem5.setText("jMenuItem5");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        mnuClient.add(jMenuItem5);
+
         jMenuBar1.add(mnuClient);
 
         setJMenuBar(jMenuBar1);
@@ -349,6 +358,15 @@ public class MDI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+         Tesdff enr = new Tesdff();
+        if (enr.isShowing()) {
+        } else {
+            enr.setVisible(true);
+            jDesktopPane.add(enr);
+        }
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     private void cerrar() {
         Object[] opciones = {"Aceptar", "Cancelar"};
         int eleccion = JOptionPane.showOptionDialog(rootPane, "En realidad desea cerrar la aplicacion", "Mensaje de Confirmacion",
@@ -366,6 +384,7 @@ public class MDI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem mnuAddProductToInven;
     public javax.swing.JMenu mnuClient;
     private javax.swing.JMenu mnuCloseSession;

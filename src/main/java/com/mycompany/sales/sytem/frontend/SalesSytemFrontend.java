@@ -3,12 +3,14 @@
  */
 package com.mycompany.sales.sytem.frontend;
 
-import com.mycompany.sales.sytem.frontend.view.MDI;
+//import com.mycompany.system.Application;
+import com.mycompany.system.Application;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
+import org.springframework.boot.SpringApplication;
 
 /**
  *
@@ -28,6 +30,8 @@ public class SalesSytemFrontend {
                 }
             }
         }
+        
+        SpringApplication.run(Application.class, args);
 
         /*try {
             for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {

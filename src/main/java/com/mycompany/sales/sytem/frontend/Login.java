@@ -8,8 +8,6 @@ package com.mycompany.sales.sytem.frontend;
 import com.mycompany.sales.sytem.frontend.view.MDI;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -47,6 +45,9 @@ public class Login extends javax.swing.JFrame {
             userList.add(new User("JOEglass", "joeglass2023", "user"));
 
             if (user.equals(userList.get(1).getName()) && password.equals(userList.get(1).getPassword())) {
+                
+                
+                
 
                 MDI mdi = new MDI();
                 mdi.setVisible(true);

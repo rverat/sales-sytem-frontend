@@ -88,8 +88,33 @@
             <version>2.9.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.2.3</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.mycompany</groupId>
+            <artifactId>sales-system-backend</artifactId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
+
+  
 
     </dependencies>
     <build>
@@ -120,6 +145,31 @@
 			
                     </annotationProcessorPaths>
                 </configuration>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.mycompany.sales.sytem.frontend.SalesSytemFrontend</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin> 
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.6.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
 
