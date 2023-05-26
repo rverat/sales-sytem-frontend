@@ -19,6 +19,8 @@ import com.mycompany.sales.sytem.frontend.restclient.SaleDetailService;
 import com.mycompany.sales.sytem.frontend.restclient.SaleService;
 import com.mycompany.sales.sytem.frontend.restclient.StoreService;
 import com.mycompany.sales.sytem.frontend.restclient.StoreStockService;
+
+import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -121,6 +123,24 @@ public class SaleView extends javax.swing.JInternalFrame {
 
     }
 
+    public List<SaleDetail> getSaleDetails(int saleId) throws Exception {
+        SaleDetailService service = RetrofitClient.createService(SaleDetailService.class);
+        Call<List<SaleDetail>> call = service.getSaleDetails(saleId);
+        Response<List<SaleDetail>> response = call.execute();
+
+
+        int codeHttp = response.code();
+
+        if (HttpStatus.valueOf(codeHttp) == HttpStatus.NOT_FOUND) {
+
+            JOptionPane.showMessageDialog(null, "No hay producto registrado en esta venta");
+            throw new Exception("No hay producto registrado en esta venta");
+        }
+        return response.body();
+    }
+    // fin others service
+
+
     private void loadCustomersProductsStores() {
         try {
             List<Customer> customers = listCustomers();
@@ -129,7 +149,6 @@ public class SaleView extends javax.swing.JInternalFrame {
 
             for (Product product : products) {
                 cboProducts.addItem(String.valueOf(product.getId()) + ", " + product.getName());
-
                 listProductsInCache.add(product);
 
             }
@@ -409,6 +428,7 @@ public class SaleView extends javax.swing.JInternalFrame {
         }
 
     }
+    //params for build sale details
     ArrayList<SaleDetail> saleDetailsListInCache = new ArrayList<>();
     String cabecera[] = {"Id", "Venta", "Producto", "Cantidad", "Precio unitario", "Descuento", "Precio total"};
     DefaultTableModel model = new DefaultTableModel(null, cabecera);
@@ -482,23 +502,210 @@ public class SaleView extends javax.swing.JInternalFrame {
         }
     }
 
-    private void clearForm() {
-        lblId.setText("");
-        cboCustomer.setSelectedIndex(0);
-        cboStore.setSelectedIndex(0);
-        cboProducts.setSelectedIndex(0);
-        spnQuantity.setValue(0);
-        clearProducts();
+
+    private void listSalesDetails() throws Exception {
+
+        List<SaleDetail> lista = new ArrayList<>();
+
+        Sale sale = new Sale();
+        sale.setId(Integer.parseInt(lblId.getText().toString()));
+
+        List<SaleDetail> saleDetailListFromDB = getSaleDetails(sale.getId());
+
+        try {
+            lista = saleDetailListFromDB;
+        } catch (Exception ex) {
+            Logger.getLogger(SaleView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (lista != null) {
+            String cabeceras[] = {"Id", "Id Venta", "Id Producto", "Cantidad", "Precio Unitario", "Descuento", "Precio Total"};
+            DefaultTableModel table = new DefaultTableModel(null, cabeceras);
+            String[] registros = new String[7];
+            for (SaleDetail response : lista) {
+                registros[0] = String.valueOf(response.getId());
+                registros[1] = String.valueOf(response.getSale().getId());
+                registros[2] = String.valueOf(response.getProduct().getId());
+                registros[3] = String.valueOf(response.getQuantity());
+                registros[4] = String.valueOf(response.getUnitPrice());
+                registros[5] = String.valueOf(response.getDiscount());
+                registros[6] = String.valueOf(response.getTotalPrice());
+
+                table.addRow(registros);
+            }
+            tbSale.setModel(table);
+
+        }
 
     }
 
-    private void clearProducts() {
-        saleDetailsListInCache.clear();
-        model = (DefaultTableModel) tbSaleDetail.getModel();
-        model.setRowCount(0);
+    private void tb_SaleDetailMouseClick(MouseEvent evt) {
+
+        int seleccion = tbSaleDetail.rowAtPoint(evt.getPoint());
+        lblId.setText(String.valueOf(tbSaleDetail.getValueAt(seleccion, 0)));
+        //cboProduct.setSelectedItem(String.valueOf(tbSaleDetail.getValueAt(seleccion, 1)));
+        cboStore.setSelectedItem(String.valueOf(tbSaleDetail.getValueAt(seleccion, 2)));
+        spnQuantity.setValue(BigDecimal.valueOf(Double.parseDouble(tbSaleDetail.getValueAt(seleccion, 3).toString())));
+
     }
 
     private void addOrDeleteProducts(int action) throws Exception {
+        int quantity = (int) spnQuantity.getValue();
+        //BigDecimal discount = BigDecimal.valueOf(Integer.parseInt(spnDiscountPdt.getValue().toString()));
+
+        String selectedItem = (String) cboProducts.getSelectedItem();
+        int productId = Integer.parseInt(selectedItem.substring(0, selectedItem.indexOf(",")));
+
+        //Valida el stock
+        String selectedItemS = (String) cboStore.getSelectedItem();
+        int storeIdforDB = Integer.parseInt(selectedItemS.substring(0, selectedItemS.indexOf(",")));
+
+        StoreStock storeStock = findByProductIdAndStoreId(productId, storeIdforDB);
+
+        if (storeStock.getQuantity() < quantity) {
+
+            JOptionPane.showMessageDialog(null, "El Stock del producto solicitado es menor al pedido");
+            throw new Exception("El Stock del producto solicitado es menor al pedido");
+
+        }
+
+        //fin de validacion de stovk
+        Sale sale = new Sale();
+        Product product = new Product();
+        product.setId(productId);
+
+        SaleDetail saleDetail = new SaleDetail();
+
+        saleDetail.setSale(sale);
+        saleDetail.setProduct(product);
+        saleDetail.setQuantity(quantity);
+        saleDetail.setDiscount(new BigDecimal(BigInteger.ZERO));
+
+        for (Product productInCache : listProductsInCache) {
+
+            if (productInCache.getId() == saleDetail.getProduct().getId()) {
+                saleDetail.setUnitPrice(productInCache.getPrice());
+            }
+        }
+
+        BigDecimal quantityB = new BigDecimal(saleDetail.getQuantity());
+        BigDecimal unitPrice = saleDetail.getUnitPrice();
+        BigDecimal finalPrice = quantityB.multiply(unitPrice);
+
+        saleDetail.setTotalPrice(finalPrice);
+
+        if (action == 1) {
+            saleDetail.setId(saleDetailsListInCache.size() + 1);
+
+            Object[] row = new Object[7];
+            row[0] = saleDetail.getId();
+            row[1] = saleDetail.getSale().getId();
+            row[2] = saleDetail.getProduct().getId() + "," + saleDetail.getProduct().getName();
+            row[3] = saleDetail.getQuantity();
+            row[4] = saleDetail.getUnitPrice();
+            row[5] = saleDetail.getDiscount();
+            row[6] = saleDetail.getTotalPrice();
+            model.addRow(row);
+
+            saleDetail.setId(0);
+
+            saleDetailsListInCache.add(saleDetail);
+
+            tbSaleDetail.setModel(model);
+            model.fireTableDataChanged();
+        } else if (action == 0) {
+            int selectedRowIndex = tbSaleDetail.getSelectedRow();
+            if (selectedRowIndex >= 0 && selectedRowIndex < saleDetailsListInCache.size()) {
+                saleDetailsListInCache.remove(selectedRowIndex);
+                model.removeRow(selectedRowIndex);
+                model.fireTableDataChanged();
+            }
+        }
+    }
+
+    //params for build sale details
+    ArrayList<SaleDetail> saleDetailsListInCacheForUpdate = new ArrayList<>();
+    DefaultTableModel modelForUpdate = new DefaultTableModel(null, cabecera);
+
+    private void updateSale() throws Exception {
+
+        Sale sale = new Sale();
+        sale.setId(Integer.parseInt(lblId.getText().toString()));
+
+        List<SaleDetail> saleDetailListFromDB = getSaleDetails(sale.getId());
+
+
+
+
+
+        try {
+
+            //validate in data base stock store saleDetailsListInCache
+            String selectedItemS = (String) cboStore.getSelectedItem();
+            int storeIdforDB = Integer.parseInt(selectedItemS.substring(0, selectedItemS.indexOf(",")));
+
+            for (SaleDetail saleDetail : saleDetailsListInCache) {
+
+                StoreStock storeStock = findByProductIdAndStoreId(saleDetail.getProduct().getId(), storeIdforDB);
+
+                if (storeStock.getQuantity() <= saleDetail.getQuantity()) {
+
+                    JOptionPane.showMessageDialog(null, "El Stock del producto solicitado es menor al pedido");
+                    throw new Exception("El Stock del producto solicitado es menor al pedido");
+
+                }
+
+            }
+
+            //fin de validacion
+            ArrayList<SaleDetail> saleDetailList = new ArrayList<>();
+
+            for (SaleDetail saleDetail : saleDetailsListInCache) {
+
+                //SaleDetail saleDetail = new SaleDetail();
+                Product product = new Product();
+                Customer customer = new Customer();
+                Store store = new Store();
+                //Sale sale = new Sale();
+
+                String selectedItemC = (String) cboCustomer.getSelectedItem();
+                int customerId = Integer.parseInt(selectedItemC.substring(0, selectedItemC.indexOf(",")));
+
+                String selectedItemSX = (String) cboStore.getSelectedItem();
+                int storeId = Integer.parseInt(selectedItemSX.substring(0, selectedItemSX.indexOf(",")));
+
+                product.setId(saleDetail.getProduct().getId());
+                customer.setId(customerId);
+                store.setId(storeId);
+
+                sale.setId(0);
+                sale.setUserSystem(new UserSystem(2, "", "", "", ""));
+                sale.setCustomer(customer);
+                sale.setStore(store);
+
+                saleDetail.setId(0);
+                saleDetail.setSale(sale);
+                saleDetail.setProduct(product);
+                saleDetail.setQuantity(saleDetail.getQuantity());
+
+                saleDetailList.add(saleDetail);
+            }
+
+
+            save(saleDetailList);
+
+            JOptionPane.showMessageDialog(null, "Registrado");
+            listSales();
+            clearProducts();
+            clearForm();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Ocurrio un error");
+        }
+    }
+
+    private void addOrDeleteProductsUpdate(int action) throws Exception {
         int quantity = (int) spnQuantity.getValue();
         //BigDecimal discount = BigDecimal.valueOf(Integer.parseInt(spnDiscountPdt.getValue().toString()));
 
@@ -571,6 +778,25 @@ public class SaleView extends javax.swing.JInternalFrame {
             }
         }
     }
+
+
+
+    private void clearForm() {
+        lblId.setText("");
+        cboCustomer.setSelectedIndex(0);
+        cboStore.setSelectedIndex(0);
+        cboProducts.setSelectedIndex(0);
+        spnQuantity.setValue(0);
+        clearProducts();
+
+    }
+
+    private void clearProducts() {
+        saleDetailsListInCache.clear();
+        model = (DefaultTableModel) tbSaleDetail.getModel();
+        model.setRowCount(0);
+    }
+
 
     private void confirmationSale() {
         Object[] opciones = {"Aceptar", "Cancelar"};

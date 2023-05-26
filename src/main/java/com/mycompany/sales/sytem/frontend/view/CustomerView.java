@@ -175,7 +175,7 @@ public class CustomerView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-saveCustomer();        // TODO add your handling code here:
+       saveCustomer();        // TODO add your handling code here:
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed

@@ -25,6 +25,9 @@ public interface SaleDetailService {
 
     @GET("/sale-detail")
     Call<List<SaleDetail>> getAll();
+
+    @GET("/sale-detail/{saleId}")
+    Call<List<SaleDetail>> getSaleDetails(@Path("saleId") int saleId);
     
     @POST("/sale-detail")
     Call<HttpStatus> save(@Body SaleDetail saleDetail);

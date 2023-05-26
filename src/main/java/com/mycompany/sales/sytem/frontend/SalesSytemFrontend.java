@@ -4,7 +4,8 @@
 package com.mycompany.sales.sytem.frontend;
 
 //import com.mycompany.system.Application;
-import com.mycompany.system.Application;
+//import com.mycompany.system.Application;
+import com.mycompany.sales.sytem.frontend.view.MDI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -31,7 +32,7 @@ public class SalesSytemFrontend {
             }
         }
         
-        SpringApplication.run(Application.class, args);
+        //SpringApplication.run(Application.class, args);
 
         /*try {
             for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
