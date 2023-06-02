@@ -11,6 +11,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -22,15 +23,15 @@ import retrofit2.http.Path;
 public interface ProductService {
 
     @GET("/products")
-    Call<List<Product>> getAll();
+    Call<List<Product>> findAll(@Header("Authorization") String token);
     
     @POST("/products")
-    Call<HttpStatus> save(@Body Product product);
+    Call<HttpStatus> save(@Header("Authorization") String token, @Body Product product);
     
     @PATCH("/products")
-    Call<HttpStatus> update(@Body Product product);
+    Call<HttpStatus> update(@Header("Authorization") String token, @Body Product product);
     
     @DELETE("/products/{id}")
-    Call<HttpStatus> delete(@Path("id") int id);
+    Call<HttpStatus> delete(@Header("Authorization") String token, @Path("id") int id);
 
 }

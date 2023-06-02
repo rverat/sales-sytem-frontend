@@ -4,6 +4,19 @@
  */
 package com.mycompany.sales.sytem.frontend.restclient;
 
+import com.mycompany.sales.sytem.frontend.model.Supplier;
+import com.mycompany.sales.sytem.frontend.model.UserSystem;
+import java.util.List;
+import org.springframework.http.HttpStatus;
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.PATCH;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+
 
 
 /**
@@ -11,6 +24,24 @@ package com.mycompany.sales.sytem.frontend.restclient;
  * @author ro
  */
 public interface UserService {
+    
+    @GET("/user")
+    Call<List<UserSystem>> findAll(@Header("Authorization") String token);
+    
+    @POST("/user/login")
+    Call<UserSystem> login(@Body UserSystem userSystem);
+    
+    @POST("/user/logout")
+    Call<UserSystem> logout(@Header("Authorization") String token);
+    
+    @POST("/user")
+    Call<HttpStatus> save(@Header("Authorization") String token, @Body UserSystem userSystem);
+    
+    @PATCH("/user")
+    Call<HttpStatus> update(@Header("Authorization") String token, @Body UserSystem userSystem);
+    
+    @DELETE("/user/{id}")
+    Call<HttpStatus> delete(@Header("Authorization") String token, @Path("id") int id);
 
 
 }

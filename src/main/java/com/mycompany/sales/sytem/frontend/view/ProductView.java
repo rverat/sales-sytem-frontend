@@ -9,16 +9,21 @@ import com.mycompany.sales.sytem.frontend.model.Product;
 import com.mycompany.sales.sytem.frontend.model.ProductCategory;
 import com.mycompany.sales.sytem.frontend.restclient.ProductCategoryService;
 import com.mycompany.sales.sytem.frontend.restclient.ProductService;
+import com.mycompany.sales.sytem.frontend.util.UtilValidateImput;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.RowFilter;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import org.springframework.http.HttpStatus;
@@ -37,36 +42,38 @@ public class ProductView extends javax.swing.JInternalFrame {
         initComponents();
         listProducts();
         loadPtoductCategory();
+        UtilValidateImput.configureSpinner(spnPrice);
     }
 
     public List<Product> listAll() throws Exception {
         ProductService service = RetrofitClient.createService(ProductService.class);
-        Call<List<Product>> call = service.getAll();
+        String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYWNvIiwiZXhwIjoxNjg1NTkxMTQ1LCJpYXQiOjE2ODU1OTExNDV9.t1TGvTPMNPVAOTAfgucJrAjvwAx0bDlzJLvo51OMbqw";
+        Call<List<Product>> call = service.findAll(token);
         Response<List<Product>> response = call.execute();
         return response.body();
     }
 
     public void save(Product product) throws Exception {
         ProductService service = RetrofitClient.createService(ProductService.class);
-        Call<HttpStatus> call = service.save(product);
+        Call<HttpStatus> call = service.save("", product);
         call.execute();
     }
 
     public void update(Product product) throws Exception {
         ProductService service = RetrofitClient.createService(ProductService.class);
-        Call<HttpStatus> call = service.update(product);
+        Call<HttpStatus> call = service.update("", product);
         call.execute();
     }
 
     public void delete(int id) throws Exception {
         ProductService service = RetrofitClient.createService(ProductService.class);
-        Call<HttpStatus> call = service.delete(id);
+        Call<HttpStatus> call = service.delete("", id);
         call.execute();
     }
 
     public List<ProductCategory> listAllProductCategory() throws Exception {
         ProductCategoryService categoryService = RetrofitClient.createService(ProductCategoryService.class);
-        Call<List<ProductCategory>> call = categoryService.getAll();
+        Call<List<ProductCategory>> call = categoryService.findAll("");
         Response<List<ProductCategory>> response = call.execute();
         return response.body();
     }
@@ -100,38 +107,51 @@ public class ProductView extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("Productos");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalles", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 0, 18))); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel3.setText("Id:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        jLabel6.setText("Precio");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+        jLabel6.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel6.setText("Precio:");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 80, -1));
 
+        jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel1.setText("Categoria:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 70, -1));
-        jPanel2.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 240, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 30, 110, -1));
 
+        txtNombre.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel2.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 310, -1));
+
+        jLabel7.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel7.setText("Nombre:");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 80, -1));
         jPanel2.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
         txaDescription.setColumns(20);
+        txaDescription.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         txaDescription.setRows(5);
         jScrollPane1.setViewportView(txaDescription);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 280, 70));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 80, 370, 60));
 
+        jLabel2.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel2.setText("Descripción:");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 80, 120, -1));
 
-        jPanel2.add(cboCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 280, -1));
+        cboCategory.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel2.add(cboCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 30, 360, -1));
 
         lblId.setEditable(false);
-        jPanel2.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 190, -1));
-        jPanel2.add(spnPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 150, -1));
+        lblId.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel2.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 310, -1));
 
+        spnPrice.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel2.add(spnPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 310, -1));
+
+        tbProduct.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         tbProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -150,6 +170,7 @@ public class ProductView extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tbProduct);
 
+        btnDelete.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnDelete.setText("Eliminar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,6 +178,7 @@ public class ProductView extends javax.swing.JInternalFrame {
             }
         });
 
+        btnModify.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnModify.setText("Modificar");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,6 +186,7 @@ public class ProductView extends javax.swing.JInternalFrame {
             }
         });
 
+        btnAdd.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnAdd.setText("Agregar");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,6 +194,7 @@ public class ProductView extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton1.setText("Limpiar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,7 +202,7 @@ public class ProductView extends javax.swing.JInternalFrame {
             }
         });
 
-        txtSearch.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
+        txtSearch.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         txtSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSearchActionPerformed(evt);
@@ -190,6 +214,7 @@ public class ProductView extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel4.setText("Buscar:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -200,43 +225,44 @@ public class ProductView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 888, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(btnAdd)
-                        .addGap(16, 16, 16)
-                        .addComponent(btnModify)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDelete)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addGap(185, 185, 185)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 890, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1081, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1096, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(21, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(btnAdd)
+                .addGap(16, 16, 16)
+                .addComponent(btnModify)
+                .addGap(18, 18, 18)
+                .addComponent(btnDelete)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(42, 42, 42)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnAdd)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnModify)
                         .addComponent(btnDelete)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(16, 16, 16)
+                        .addComponent(jButton1)))
+                .addGap(42, 42, 42)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
 
         pack();
@@ -310,6 +336,11 @@ public class ProductView extends javax.swing.JInternalFrame {
     }
 
     private void saveProduct() {
+
+        //Validations
+        UtilValidateImput.validateString(txtNombre.getText(), "nombre");
+        UtilValidateImput.validateSelectedJCombobox(cboCategory, "categoria");
+
         try {
 
             Product product = new Product();
@@ -318,22 +349,25 @@ public class ProductView extends javax.swing.JInternalFrame {
             int number = Integer.parseInt(selectedItem.substring(0, selectedItem.indexOf(",")));
 
             product.setId(0);
-            product.setName(txtNombre.getText());
-            product.setProductCategory(new ProductCategory(number, ""));
-            product.setDescription(txaDescription.getText());
-            product.setPrice(BigDecimal.valueOf(Double.parseDouble(spnPrice.getValue().toString())));
+
+            setProductDetail(product, number);
+
             save(product);
-            JOptionPane.showMessageDialog(null, "Registrado");
+            JOptionPane.showMessageDialog(null, "Producto registrado");
             listProducts();
             clear();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-            JOptionPane.showMessageDialog(null, "Ocurrio un error");
+            JOptionPane.showMessageDialog(null, "Ocurrio un error al registrar");
         }
     }
 
     private void updateProduct() {
+
+        //Validations
+        UtilValidateImput.validateString(txtNombre.getText(), "nombre");
+        UtilValidateImput.validateSelectedJCombobox(cboCategory, "categoria");
+
         try {
 
             Product product = new Product();
@@ -342,20 +376,25 @@ public class ProductView extends javax.swing.JInternalFrame {
             int number = Integer.parseInt(selectedItem.substring(0, selectedItem.indexOf(",")));
 
             product.setId(Integer.parseInt(lblId.getText()));
-            product.setName(txtNombre.getText());
-            product.setProductCategory(new ProductCategory(number, ""));
-            product.setDescription(txaDescription.getText());
-            product.setPrice(BigDecimal.valueOf(Double.parseDouble(spnPrice.getValue().toString())));
+
+            setProductDetail(product, number);
 
             update(product);
-            JOptionPane.showMessageDialog(null, "Actualizado");
+            JOptionPane.showMessageDialog(null, "Ptoducto actualizado");
             listProducts();
             clear();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-            JOptionPane.showMessageDialog(null, "Ocurrio un error");
+            JOptionPane.showMessageDialog(null, "Ocurrio un error al actualizar");
         }
+    }
+
+    private void setProductDetail(Product product, int number) {
+        product.setName(txtNombre.getText());
+        product.setProductCategory(new ProductCategory(number, ""));
+        product.setDescription(txaDescription.getText());
+        BigDecimal price = BigDecimal.valueOf((Double) spnPrice.getValue());
+        product.setPrice(price);
     }
 
     private boolean deleteProduct() {

@@ -4,8 +4,6 @@
  */
 package com.mycompany.sales.sytem.frontend.restclient;
 
-import com.mycompany.sales.sytem.frontend.model.Customer;
-import com.mycompany.sales.sytem.frontend.model.ProductCategory;
 import com.mycompany.sales.sytem.frontend.model.WarehouseStock;
 import java.util.List;
 import org.springframework.http.HttpStatus;
@@ -13,6 +11,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -24,15 +23,15 @@ import retrofit2.http.Path;
 public interface WarehouseStockService {
 
     @GET("/warehouse-stock")
-    Call<List<WarehouseStock>> getAll();
+    Call<List<WarehouseStock>> findAll(@Header("Authorization") String token);
     
     @POST("/warehouse-stock")
-    Call<HttpStatus> save(@Body WarehouseStock warehouseStock);
+    Call<HttpStatus> save(@Header("Authorization") String token, @Body WarehouseStock warehouseStock);
     
     @PATCH("/warehouse-stock")
-    Call<HttpStatus> update(@Body WarehouseStock warehouseStock);
+    Call<HttpStatus> update(@Header("Authorization") String token, @Body WarehouseStock warehouseStock);
     
     @DELETE("/warehouse-stock/{id}")
-    Call<HttpStatus> delete(@Path("id") int id);
+    Call<HttpStatus> delete(@Header("Authorization") String token, @Path("id") int id);
 
 }

@@ -13,6 +13,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -24,15 +25,15 @@ import retrofit2.http.Path;
 public interface ProductOutStoreService {
 
     @GET("/product-out-store")
-    Call<List<ProductOutStore>> getAll();
+    Call<List<ProductOutStore>> findAll(@Header("Authorization") String token);
     
     @POST("/product-out-store")
-    Call<HttpStatus> save(@Body ProductOutStore productOutStore);
+    Call<HttpStatus> save(@Header("Authorization") String token, @Body ProductOutStore productOutStore);
     
     @PATCH("/product-out-store")
-    Call<HttpStatus> update(@Body ProductOutStore productOutStore);
+    Call<HttpStatus> update(@Header("Authorization") String token, @Body ProductOutStore productOutStore);
     
     @DELETE("/product-out-store/{id}")
-    Call<HttpStatus> delete(@Path("id") int id);
+    Call<HttpStatus> delete(@Header("Authorization") String token, @Path("id") int id);
 
 }

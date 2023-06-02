@@ -7,6 +7,8 @@ package com.mycompany.sales.sytem.frontend.view;
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
 import com.mycompany.sales.sytem.frontend.model.Customer;
 import com.mycompany.sales.sytem.frontend.restclient.CustomerService;
+import com.mycompany.sales.sytem.frontend.util.UtilSS;
+import com.mycompany.sales.sytem.frontend.util.UtilValidateImput;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,26 +36,26 @@ public class CustomerView extends javax.swing.JInternalFrame {
 
     public List<Customer> listAll() throws Exception {
         CustomerService service = RetrofitClient.createService(CustomerService.class);
-        Call<List<Customer>> call = service.getAll();
+        Call<List<Customer>> call = service.findAll("");
         Response<List<Customer>> response = call.execute();
         return response.body();
     }
 
     public void save(Customer customer) throws Exception {
         CustomerService service = RetrofitClient.createService(CustomerService.class);
-        Call<HttpStatus> call = service.save(customer);
+        Call<HttpStatus> call = service.save("",customer);
         call.execute();
     }
 
     public void update(Customer customer) throws Exception {
         CustomerService service = RetrofitClient.createService(CustomerService.class);
-        Call<HttpStatus> call = service.update(customer);
+        Call<HttpStatus> call = service.update("", customer);
         call.execute();
     }
 
     public void delete(int id) throws Exception {
         CustomerService service = RetrofitClient.createService(CustomerService.class);
-        Call<HttpStatus> call = service.delete(id);
+        Call<HttpStatus> call = service.delete("", id);
         call.execute();
     }
 
@@ -83,75 +85,76 @@ public class CustomerView extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Clientes");
+        setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalles", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Noto Sans", 1, 14))); // NOI18N
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jLabel6.setText("Id:");
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jLabel10.setText("Email:");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jLabel11.setText("Nombre:");
         jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
-        lblUsuario3.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
+        lblUsuario3.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jPanel5.add(lblUsuario3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
         lblId.setEditable(false);
-        lblId.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
-        jPanel5.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 240, -1));
+        lblId.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        jPanel5.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 340, -1));
 
-        txtNombre.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
-        jPanel5.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 240, -1));
+        txtNombre.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        jPanel5.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 340, -1));
 
-        txtEmail.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
-        jPanel5.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 240, -1));
+        txtEmail.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        jPanel5.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 340, -1));
 
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 390, 156));
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 490, 156));
 
-        btnAdd.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
+        btnAdd.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         btnAdd.setText("Agregar");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
+        getContentPane().add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
 
-        btnModify.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
+        btnModify.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         btnModify.setText("Modificar");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModifyActionPerformed(evt);
             }
         });
-        getContentPane().add(btnModify, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
+        getContentPane().add(btnModify, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, -1, -1));
 
-        btnDelete.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
+        btnDelete.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         btnDelete.setText("Eliminar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
             }
         });
-        getContentPane().add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, -1, -1));
+        getContentPane().add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
 
-        btnClear.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
+        btnClear.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         btnClear.setText("Limpiar");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClearActionPerformed(evt);
             }
         });
-        getContentPane().add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, -1, -1));
+        getContentPane().add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 180, -1, -1));
 
-        tbCustomer.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
+        tbCustomer.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         tbCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -169,17 +172,17 @@ public class CustomerView extends javax.swing.JInternalFrame {
         });
         jScrollPane5.setViewportView(tbCustomer);
 
-        getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 215, 390, 294));
+        getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 500, 294));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-       saveCustomer();        // TODO add your handling code here:
+        saveCustomer();        // TODO add your handling code here:
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed
-       updateCustomer(); // TODO add your handling code here:
+        updateCustomer(); // TODO add your handling code here:
     }//GEN-LAST:event_btnModifyActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -196,8 +199,7 @@ public class CustomerView extends javax.swing.JInternalFrame {
 
     private void listCustomers() {
 
-        List<Customer> 
-        lista = new ArrayList<>();
+        List<Customer> lista = new ArrayList<>();
 
         try {
             lista = listAll();
@@ -223,6 +225,10 @@ public class CustomerView extends javax.swing.JInternalFrame {
     }
 
     private void saveCustomer() {
+
+        UtilSS.isValidEmail(txtEmail.getText());
+        UtilValidateImput.validateString(txtNombre.getText(), "nombre");
+
         try {
 
             Customer customer = new Customer();
@@ -230,7 +236,6 @@ public class CustomerView extends javax.swing.JInternalFrame {
             customer.setId(0);
             customer.setName(txtNombre.getText());
             customer.setEmail(txtEmail.getText());
-
             save(customer);
             JOptionPane.showMessageDialog(null, "Registrado");
             listCustomers();
@@ -238,11 +243,15 @@ public class CustomerView extends javax.swing.JInternalFrame {
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
-            JOptionPane.showMessageDialog(null, "Ocurrio un error");
+            JOptionPane.showMessageDialog(null, "Ocurrio un error al registrar");
         }
     }
 
     private void updateCustomer() {
+
+        UtilSS.isValidEmail(txtEmail.getText());
+        UtilValidateImput.validateString(txtNombre.getText(), "nombre");
+
         try {
 
             Customer customer = new Customer();

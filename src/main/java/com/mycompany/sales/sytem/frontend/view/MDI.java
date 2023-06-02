@@ -34,6 +34,7 @@ public class MDI extends javax.swing.JFrame {
         jDesktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuCloseSession = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         mnuPr = new javax.swing.JMenu();
         mnuSeeProduct = new javax.swing.JMenuItem();
@@ -78,9 +79,13 @@ public class MDI extends javax.swing.JFrame {
         jMenuBar1.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
 
         mnuCloseSession.setText("Usuario");
-        mnuCloseSession.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        mnuCloseSession.setFont(new java.awt.Font("Noto Sans", 0, 20)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        jMenuItem6.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        jMenuItem6.setText("Administrador de usuarios");
+        mnuCloseSession.add(jMenuItem6);
+
+        jMenuItem1.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jMenuItem1.setText("cerrar sesion");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,9 +97,9 @@ public class MDI extends javax.swing.JFrame {
         jMenuBar1.add(mnuCloseSession);
 
         mnuPr.setText("Product");
-        mnuPr.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        mnuPr.setFont(new java.awt.Font("Noto Sans", 0, 20)); // NOI18N
 
-        mnuSeeProduct.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        mnuSeeProduct.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         mnuSeeProduct.setText("ver productos");
         mnuSeeProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,7 +108,7 @@ public class MDI extends javax.swing.JFrame {
         });
         mnuPr.add(mnuSeeProduct);
 
-        mnuSeeCategory.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        mnuSeeCategory.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         mnuSeeCategory.setText("categorias");
         mnuSeeCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,9 +120,9 @@ public class MDI extends javax.swing.JFrame {
         jMenuBar1.add(mnuPr);
 
         mnuEntAlm.setText("Entrada de productos");
-        mnuEntAlm.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        mnuEntAlm.setFont(new java.awt.Font("Noto Sans", 0, 20)); // NOI18N
 
-        mnuAddProductToInven.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        mnuAddProductToInven.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         mnuAddProductToInven.setText("añadir productos al almacén");
         mnuAddProductToInven.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,7 +131,7 @@ public class MDI extends javax.swing.JFrame {
         });
         mnuEntAlm.add(mnuAddProductToInven);
 
-        mnuWerehouseStock.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        mnuWerehouseStock.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         mnuWerehouseStock.setText("stock");
         mnuWerehouseStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,9 +143,9 @@ public class MDI extends javax.swing.JFrame {
         jMenuBar1.add(mnuEntAlm);
 
         mnuSalTien.setText("Salida de productos");
-        mnuSalTien.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        mnuSalTien.setFont(new java.awt.Font("Noto Sans", 0, 20)); // NOI18N
 
-        mnuOuputProductToInven.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        mnuOuputProductToInven.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         mnuOuputProductToInven.setText("registrar salida de almacén");
         mnuOuputProductToInven.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,7 +154,7 @@ public class MDI extends javax.swing.JFrame {
         });
         mnuSalTien.add(mnuOuputProductToInven);
 
-        mnuStoreStock.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        mnuStoreStock.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         mnuStoreStock.setText("stock");
         mnuStoreStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,9 +166,9 @@ public class MDI extends javax.swing.JFrame {
         jMenuBar1.add(mnuSalTien);
 
         mnuVent.setText("Ventas");
-        mnuVent.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        mnuVent.setFont(new java.awt.Font("Noto Sans", 0, 20)); // NOI18N
 
-        jMenuItem2.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        jMenuItem2.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jMenuItem2.setText("realizar venta");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,7 +177,7 @@ public class MDI extends javax.swing.JFrame {
         });
         mnuVent.add(jMenuItem2);
 
-        jMenuItem4.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        jMenuItem4.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jMenuItem4.setText("Stock");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,9 +189,9 @@ public class MDI extends javax.swing.JFrame {
         jMenuBar1.add(mnuVent);
 
         mnuTien.setText("Tiendas");
-        mnuTien.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        mnuTien.setFont(new java.awt.Font("Noto Sans", 0, 20)); // NOI18N
 
-        mnuStore.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        mnuStore.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         mnuStore.setText("ver tiendas");
         mnuStore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,9 +203,9 @@ public class MDI extends javax.swing.JFrame {
         jMenuBar1.add(mnuTien);
 
         mnuProvee.setText("Proveedores");
-        mnuProvee.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        mnuProvee.setFont(new java.awt.Font("Noto Sans", 0, 20)); // NOI18N
 
-        mnuSupplier.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        mnuSupplier.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         mnuSupplier.setText("ver proveedores");
         mnuSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,9 +217,9 @@ public class MDI extends javax.swing.JFrame {
         jMenuBar1.add(mnuProvee);
 
         mnuClient.setText("Clientes");
-        mnuClient.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        mnuClient.setFont(new java.awt.Font("Noto Sans", 0, 20)); // NOI18N
 
-        jMenuItem3.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        jMenuItem3.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jMenuItem3.setText("ver clientes");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,6 +228,7 @@ public class MDI extends javax.swing.JFrame {
         });
         mnuClient.add(jMenuItem3);
 
+        jMenuItem5.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jMenuItem5.setText("jMenuItem5");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,11 +245,15 @@ public class MDI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane)
+            .addGap(0, 1200, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jDesktopPane, javax.swing.GroupLayout.Alignment.TRAILING))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane)
+            .addGap(0, 687, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jDesktopPane))
         );
 
         pack();
@@ -385,6 +395,7 @@ public class MDI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem mnuAddProductToInven;
     public javax.swing.JMenu mnuClient;
     private javax.swing.JMenu mnuCloseSession;

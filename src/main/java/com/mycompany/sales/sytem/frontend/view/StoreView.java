@@ -35,26 +35,26 @@ public class StoreView extends javax.swing.JInternalFrame {
 
     public List<Store> listAll() throws Exception {
         StoreService service = RetrofitClient.createService(StoreService.class);
-        Call<List<Store>> call = service.getAll();
+        Call<List<Store>> call = service.findAll("");
         Response<List<Store>> response = call.execute();
         return response.body();
     }
 
     public void save(Store store) throws Exception {
         StoreService service = RetrofitClient.createService(StoreService.class);
-        Call<HttpStatus> call = service.save(store);
+        Call<HttpStatus> call = service.save("", store);
         call.execute();
     }
 
     public void update(Store store) throws Exception {
         StoreService service = RetrofitClient.createService(StoreService.class);
-        Call<HttpStatus> call = service.update(store);
+        Call<HttpStatus> call = service.update("", store);
         call.execute();
     }
 
     public void delete(int id) throws Exception {
         StoreService service = RetrofitClient.createService(StoreService.class);
-        Call<HttpStatus> call = service.delete(id);
+        Call<HttpStatus> call = service.delete("", id);
         call.execute();
     }
 
@@ -394,26 +394,31 @@ public class StoreView extends javax.swing.JInternalFrame {
                     .addContainerGap(176, Short.MAX_VALUE)))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalles", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 0, 18))); // NOI18N
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel6.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel6.setText("Id:");
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
+        jLabel11.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel11.setText("Nombre:");
         jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
         jPanel5.add(lblUsuario3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
         lblId.setEditable(false);
-        jPanel5.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 240, -1));
+        lblId.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel5.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 300, -1));
 
+        txtNombre.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
             }
         });
-        jPanel5.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 240, -1));
+        jPanel5.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 300, -1));
 
+        tbStore.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         tbStore.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -432,6 +437,7 @@ public class StoreView extends javax.swing.JInternalFrame {
         });
         jScrollPane5.setViewportView(tbStore);
 
+        btnDelete.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnDelete.setText("Eliminar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -439,6 +445,7 @@ public class StoreView extends javax.swing.JInternalFrame {
             }
         });
 
+        btnModify.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnModify.setText("Modificar");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -446,6 +453,7 @@ public class StoreView extends javax.swing.JInternalFrame {
             }
         });
 
+        btnAdd.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnAdd.setText("Agregar");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -453,6 +461,7 @@ public class StoreView extends javax.swing.JInternalFrame {
             }
         });
 
+        btnClear.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnClear.setText("Limpiar");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -466,19 +475,19 @@ public class StoreView extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
+                        .addGap(6, 6, 6)
                         .addComponent(btnAdd)
-                        .addGap(17, 17, 17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnModify)
-                        .addGap(18, 18, 18)
+                        .addGap(23, 23, 23)
                         .addComponent(btnClear)
-                        .addGap(10, 10, 10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDelete))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(jScrollPane5)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -487,14 +496,15 @@ public class StoreView extends javax.swing.JInternalFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAdd)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnClear)
-                        .addComponent(btnModify))
-                    .addComponent(btnDelete))
+                        .addComponent(btnModify)
+                        .addComponent(btnAdd))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnDelete)
+                        .addComponent(btnClear)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();

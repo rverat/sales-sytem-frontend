@@ -12,6 +12,8 @@ import com.mycompany.sales.sytem.frontend.model.Supplier;
 import com.mycompany.sales.sytem.frontend.restclient.ProductOutStoreService;
 import com.mycompany.sales.sytem.frontend.restclient.ProductService;
 import com.mycompany.sales.sytem.frontend.restclient.StoreService;
+import com.mycompany.sales.sytem.frontend.util.UtilSS;
+import com.mycompany.sales.sytem.frontend.util.UtilValidateImput;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -42,33 +44,34 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
 
     public List<ProductOutStore> listAll() throws Exception {
         ProductOutStoreService service = RetrofitClient.createService(ProductOutStoreService.class);
-        Call<List<ProductOutStore>> call = service.getAll();
+        Call<List<ProductOutStore>> call = service.findAll("");
         Response<List<ProductOutStore>> response = call.execute();
         return response.body();
     }
 
     public void save(ProductOutStore productOutStore) throws Exception {
         ProductOutStoreService service = RetrofitClient.createService(ProductOutStoreService.class);
-        Call<HttpStatus> call = service.save(productOutStore);
+        Call<HttpStatus> call = service.save("", productOutStore);
         call.execute();
     }
 
     public void update(ProductOutStore productOutStore) throws Exception {
         ProductOutStoreService service = RetrofitClient.createService(ProductOutStoreService.class);
-        Call<HttpStatus> call = service.update(productOutStore);
+        Call<HttpStatus> call = service.update("", productOutStore);
         call.execute();
     }
 
     public List<Product> listProduct() throws Exception {
         ProductService service = RetrofitClient.createService(ProductService.class);
-        Call<List<Product>> call = service.getAll();
+        String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYWNvIiwiZXhwIjoxNjg1NTkxMTQ1LCJpYXQiOjE2ODU1OTExNDV9.t1TGvTPMNPVAOTAfgucJrAjvwAx0bDlzJLvo51OMbqw";
+        Call<List<Product>> call = service.findAll("Bearer " + token);
         Response<List<Product>> response = call.execute();
         return response.body();
     }
 
     public List<Store> listStore() throws Exception {
         StoreService service = RetrofitClient.createService(StoreService.class);
-        Call<List<Store>> call = service.getAll();
+        Call<List<Store>> call = service.findAll("");
         Response<List<Store>> response = call.execute();
         return response.body();
     }
@@ -113,29 +116,38 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("Salida de Productos a Tienda");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalles", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 0, 18))); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel3.setText("Id:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
+        jLabel6.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel6.setText("Tienda:");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, -1, -1));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
 
+        jLabel7.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel7.setText("Producto:");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
         jPanel2.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
-        jPanel2.add(cboProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 250, -1));
+        cboProduct.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel2.add(cboProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 300, -1));
 
         lblId.setEditable(false);
-        jPanel2.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 190, -1));
+        lblId.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel2.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 300, -1));
 
+        jLabel8.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel8.setText("Cantidad:");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 70, -1));
-        jPanel2.add(spnQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 130, -1));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, 100, -1));
 
-        jPanel2.add(cboStore, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 250, -1));
+        spnQuantity.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel2.add(spnQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 80, 240, -1));
+
+        cboStore.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel2.add(cboStore, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 250, -1));
 
         tbProductOutStore.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -155,6 +167,7 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tbProductOutStore);
 
+        btnDelete.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnDelete.setText("Eliminar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,6 +175,7 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
             }
         });
 
+        btnModify.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnModify.setText("Modificar");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,6 +183,7 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
             }
         });
 
+        btnAdd.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnAdd.setText("Agregar");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,6 +191,7 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton1.setText("Limpiar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,12 +204,9 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
                         .addComponent(btnAdd)
                         .addGap(16, 16, 16)
                         .addComponent(btnModify)
@@ -201,26 +214,25 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
                         .addComponent(jButton1)
                         .addGap(29, 29, 29)
                         .addComponent(btnDelete))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAdd)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnModify)
                         .addComponent(jButton1)
                         .addComponent(btnDelete)))
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -273,6 +285,11 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
     }
 
     private void saveProductOutStore() {
+        
+        //Validations
+        UtilValidateImput.validateSelectedJCombobox(cboProduct, "producto");
+        UtilValidateImput.validateSelectedJCombobox(cboStore, "tienda");
+        UtilSS.isValidInteger(spnQuantity.getValue().toString(), "cantidad");
         try {
             ProductOutStore productOutStore = new ProductOutStore();
 
@@ -306,6 +323,12 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
     }
 
     private void updateProductOutStore() {
+        
+        //Validations
+        UtilValidateImput.validateSelectedJCombobox(cboProduct, "producto");
+        UtilValidateImput.validateSelectedJCombobox(cboStore, "tienda");
+        UtilSS.isValidInteger(spnQuantity.getValue().toString(), "cantidad");
+        
         try {
 
             ProductOutStore productOutStore = new ProductOutStore();

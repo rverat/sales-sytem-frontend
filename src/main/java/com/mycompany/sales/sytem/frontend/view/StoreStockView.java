@@ -34,7 +34,7 @@ private TableRowSorter trsFiltro;
 
     public List<StoreStock> listAll() throws Exception {
         StoreStockService service = RetrofitClient.createService(StoreStockService.class);
-        Call<List<StoreStock>> call = service.getAll();
+        Call<List<StoreStock>> call = service.findAll("");
         Response<List<StoreStock>> response = call.execute();
         return response.body();
     }
@@ -83,10 +83,10 @@ private TableRowSorter trsFiltro;
         });
         jScrollPane5.setViewportView(tbStoreStock);
 
-        jLabel4.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jLabel4.setText("Buscar:");
 
-        btnRefresh.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        btnRefresh.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         btnRefresh.setText("Refrescar Stock");
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,7 +94,7 @@ private TableRowSorter trsFiltro;
             }
         });
 
-        txtSearch.setFont(new java.awt.Font("Noto Sans", 0, 15)); // NOI18N
+        txtSearch.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         txtSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSearchActionPerformed(evt);
@@ -131,9 +131,9 @@ private TableRowSorter trsFiltro;
                     .addComponent(btnRefresh)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
 
         pack();

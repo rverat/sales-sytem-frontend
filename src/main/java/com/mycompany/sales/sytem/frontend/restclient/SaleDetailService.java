@@ -13,6 +13,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -24,18 +25,18 @@ import retrofit2.http.Path;
 public interface SaleDetailService {
 
     @GET("/sale-detail")
-    Call<List<SaleDetail>> getAll();
+    Call<List<SaleDetail>> findAll(@Header("Authorization") String token);
 
     @GET("/sale-detail/{saleId}")
-    Call<List<SaleDetail>> getSaleDetails(@Path("saleId") int saleId);
+    Call<List<SaleDetail>> getSaleDetails(@Header("Authorization") String token, @Path("saleId") int saleId);
     
     @POST("/sale-detail")
-    Call<HttpStatus> save(@Body SaleDetail saleDetail);
+    Call<HttpStatus> save(@Header("Authorization") String token, @Body SaleDetail saleDetail);
     
     @PATCH("/sale-detail")
-    Call<HttpStatus> update(@Body SaleDetail saleDetail);
+    Call<HttpStatus> update(@Header("Authorization") String token, @Body SaleDetail saleDetail);
     
     @DELETE("/sale-detail/{id}")
-    Call<HttpStatus> delete(@Path("id") int id);
+    Call<HttpStatus> delete(@Header("Authorization") String token, @Path("id") int id);
 
 }

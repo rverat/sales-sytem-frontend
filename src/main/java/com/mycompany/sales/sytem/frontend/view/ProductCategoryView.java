@@ -7,6 +7,7 @@ package com.mycompany.sales.sytem.frontend.view;
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
 import com.mycompany.sales.sytem.frontend.model.ProductCategory;
 import com.mycompany.sales.sytem.frontend.restclient.ProductCategoryService;
+import com.mycompany.sales.sytem.frontend.util.UtilValidateImput;
 import java.awt.HeadlessException;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -32,26 +33,26 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
 
     public List<ProductCategory> listAll() throws Exception {
         ProductCategoryService categoryService = RetrofitClient.createService(ProductCategoryService.class);
-        Call<List<ProductCategory>> call = categoryService.getAll();
+        Call<List<ProductCategory>> call = categoryService.findAll("");
         Response<List<ProductCategory>> response = call.execute();
         return response.body();
     }
 
     public void save(ProductCategory productCategory) throws Exception {
         ProductCategoryService categoryService = RetrofitClient.createService(ProductCategoryService.class);
-        Call<HttpStatus> call = categoryService.save(productCategory);
+        Call<HttpStatus> call = categoryService.save("", productCategory);
         call.execute();
     }
 
     public void update(ProductCategory productCategory) throws Exception {
         ProductCategoryService categoryService = RetrofitClient.createService(ProductCategoryService.class);
-        Call<HttpStatus> call = categoryService.save(productCategory);
+        Call<HttpStatus> call = categoryService.save("", productCategory);
         call.execute();
     }
 
     public void delete(int id) throws Exception {
         ProductCategoryService categoryService = RetrofitClient.createService(ProductCategoryService.class);
-        Call<HttpStatus> call = categoryService.delete(id);
+        Call<HttpStatus> call = categoryService.delete("", id);
         call.execute();
     }
 
@@ -78,25 +79,25 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
         pnlDetail.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
         pnlDetail.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtNombre.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
-        pnlDetail.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 240, -1));
+        txtNombre.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        pnlDetail.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 300, -1));
 
-        lblUsuario.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        lblUsuario.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         pnlDetail.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
         lblId.setEditable(false);
-        lblId.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
-        pnlDetail.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 240, -1));
+        lblId.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        pnlDetail.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 300, -1));
 
-        jLabel1.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jLabel1.setText("Id:");
         pnlDetail.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jLabel2.setText("Nombre:");
         pnlDetail.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
-        tbProductCategory.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        tbProductCategory.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         tbProductCategory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -115,7 +116,7 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tbProductCategory);
 
-        btnDelete.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        btnDelete.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         btnDelete.setText("Eliminar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,7 +124,7 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
             }
         });
 
-        btnModify.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        btnModify.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         btnModify.setText("Modificar");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,7 +132,7 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
             }
         });
 
-        btnAdd.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        btnAdd.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         btnAdd.setText("Agregar");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,7 +140,7 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jButton1.setText("Limpiar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,21 +154,18 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAdd)
                         .addGap(10, 10, 10)
                         .addComponent(btnModify)
                         .addGap(18, 18, 18)
                         .addComponent(btnDelete)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
-                .addContainerGap(19, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pnlDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,7 +181,7 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
                         .addComponent(jButton1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -236,6 +234,9 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
     }
 
     private void saveProductCategory() throws HeadlessException {
+
+        UtilValidateImput.validateString(txtNombre.getText(), "nombre");
+
         try {
 
             ProductCategory productCategory = new ProductCategory();
@@ -255,6 +256,9 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
     }
 
     private void updateProductCategory() throws HeadlessException {
+
+        UtilValidateImput.validateString(txtNombre.getText(), "nombre");
+
         try {
 
             ProductCategory productCategory = new ProductCategory();

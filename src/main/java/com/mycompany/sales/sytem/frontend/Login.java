@@ -5,12 +5,23 @@
  */
 package com.mycompany.sales.sytem.frontend;
 
+import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
+import com.mycompany.sales.sytem.frontend.model.Store;
+import com.mycompany.sales.sytem.frontend.model.UserSystem;
+import com.mycompany.sales.sytem.frontend.restclient.StoreService;
+import com.mycompany.sales.sytem.frontend.restclient.UserService;
 import com.mycompany.sales.sytem.frontend.view.MDI;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.springframework.http.HttpStatus;
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  *
@@ -28,26 +39,72 @@ public class Login extends javax.swing.JFrame {
         txtNombre.requestFocus();
     }
 
+    public List<UserSystem> listAll() throws Exception {
+        UserService service = RetrofitClient.createService(UserService.class);
+        Call<List<UserSystem>> call = service.findAll("");
+        Response<List<UserSystem>> response = call.execute();
+        return response.body();
+    }
+
+    public UserSystem login(UserSystem userSystem) throws Exception {
+        UserService service = RetrofitClient.createService(UserService.class);
+        Call<UserSystem> call = service.login(userSystem);
+        Response<UserSystem> response = call.execute();
+        
+        int codeHttp = response.code();
+
+        if (HttpStatus.valueOf(codeHttp) == HttpStatus.NOT_FOUND) {
+
+            JOptionPane.showMessageDialog(null, "Usuario o password incorrecto");
+            throw new Exception("Usuario o password incorrecto");
+        }
+
+        return response.body();
+    }
+
+    public void logout(UserSystem userSystem) throws Exception {
+        UserService service = RetrofitClient.createService(UserService.class);
+        Call<HttpStatus> call = service.logout("");
+        call.execute();
+    }
+
+    public void save(UserSystem userSystem) throws Exception {
+        UserService service = RetrofitClient.createService(UserService.class);
+        Call<HttpStatus> call = service.save("", userSystem);
+        call.execute();
+    }
+
+    public void update(UserSystem userSystem) throws Exception {
+        UserService service = RetrofitClient.createService(UserService.class);
+        Call<HttpStatus> call = service.update("", userSystem);
+        call.execute();
+    }
+
+    public void delete(int id) throws Exception {
+        UserService service = RetrofitClient.createService(UserService.class);
+        Call<HttpStatus> call = service.delete("", id);
+        call.execute();
+    }
+
     public char[] getPassword() {
         return this.txtContrasena.getPassword();
     }
 
-    private void iniciarSesion() {
+    private void login() throws Exception {
+        
+        UserSystem userSystem = new UserSystem();
+        userSystem.setUserName(txtNombre.getText());
+        userSystem.setUserPassword(String.valueOf(txtContrasena.getPassword()));
 
         try {
-            List<User> userList = new ArrayList<>();
+            UserSystem systemDB  = login(userSystem);
+            
+            //save token in cache         
+            String token = systemDB.getToken();
+            
+            
 
-            String user = txtNombre.getText();
-            String password = String.valueOf(txtContrasena.getPassword());
-
-            // Agregar algunos usuarios a la lista
-            userList.add(new User("joAlvares", "JoeAdmin123", "admin"));
-            userList.add(new User("JOEglass", "joeglass2023", "user"));
-
-            if (user.equals(userList.get(1).getName()) && password.equals(userList.get(1).getPassword())) {
-                
-                
-                
+            if (systemDB.getTypeUser().equals("Staff")) {
 
                 MDI mdi = new MDI();
                 mdi.setVisible(true);
@@ -60,19 +117,17 @@ public class Login extends javax.swing.JFrame {
                 mdi.mnuTien.setEnabled(false);
                 mdi.mnuProvee.setEnabled(false);
 
-            } else if (user.equals(userList.get(0).getName()) && password.equals(userList.get(0).getPassword())) {
+            } else if (systemDB.getTypeUser().equals("Admin")) {
 
                 MDI mdi = new MDI();
                 mdi.setVisible(true);
                 this.setVisible(false);
 
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuario Incorrecto");
             }
 
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, e);
-            JOptionPane.showMessageDialog(null, "Error en iniciar sesion");
+            JOptionPane.showMessageDialog(null, "Ocurrio un error al iniciar sesion");
         }
 
     }
@@ -88,23 +143,28 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Iniciar Sesión", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Iniciar Sesión", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 18))); // NOI18N
+        jPanel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
 
         jButton1.setBackground(new java.awt.Color(0, 153, 102));
-        jButton1.setText("Acceder");
+        jButton1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
+        txtNombre.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombreKeyTyped(evt);
             }
         });
 
+        txtContrasena.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         txtContrasena.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtContrasenaKeyReleased(evt);
@@ -114,73 +174,72 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel1.setText("Usuario:");
 
+        jLabel2.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel2.setText("Contraseña:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(11, 11, 11)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                    .addComponent(txtContrasena))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                            .addComponent(txtNombre))))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(61, 61, 61))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(52, 52, 52)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(31, 31, 31)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(64, 64, 64)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        iniciarSesion();
+        try {
+            login();
+        } catch (Exception ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtContrasenaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContrasenaKeyTyped
@@ -199,7 +258,11 @@ public class Login extends javax.swing.JFrame {
             } else if ("".equals(txtContrasena.getText())) {
                 txtContrasena.requestFocus();
             } else {
-                iniciarSesion();
+                try {
+                    login();
+                } catch (Exception ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
         }

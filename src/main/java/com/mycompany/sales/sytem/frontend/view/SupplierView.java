@@ -7,6 +7,8 @@ package com.mycompany.sales.sytem.frontend.view;
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
 import com.mycompany.sales.sytem.frontend.model.Supplier;
 import com.mycompany.sales.sytem.frontend.restclient.SupplierService;
+import com.mycompany.sales.sytem.frontend.util.UtilSS;
+import com.mycompany.sales.sytem.frontend.util.UtilValidateImput;
 import java.awt.HeadlessException;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -35,26 +37,26 @@ public class SupplierView extends javax.swing.JInternalFrame {
 
     public List<Supplier> listAll() throws Exception {
         SupplierService service = RetrofitClient.createService(SupplierService.class);
-        Call<List<Supplier>> call = service.getAll();
+        Call<List<Supplier>> call = service.findAll("");
         Response<List<Supplier>> response = call.execute();
         return response.body();
     }
 
     public void save(Supplier supplier) throws Exception {
         SupplierService service = RetrofitClient.createService(SupplierService.class);
-        Call<HttpStatus> call = service.save(supplier);
+        Call<HttpStatus> call = service.save("", supplier);
         call.execute();
     }
 
     public void update(Supplier supplier) throws Exception {
         SupplierService service = RetrofitClient.createService(SupplierService.class);
-        Call<HttpStatus> call = service.update(supplier);
+        Call<HttpStatus> call = service.update("", supplier);
         call.execute();
     }
 
     public void delete(int id) throws Exception {
         SupplierService service = RetrofitClient.createService(SupplierService.class);
-        Call<HttpStatus> call = service.delete(id);
+        Call<HttpStatus> call = service.delete("", id);
         call.execute();
     }
 
@@ -80,6 +82,7 @@ public class SupplierView extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("Proveedor");
 
+        btnAdd.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnAdd.setText("Agregar");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,6 +90,7 @@ public class SupplierView extends javax.swing.JInternalFrame {
             }
         });
 
+        btnModify.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnModify.setText("Modificar");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,6 +98,7 @@ public class SupplierView extends javax.swing.JInternalFrame {
             }
         });
 
+        btnDelete.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnDelete.setText("Eliminar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,6 +106,7 @@ public class SupplierView extends javax.swing.JInternalFrame {
             }
         });
 
+        tbSupplier.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         tbSupplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -119,6 +125,7 @@ public class SupplierView extends javax.swing.JInternalFrame {
         });
         jScrollPane5.setViewportView(tbSupplier);
 
+        btnLimpiar.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,53 +136,67 @@ public class SupplierView extends javax.swing.JInternalFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel7.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel7.setText("Id:");
         jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
+        jLabel12.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel12.setText("PhoneNumber:");
         jPanel6.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
+        jLabel13.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel13.setText("Nombre:");
         jPanel6.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
         jPanel6.add(lblUsuario4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
         lblId.setEditable(false);
-        jPanel6.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 190, -1));
-        jPanel6.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 240, -1));
-        jPanel6.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 240, -1));
+        lblId.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel6.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 300, -1));
+
+        txtNombre.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel6.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 300, -1));
+
+        txtTelefono.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel6.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 300, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 10, Short.MAX_VALUE)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(58, 58, 58)
                 .addComponent(btnAdd)
                 .addGap(16, 16, 16)
                 .addComponent(btnModify)
                 .addGap(19, 19, 19)
                 .addComponent(btnDelete)
                 .addGap(16, 16, 16)
-                .addComponent(btnLimpiar))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnLimpiar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAdd)
                     .addComponent(btnModify)
                     .addComponent(btnDelete)
                     .addComponent(btnLimpiar))
-                .addGap(21, 21, 21)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58))
         );
 
         pack();
@@ -227,6 +248,11 @@ public class SupplierView extends javax.swing.JInternalFrame {
     }
 
     private void saveSupplier() throws HeadlessException {
+
+        //Validations
+        UtilValidateImput.validateString(txtNombre.getText(), "nombre");
+        UtilSS.isValidInteger(txtTelefono.getText(), "telefono");
+
         try {
 
             Supplier supplier = new Supplier();
@@ -247,6 +273,11 @@ public class SupplierView extends javax.swing.JInternalFrame {
     }
 
     private void updateSupplier() throws HeadlessException {
+
+        //Validations
+        UtilValidateImput.validateString(txtNombre.getText(), "nombre");
+        UtilSS.isValidInteger(txtTelefono.getText(), "telefono");
+
         try {
 
             Supplier supplier = new Supplier();

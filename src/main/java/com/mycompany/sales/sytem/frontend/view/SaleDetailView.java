@@ -32,26 +32,26 @@ public class SaleDetailView extends javax.swing.JInternalFrame {
 
     public List<SaleDetail> listAll() throws Exception {
         SaleDetailService service = RetrofitClient.createService(SaleDetailService.class);
-        Call<List<SaleDetail>> call = service.getAll();
+        Call<List<SaleDetail>> call = service.findAll("");
         Response<List<SaleDetail>> response = call.execute();
         return response.body();
     }
 
     public void save(SaleDetail saleDetail) throws Exception {
         SaleDetailService service = RetrofitClient.createService(SaleDetailService.class);
-        Call<HttpStatus> call = service.save(saleDetail);
+        Call<HttpStatus> call = service.save("", saleDetail);
         call.execute();
     }
 
     public void update(SaleDetail saleDetail) throws Exception {
         SaleDetailService service = RetrofitClient.createService(SaleDetailService.class);
-        Call<HttpStatus> call = service.update(saleDetail);
+        Call<HttpStatus> call = service.update("", saleDetail);
         call.execute();
     }
 
     public void delete(int id) throws Exception {
         SaleDetailService service = RetrofitClient.createService(SaleDetailService.class);
-        Call<HttpStatus> call = service.delete(id);
+        Call<HttpStatus> call = service.delete("", id);
         call.execute();
     }
 
@@ -80,33 +80,47 @@ public class SaleDetailView extends javax.swing.JInternalFrame {
 
         setTitle("Detalle de la Venta");
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalles", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 0, 18))); // NOI18N
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel6.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel6.setText("Id:");
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
+        jLabel10.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel10.setText("RUC:");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
+        jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel1.setText("Numero de telefono:");
-        jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, 140, -1));
+        jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 190, -1));
 
+        jLabel11.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel11.setText("Nombre:");
         jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
         jPanel5.add(lblUsuario3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
+        jLabel2.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel2.setText("Descripción:");
-        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, -1, -1));
+        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 80, -1, -1));
 
         lblId.setEditable(false);
+        lblId.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jPanel5.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 240, -1));
-        jPanel5.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 240, -1));
+
+        txtNombre.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel5.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 240, -1));
+
+        txtRUC.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jPanel5.add(txtRUC, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 240, -1));
 
-        jPanel5.add(cboC, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, 270, -1));
-        jPanel5.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 178, 30));
+        cboC.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel5.add(cboC, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 30, 300, -1));
 
+        jSpinner1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel5.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 300, 30));
+
+        btnAdd.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnAdd.setText("Agregar");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,6 +128,7 @@ public class SaleDetailView extends javax.swing.JInternalFrame {
             }
         });
 
+        btnModify.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnModify.setText("Modificar");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +136,7 @@ public class SaleDetailView extends javax.swing.JInternalFrame {
             }
         });
 
+        btnDelete.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnDelete.setText("Eliminar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,9 +144,10 @@ public class SaleDetailView extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton1.setText("Limpiar");
 
-        tbSupplier.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        tbSupplier.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         tbSupplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -154,34 +171,34 @@ public class SaleDetailView extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 828, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(btnAdd)
-                .addGap(16, 16, 16)
-                .addComponent(btnModify)
-                .addGap(19, 19, 19)
-                .addComponent(btnDelete)
-                .addGap(16, 16, 16)
-                .addComponent(jButton1))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 832, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAdd)
+                        .addGap(16, 16, 16)
+                        .addComponent(btnModify)
+                        .addGap(19, 19, 19)
+                        .addComponent(btnDelete)
+                        .addGap(16, 16, 16)
+                        .addComponent(jButton1))
+                    .addComponent(jScrollPane5)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 917, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAdd)
                     .addComponent(btnModify)
                     .addComponent(btnDelete)
                     .addComponent(jButton1))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();

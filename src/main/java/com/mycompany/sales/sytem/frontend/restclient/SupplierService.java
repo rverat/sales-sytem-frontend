@@ -4,16 +4,14 @@
  */
 package com.mycompany.sales.sytem.frontend.restclient;
 
-import com.mycompany.sales.sytem.frontend.model.Customer;
-import com.mycompany.sales.sytem.frontend.model.ProductCategory;
 import com.mycompany.sales.sytem.frontend.model.Supplier;
-import com.mycompany.sales.sytem.frontend.view.SupplierView;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -25,15 +23,15 @@ import retrofit2.http.Path;
 public interface SupplierService {
 
     @GET("/supplier")
-    Call<List<Supplier>> getAll();
+    Call<List<Supplier>> findAll(@Header("Authorization") String token);
     
     @POST("/supplier")
-    Call<HttpStatus> save(@Body Supplier supplier);
+    Call<HttpStatus> save(@Header("Authorization") String token, @Body Supplier supplier);
     
     @PATCH("/supplier")
-    Call<HttpStatus> update(@Body Supplier supplier);
+    Call<HttpStatus> update(@Header("Authorization") String token, @Body Supplier supplier);
     
     @DELETE("/supplier/{id}")
-    Call<HttpStatus> delete(@Path("id") int id);
+    Call<HttpStatus> delete(@Header("Authorization") String token, @Path("id") int id);
 
 }

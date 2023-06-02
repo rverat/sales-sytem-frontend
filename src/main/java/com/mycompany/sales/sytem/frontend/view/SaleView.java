@@ -49,66 +49,67 @@ public class SaleView extends javax.swing.JInternalFrame {
 
     public List<Sale> listAll() throws Exception {
         SaleService service = RetrofitClient.createService(SaleService.class);
-        Call<List<Sale>> call = service.getAll();
+        Call<List<Sale>> call = service.findAll("");
         Response<List<Sale>> response = call.execute();
         return response.body();
     }
 
     public void save(List<SaleDetail> saleDetail) throws Exception {
         SaleService service = RetrofitClient.createService(SaleService.class);
-        Call<HttpStatus> call = service.save(saleDetail);
+        Call<HttpStatus> call = service.save("",saleDetail);
         call.execute();
     }
 
     public void update(Sale sale) throws Exception {
         SaleService service = RetrofitClient.createService(SaleService.class);
-        Call<HttpStatus> call = service.update(sale);
+        Call<HttpStatus> call = service.update("", sale);
         call.execute();
     }
 
     public void delete(int id) throws Exception {
         SaleService service = RetrofitClient.createService(SaleService.class);
-        Call<HttpStatus> call = service.delete(id);
+        Call<HttpStatus> call = service.delete("", id);
         call.execute();
     }
 
     public void saveSaleDetail(SaleDetail saleDetail) throws Exception {
         SaleDetailService service = RetrofitClient.createService(SaleDetailService.class);
-        Call<HttpStatus> call = service.save(saleDetail);
+        Call<HttpStatus> call = service.save("", saleDetail);
         call.execute();
     }
 
     public void updateSaleDetail(SaleDetail saleDetail) throws Exception {
         SaleDetailService service = RetrofitClient.createService(SaleDetailService.class);
-        Call<HttpStatus> call = service.update(saleDetail);
+        Call<HttpStatus> call = service.update("", saleDetail);
         call.execute();
     }
 
     //others service
     public List<Customer> listCustomers() throws Exception {
         CustomerService service = RetrofitClient.createService(CustomerService.class);
-        Call<List<Customer>> call = service.getAll();
+        Call<List<Customer>> call = service.findAll("");
         Response<List<Customer>> response = call.execute();
         return response.body();
     }
 
     public List<Store> listStores() throws Exception {
         StoreService service = RetrofitClient.createService(StoreService.class);
-        Call<List<Store>> call = service.getAll();
+        Call<List<Store>> call = service.findAll("");
         Response<List<Store>> response = call.execute();
         return response.body();
     }
 
     public List<Product> listProducts() throws Exception {
         ProductService service = RetrofitClient.createService(ProductService.class);
-        Call<List<Product>> call = service.getAll();
+        String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYWNvIiwiZXhwIjoxNjg1NTkxMTQ1LCJpYXQiOjE2ODU1OTExNDV9.t1TGvTPMNPVAOTAfgucJrAjvwAx0bDlzJLvo51OMbqw";
+        Call<List<Product>> call = service.findAll("Bearer " + token);
         Response<List<Product>> response = call.execute();
         return response.body();
     }
 
     public StoreStock findByProductIdAndStoreId(int productId, int storeId) throws Exception {
         StoreStockService service = RetrofitClient.createService(StoreStockService.class);
-        Call<StoreStock> call = service.findByProductIdAndStoreId(productId, storeId);
+        Call<StoreStock> call = service.findByProductIdAndStoreId("", productId, storeId);
         Response<StoreStock> response = call.execute();
 
         int codeHttp = response.code();
@@ -125,7 +126,7 @@ public class SaleView extends javax.swing.JInternalFrame {
 
     public List<SaleDetail> getSaleDetails(int saleId) throws Exception {
         SaleDetailService service = RetrofitClient.createService(SaleDetailService.class);
-        Call<List<SaleDetail>> call = service.getSaleDetails(saleId);
+        Call<List<SaleDetail>> call = service.getSaleDetails("", saleId);
         Response<List<SaleDetail>> response = call.execute();
 
 
@@ -193,32 +194,35 @@ public class SaleView extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Ventas");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jLabel6.setText("Id:");
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jLabel10.setText("Tienda:");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jLabel11.setText("Cliente:");
         jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
         jPanel5.add(lblUsuario3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
         lblId.setEditable(false);
-        lblId.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        lblId.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jPanel5.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 190, -1));
 
-        cboStore.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
-        jPanel5.add(cboStore, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 20, 230, -1));
+        cboStore.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        jPanel5.add(cboStore, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 20, 230, -1));
 
-        cboCustomer.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
-        jPanel5.add(cboCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 260, -1));
+        cboCustomer.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        jPanel5.add(cboCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 260, -1));
+
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 17, 1070, 72));
 
         btnAddSale.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         btnAddSale.setText("Ejecutar Venta");
@@ -227,26 +231,27 @@ public class SaleView extends javax.swing.JInternalFrame {
                 btnAddSaleActionPerformed(evt);
             }
         });
+        getContentPane().add(btnAddSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, -1, -1));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle de los productos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Noto Sans", 1, 14))); // NOI18N
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel13.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jLabel13.setText("Producto:");
         jPanel6.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
         jPanel6.add(lblUsuario4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
-        cboProducts.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
-        jPanel6.add(cboProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 260, -1));
+        cboProducts.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        jPanel6.add(cboProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 260, -1));
 
-        btnDeleteProduct.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        btnDeleteProduct.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         btnDeleteProduct.setText("Quitar producto de la venta");
         btnDeleteProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteProductActionPerformed(evt);
             }
         });
-        jPanel6.add(btnDeleteProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, -1, -1));
+        jPanel6.add(btnDeleteProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, -1, -1));
 
         tbSaleDetail.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         tbSaleDetail.setModel(new javax.swing.table.DefaultTableModel(
@@ -269,21 +274,24 @@ public class SaleView extends javax.swing.JInternalFrame {
 
         jPanel6.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 1020, 140));
 
-        spnQuantity.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
-        jPanel6.add(spnQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, 120, -1));
+        spnQuantity.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        jPanel6.add(spnQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, 120, -1));
 
-        jLabel15.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jLabel15.setText("Cantidad:");
-        jPanel6.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, -1, -1));
+        jPanel6.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
 
-        btnAddProduct.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        btnAddProduct.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         btnAddProduct.setText("Agregar producto a la compra");
         btnAddProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddProductActionPerformed(evt);
             }
         });
-        jPanel6.add(btnAddProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+        jPanel6.add(btnAddProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, -1));
+
+        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 101, 1075, 295));
+        jPanel6.getAccessibleContext().setAccessibleName("Detalles del producto");
 
         tbSale.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         tbSale.setModel(new javax.swing.table.DefaultTableModel(
@@ -308,6 +316,8 @@ public class SaleView extends javax.swing.JInternalFrame {
             tbSale.getColumnModel().getColumn(7).setHeaderValue("Title 8");
         }
 
+        getContentPane().add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 478, 1166, 220));
+
         jButton1.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jButton1.setText("Nueva Venta");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -315,47 +325,7 @@ public class SaleView extends javax.swing.JInternalFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 1075, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(btnAddSale)
-                        .addGap(73, 73, 73)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(114, 114, 114)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 980, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 1166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(btnAddSale))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
-        );
-
-        jPanel6.getAccessibleContext().setAccessibleName("Detalles del producto");
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -476,7 +446,7 @@ public class SaleView extends javax.swing.JInternalFrame {
                 store.setId(storeId);
 
                 sale.setId(0);
-                sale.setUserSystem(new UserSystem(2, "", "", "", ""));
+                sale.setUserSystem(new UserSystem(2, "", "", "", "", "", ""));
                 sale.setCustomer(customer);
                 sale.setStore(store);
 
@@ -551,10 +521,17 @@ public class SaleView extends javax.swing.JInternalFrame {
 
     private void addOrDeleteProducts(int action) throws Exception {
         int quantity = (int) spnQuantity.getValue();
+        
+        if(quantity <= 0){
+            JOptionPane.showMessageDialog(null, "Seleccione una cantidad valida");
+            throw new Exception("Cantidad ingresada es incorrecta");
+        }
+        
         //BigDecimal discount = BigDecimal.valueOf(Integer.parseInt(spnDiscountPdt.getValue().toString()));
 
         String selectedItem = (String) cboProducts.getSelectedItem();
         int productId = Integer.parseInt(selectedItem.substring(0, selectedItem.indexOf(",")));
+        String productName = selectedItem.substring(selectedItem.indexOf(",") + 2);
 
         //Valida el stock
         String selectedItemS = (String) cboStore.getSelectedItem();
@@ -573,6 +550,7 @@ public class SaleView extends javax.swing.JInternalFrame {
         Sale sale = new Sale();
         Product product = new Product();
         product.setId(productId);
+        product.setName(" " + productName);
 
         SaleDetail saleDetail = new SaleDetail();
 
@@ -679,7 +657,7 @@ public class SaleView extends javax.swing.JInternalFrame {
                 store.setId(storeId);
 
                 sale.setId(0);
-                sale.setUserSystem(new UserSystem(2, "", "", "", ""));
+                sale.setUserSystem(new UserSystem(2, "", "", "", "", "", ""));
                 sale.setCustomer(customer);
                 sale.setStore(store);
 

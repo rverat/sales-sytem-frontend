@@ -14,6 +14,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -26,20 +27,21 @@ import retrofit2.http.Query;
 public interface StoreStockService {
 
     @GET("/store-stock")
-    Call<List<StoreStock>> getAll();
+    Call<List<StoreStock>> findAll(@Header("Authorization") String token);
 
     @POST("/store-stock")
-    Call<HttpStatus> save(@Body StoreStock storeStock);
+    Call<HttpStatus> save(@Header("Authorization") String token, @Body StoreStock storeStock);
 
     @POST("/store-stock/stock")
     Call<StoreStock> findByProductIdAndStoreId(
+            @Header("Authorization") String token, 
             @Query("productId") int productId,
             @Query("storeId") int storeId);
 
     @PATCH("/store-stock")
-    Call<HttpStatus> update(@Body StoreStock storeStock);
+    Call<HttpStatus> update(@Header("Authorization") String token, @Body StoreStock storeStock);
 
     @DELETE("/store-stock/{id}")
-    Call<HttpStatus> delete(@Path("id") int id);
+    Call<HttpStatus> delete(@Header("Authorization") String token, @Path("id") int id);
 
 }

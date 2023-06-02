@@ -12,6 +12,8 @@ import com.mycompany.sales.sytem.frontend.model.UserSystem;
 import com.mycompany.sales.sytem.frontend.restclient.ProductEntryWarehouseService;
 import com.mycompany.sales.sytem.frontend.restclient.ProductService;
 import com.mycompany.sales.sytem.frontend.restclient.SupplierService;
+import com.mycompany.sales.sytem.frontend.util.UtilSS;
+import com.mycompany.sales.sytem.frontend.util.UtilValidateImput;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -42,39 +44,40 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
 
     public List<ProductEntryWarehouse> listAll() throws Exception {
         ProductEntryWarehouseService service = RetrofitClient.createService(ProductEntryWarehouseService.class);
-        Call<List<ProductEntryWarehouse>> call = service.getAll();
+        Call<List<ProductEntryWarehouse>> call = service.findAll("");
         Response<List<ProductEntryWarehouse>> response = call.execute();
         return response.body();
     }
 
     public void save(ProductEntryWarehouse productEntryWarehouse) throws Exception {
         ProductEntryWarehouseService service = RetrofitClient.createService(ProductEntryWarehouseService.class);
-        Call<HttpStatus> call = service.save(productEntryWarehouse);
+        Call<HttpStatus> call = service.save("", productEntryWarehouse);
         call.execute();
     }
 
     public void update(ProductEntryWarehouse productEntryWarehouse) throws Exception {
         ProductEntryWarehouseService service = RetrofitClient.createService(ProductEntryWarehouseService.class);
-        Call<HttpStatus> call = service.update(productEntryWarehouse);
+        Call<HttpStatus> call = service.update("", productEntryWarehouse);
         call.execute();
     }
 
     public void delete(int id) throws Exception {
         ProductEntryWarehouseService service = RetrofitClient.createService(ProductEntryWarehouseService.class);
-        Call<HttpStatus> call = service.delete(id);
+        Call<HttpStatus> call = service.delete("", id);
         call.execute();
     }
 
     public List<Product> listProduct() throws Exception {
         ProductService service = RetrofitClient.createService(ProductService.class);
-        Call<List<Product>> call = service.getAll();
+        String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYWNvIiwiZXhwIjoxNjg1NTkxMTQ1LCJpYXQiOjE2ODU1OTExNDV9.t1TGvTPMNPVAOTAfgucJrAjvwAx0bDlzJLvo51OMbqw";
+        Call<List<Product>> call = service.findAll("Bearer " + token);
         Response<List<Product>> response = call.execute();
         return response.body();
     }
 
     public List<Supplier> listSuppler() throws Exception {
         SupplierService service = RetrofitClient.createService(SupplierService.class);
-        Call<List<Supplier>> call = service.getAll();
+        Call<List<Supplier>> call = service.findAll("");
         Response<List<Supplier>> response = call.execute();
         return response.body();
     }
@@ -119,30 +122,40 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("Entrada de productos al almacen");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalles", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 0, 18))); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel3.setText("Id:");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
-        jLabel6.setText("proveedor");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, -1, -1));
+        jLabel6.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel6.setText("Proveedor:");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 80, -1, -1));
 
+        jLabel7.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel7.setText("Producto:");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
         jPanel2.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 120, 20));
 
-        jPanel2.add(cboProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 240, -1));
+        cboProduct.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel2.add(cboProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 300, -1));
 
         lblId.setEditable(false);
-        jPanel2.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 240, -1));
+        lblId.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel2.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 300, -1));
 
+        jLabel8.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel8.setText("Cantidad:");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 70, -1));
-        jPanel2.add(spnQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, 150, -1));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, 100, -1));
 
-        jPanel2.add(cboSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 270, -1));
+        spnQuantity.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel2.add(spnQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, 300, -1));
 
+        cboSupplier.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jPanel2.add(cboSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 90, 300, -1));
+
+        tbProductEntryWarehouse.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         tbProductEntryWarehouse.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -161,6 +174,7 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tbProductEntryWarehouse);
 
+        btnDelete.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnDelete.setText("Eliminar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,6 +182,7 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
             }
         });
 
+        btnModify.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnModify.setText("Modificar");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,6 +190,7 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
             }
         });
 
+        btnAdd.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         btnAdd.setText("Agregar");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,6 +198,7 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButton1.setText("Limpiar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,37 +211,37 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 890, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(6, 6, 6)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 914, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(56, 56, 56)
-                            .addComponent(btnAdd)
-                            .addGap(16, 16, 16)
-                            .addComponent(btnModify)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnDelete)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButton1))))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(btnAdd)
+                        .addGap(16, 16, 16)
+                        .addComponent(btnModify)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAdd)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnModify)
                         .addComponent(btnDelete)
                         .addComponent(jButton1)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -280,6 +297,12 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
     }
 
     private void saveProductEntryWarehouse() {
+
+        //Validations
+        UtilValidateImput.validateSelectedJCombobox(cboProduct, "producto");
+        UtilValidateImput.validateSelectedJCombobox(cboSupplier, "proveedor");
+        UtilSS.isValidInteger(spnQuantity.getValue().toString(), "cantidad");
+
         try {
 
             ProductEntryWarehouse productEntryWarehouse = new ProductEntryWarehouse();
@@ -289,16 +312,15 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
 
             String selectedItemS = (String) cboSupplier.getSelectedItem();
             String supplierId = selectedItemS.substring(0, selectedItemS.indexOf(","));
-            
-            Product product= new Product();
+
+            Product product = new Product();
             product.setId(Integer.parseInt(productId));
-            
+
             Supplier supplier = new Supplier();
             supplier.setId(Integer.parseInt(supplierId));
-            
-            
+
             productEntryWarehouse.setId(0);
-            productEntryWarehouse.setUserSystem(new UserSystem(1, "", "","",""));
+            productEntryWarehouse.setUserSystem(new UserSystem(1, "", "", "", "", "",""));
             productEntryWarehouse.setProduct(product);
             productEntryWarehouse.setSupplier(supplier);
             productEntryWarehouse.setQuantity(Integer.parseInt(spnQuantity.getValue().toString()));
@@ -316,6 +338,11 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
     }
 
     private void updateProductEntryWarehouse() {
+        //Validations
+        UtilValidateImput.validateSelectedJCombobox(cboProduct, "producto");
+        UtilValidateImput.validateSelectedJCombobox(cboSupplier, "proveedor");
+        UtilSS.isValidInteger(spnQuantity.getValue().toString(), "cantidad");
+        
         try {
             ProductEntryWarehouse productEntryWarehouse = new ProductEntryWarehouse();
 
@@ -324,15 +351,15 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
 
             String selectedItemS = (String) cboSupplier.getSelectedItem();
             String supplierId = selectedItemS.substring(0, selectedItemS.indexOf(","));
-            
-            Product product= new Product();
+
+            Product product = new Product();
             product.setId(Integer.parseInt(productId));
-            
+
             Supplier supplier = new Supplier();
             supplier.setId(Integer.parseInt(supplierId));
 
             productEntryWarehouse.setId(Integer.parseInt(lblId.getText()));
-            productEntryWarehouse.setUserSystem(new UserSystem(1, "", "","",""));
+            productEntryWarehouse.setUserSystem(new UserSystem(1, "", "", "", "","", ""));
             productEntryWarehouse.setProduct(product);
             productEntryWarehouse.setSupplier(supplier);
             productEntryWarehouse.setQuantity(Integer.parseInt(spnQuantity.getValue().toString()));

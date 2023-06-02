@@ -44,5 +44,8 @@ public class SaleDetail implements Serializable {
 
     @JsonProperty("totalPrice")
     private BigDecimal totalPrice = new BigDecimal("0.00");
+    
+    @JsonProperty("cancelSaleDetail")
+    private int cancelSaleDetail = 0;
 
 }

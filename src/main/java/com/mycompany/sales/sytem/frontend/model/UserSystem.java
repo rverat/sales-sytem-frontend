@@ -6,6 +6,7 @@ package com.mycompany.sales.sytem.frontend.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
+import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,10 +35,19 @@ public class UserSystem implements Serializable {
     @JsonProperty("email")
     private String email;
 
+    @NotBlank
     @JsonProperty("userName")
     private String userName;
 
+    @NotBlank
     @JsonProperty("userPassword")
     private String userPassword;
+
+    @NotBlank
+    @JsonProperty("typeUser")
+    private String typeUser;
+
+    @JsonProperty("token")
+    private String token;
 
 }
