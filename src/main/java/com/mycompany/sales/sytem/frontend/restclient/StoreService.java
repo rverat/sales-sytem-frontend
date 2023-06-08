@@ -25,16 +25,16 @@ import retrofit2.http.Path;
  */
 public interface StoreService {
 
-    @GET("/store")
+    @GET("/v1/store")
     Call<List<Store>> findAll(@Header("Authorization") String token);
     
-    @POST("/store")
+    @POST("/v1/store")
     Call<HttpStatus> save(@Header("Authorization") String token, @Body Store store);
     
-    @PATCH("/store")
+    @PATCH("/v1/store")
     Call<HttpStatus> update(@Header("Authorization") String token, @Body Store store);
     
-    @DELETE("/store/{id}")
+    @DELETE("/v1/store/{id}")
     Call<HttpStatus> delete(@Header("Authorization") String token, @Path("id") int id);
 
 }

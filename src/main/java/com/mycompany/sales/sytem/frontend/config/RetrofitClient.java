@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitClient {
     
-    static final String API_BASE_URL = "http://localhost:9081/v1/"; //fron properties
+    static final String API_BASE_URL = "http://localhost:9081/"; //fron properties
 
     public static <T> T createService(Class<T> serviceClass) {
         Retrofit retrofit = new Retrofit.Builder()

@@ -12,11 +12,13 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  *
  * @author ro
  */
+@SpringBootApplication(scanBasePackages = "com.mycompany.sales.system")
 public class SalesSytemFrontend {
 
     public static void main(String[] args) {
@@ -53,7 +55,7 @@ public class SalesSytemFrontend {
         }*/
 
         java.awt.EventQueue.invokeLater(() -> {
-            new MDI().setVisible(true);
+            new Login().setVisible(true);
         });
 
     }

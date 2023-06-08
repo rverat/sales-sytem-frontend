@@ -5,6 +5,7 @@
 package com.mycompany.sales.sytem.frontend.view;
 
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
+import com.mycompany.sales.sytem.frontend.config.TokenCache;
 import com.mycompany.sales.sytem.frontend.model.Product;
 import com.mycompany.sales.sytem.frontend.model.ProductEntryWarehouse;
 import com.mycompany.sales.sytem.frontend.model.Supplier;
@@ -44,40 +45,39 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
 
     public List<ProductEntryWarehouse> listAll() throws Exception {
         ProductEntryWarehouseService service = RetrofitClient.createService(ProductEntryWarehouseService.class);
-        Call<List<ProductEntryWarehouse>> call = service.findAll("");
+        Call<List<ProductEntryWarehouse>> call = service.findAll(TokenCache.getToken());
         Response<List<ProductEntryWarehouse>> response = call.execute();
         return response.body();
     }
 
     public void save(ProductEntryWarehouse productEntryWarehouse) throws Exception {
         ProductEntryWarehouseService service = RetrofitClient.createService(ProductEntryWarehouseService.class);
-        Call<HttpStatus> call = service.save("", productEntryWarehouse);
+        Call<HttpStatus> call = service.save(TokenCache.getToken(), productEntryWarehouse);
         call.execute();
     }
 
     public void update(ProductEntryWarehouse productEntryWarehouse) throws Exception {
         ProductEntryWarehouseService service = RetrofitClient.createService(ProductEntryWarehouseService.class);
-        Call<HttpStatus> call = service.update("", productEntryWarehouse);
+        Call<HttpStatus> call = service.update(TokenCache.getToken(), productEntryWarehouse);
         call.execute();
     }
 
     public void delete(int id) throws Exception {
         ProductEntryWarehouseService service = RetrofitClient.createService(ProductEntryWarehouseService.class);
-        Call<HttpStatus> call = service.delete("", id);
+        Call<HttpStatus> call = service.delete(TokenCache.getToken(), id);
         call.execute();
     }
 
     public List<Product> listProduct() throws Exception {
         ProductService service = RetrofitClient.createService(ProductService.class);
-        String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYWNvIiwiZXhwIjoxNjg1NTkxMTQ1LCJpYXQiOjE2ODU1OTExNDV9.t1TGvTPMNPVAOTAfgucJrAjvwAx0bDlzJLvo51OMbqw";
-        Call<List<Product>> call = service.findAll("Bearer " + token);
+        Call<List<Product>> call = service.findAll(TokenCache.getToken());
         Response<List<Product>> response = call.execute();
         return response.body();
     }
 
     public List<Supplier> listSuppler() throws Exception {
         SupplierService service = RetrofitClient.createService(SupplierService.class);
-        Call<List<Supplier>> call = service.findAll("");
+        Call<List<Supplier>> call = service.findAll(TokenCache.getToken());
         Response<List<Supplier>> response = call.execute();
         return response.body();
     }

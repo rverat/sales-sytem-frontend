@@ -5,6 +5,7 @@
 package com.mycompany.sales.sytem.frontend.view;
 
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
+import com.mycompany.sales.sytem.frontend.config.TokenCache;
 import com.mycompany.sales.sytem.frontend.model.ProductCategory;
 import com.mycompany.sales.sytem.frontend.restclient.ProductCategoryService;
 import com.mycompany.sales.sytem.frontend.util.UtilValidateImput;
@@ -33,26 +34,26 @@ public class ProductCategoryView extends javax.swing.JInternalFrame {
 
     public List<ProductCategory> listAll() throws Exception {
         ProductCategoryService categoryService = RetrofitClient.createService(ProductCategoryService.class);
-        Call<List<ProductCategory>> call = categoryService.findAll("");
+        Call<List<ProductCategory>> call = categoryService.findAll(TokenCache.getToken());
         Response<List<ProductCategory>> response = call.execute();
         return response.body();
     }
 
     public void save(ProductCategory productCategory) throws Exception {
         ProductCategoryService categoryService = RetrofitClient.createService(ProductCategoryService.class);
-        Call<HttpStatus> call = categoryService.save("", productCategory);
+        Call<HttpStatus> call = categoryService.save(TokenCache.getToken(), productCategory);
         call.execute();
     }
 
     public void update(ProductCategory productCategory) throws Exception {
         ProductCategoryService categoryService = RetrofitClient.createService(ProductCategoryService.class);
-        Call<HttpStatus> call = categoryService.save("", productCategory);
+        Call<HttpStatus> call = categoryService.save(TokenCache.getToken(), productCategory);
         call.execute();
     }
 
     public void delete(int id) throws Exception {
         ProductCategoryService categoryService = RetrofitClient.createService(ProductCategoryService.class);
-        Call<HttpStatus> call = categoryService.delete("", id);
+        Call<HttpStatus> call = categoryService.delete(TokenCache.getToken(), id);
         call.execute();
     }
 

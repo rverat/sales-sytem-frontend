@@ -4,6 +4,7 @@
  */
 package com.mycompany.sales.sytem.frontend.view;
 
+import com.mycompany.sales.sytem.frontend.config.TokenCache;
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
 import com.mycompany.sales.sytem.frontend.model.Customer;
 import com.mycompany.sales.sytem.frontend.restclient.CustomerService;
@@ -36,26 +37,26 @@ public class CustomerView extends javax.swing.JInternalFrame {
 
     public List<Customer> listAll() throws Exception {
         CustomerService service = RetrofitClient.createService(CustomerService.class);
-        Call<List<Customer>> call = service.findAll("");
+        Call<List<Customer>> call = service.findAll(TokenCache.getToken());
         Response<List<Customer>> response = call.execute();
         return response.body();
     }
 
     public void save(Customer customer) throws Exception {
         CustomerService service = RetrofitClient.createService(CustomerService.class);
-        Call<HttpStatus> call = service.save("",customer);
+        Call<HttpStatus> call = service.save(TokenCache.getToken(),customer);
         call.execute();
     }
 
     public void update(Customer customer) throws Exception {
         CustomerService service = RetrofitClient.createService(CustomerService.class);
-        Call<HttpStatus> call = service.update("", customer);
+        Call<HttpStatus> call = service.update(TokenCache.getToken(), customer);
         call.execute();
     }
 
     public void delete(int id) throws Exception {
         CustomerService service = RetrofitClient.createService(CustomerService.class);
-        Call<HttpStatus> call = service.delete("", id);
+        Call<HttpStatus> call = service.delete(TokenCache.getToken(), id);
         call.execute();
     }
 

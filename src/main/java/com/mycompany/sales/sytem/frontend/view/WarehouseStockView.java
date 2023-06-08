@@ -5,15 +5,14 @@
 package com.mycompany.sales.sytem.frontend.view;
 
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
+import com.mycompany.sales.sytem.frontend.config.TokenCache;
 import com.mycompany.sales.sytem.frontend.model.WarehouseStock;
 import com.mycompany.sales.sytem.frontend.restclient.WarehouseStockService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import org.springframework.http.HttpStatus;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -33,7 +32,7 @@ public class WarehouseStockView extends javax.swing.JInternalFrame {
 
     public List<WarehouseStock> listAll() throws Exception {
         WarehouseStockService service = RetrofitClient.createService(WarehouseStockService.class);
-        Call<List<WarehouseStock>> call = service.findAll("");
+        Call<List<WarehouseStock>> call = service.findAll(TokenCache.getToken());
         Response<List<WarehouseStock>> response = call.execute();
         return response.body();
     }

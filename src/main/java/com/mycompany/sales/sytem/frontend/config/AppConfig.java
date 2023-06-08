@@ -4,10 +4,16 @@
  */
 package com.mycompany.sales.sytem.frontend.config;
 
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
 /**
  *
  * @author ro
  */
-public class JwtGlobalCache {
+@Configuration
+@ComponentScan("com.mycompany.sales.system")
+public class AppConfig {
+    
     
 }

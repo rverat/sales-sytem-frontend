@@ -25,22 +25,22 @@ import retrofit2.http.Path;
  */
 public interface UserService {
     
-    @GET("/user")
+    @GET("/v1/user")
     Call<List<UserSystem>> findAll(@Header("Authorization") String token);
     
-    @POST("/user/login")
+    @POST("/v1/user/login")
     Call<UserSystem> login(@Body UserSystem userSystem);
     
     @POST("/user/logout")
-    Call<UserSystem> logout(@Header("Authorization") String token);
+    Call<HttpStatus> logout(@Header("Authorization") String token);
     
-    @POST("/user")
+    @POST("/v1/user")
     Call<HttpStatus> save(@Header("Authorization") String token, @Body UserSystem userSystem);
     
-    @PATCH("/user")
+    @PATCH("/v1/user")
     Call<HttpStatus> update(@Header("Authorization") String token, @Body UserSystem userSystem);
     
-    @DELETE("/user/{id}")
+    @DELETE("/v1/user/{id}")
     Call<HttpStatus> delete(@Header("Authorization") String token, @Path("id") int id);
 
 

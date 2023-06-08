@@ -23,16 +23,16 @@ import retrofit2.http.Path;
  */
 public interface SaleService {
 
-    @GET("/sale")
+    @GET("/v1/sale")
     Call<List<Sale>> findAll(@Header("Authorization") String token);
     
-    @POST("/sale")
+    @POST("/v1/sale")
     Call<HttpStatus> save(@Header("Authorization") String token, @Body List<SaleDetail> saleDetail);
     
-    @PATCH("/sale")
+    @PATCH("/v1/sale")
     Call<HttpStatus> update(@Header("Authorization") String token, @Body Sale sale);
     
-    @DELETE("/sale/{id}")
+    @DELETE("/v1/sale/{id}")
     Call<HttpStatus> delete(@Header("Authorization") String token, @Path("id") int id);
 
 }

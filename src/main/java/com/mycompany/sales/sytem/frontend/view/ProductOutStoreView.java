@@ -5,6 +5,7 @@
 package com.mycompany.sales.sytem.frontend.view;
 
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
+import com.mycompany.sales.sytem.frontend.config.TokenCache;
 import com.mycompany.sales.sytem.frontend.model.Product;
 import com.mycompany.sales.sytem.frontend.model.ProductOutStore;
 import com.mycompany.sales.sytem.frontend.model.Store;
@@ -44,34 +45,33 @@ public class ProductOutStoreView extends javax.swing.JInternalFrame {
 
     public List<ProductOutStore> listAll() throws Exception {
         ProductOutStoreService service = RetrofitClient.createService(ProductOutStoreService.class);
-        Call<List<ProductOutStore>> call = service.findAll("");
+        Call<List<ProductOutStore>> call = service.findAll(TokenCache.getToken());
         Response<List<ProductOutStore>> response = call.execute();
         return response.body();
     }
 
     public void save(ProductOutStore productOutStore) throws Exception {
         ProductOutStoreService service = RetrofitClient.createService(ProductOutStoreService.class);
-        Call<HttpStatus> call = service.save("", productOutStore);
+        Call<HttpStatus> call = service.save(TokenCache.getToken(), productOutStore);
         call.execute();
     }
 
     public void update(ProductOutStore productOutStore) throws Exception {
         ProductOutStoreService service = RetrofitClient.createService(ProductOutStoreService.class);
-        Call<HttpStatus> call = service.update("", productOutStore);
+        Call<HttpStatus> call = service.update(TokenCache.getToken(), productOutStore);
         call.execute();
     }
 
     public List<Product> listProduct() throws Exception {
         ProductService service = RetrofitClient.createService(ProductService.class);
-        String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYWNvIiwiZXhwIjoxNjg1NTkxMTQ1LCJpYXQiOjE2ODU1OTExNDV9.t1TGvTPMNPVAOTAfgucJrAjvwAx0bDlzJLvo51OMbqw";
-        Call<List<Product>> call = service.findAll("Bearer " + token);
+        Call<List<Product>> call = service.findAll(TokenCache.getToken());
         Response<List<Product>> response = call.execute();
         return response.body();
     }
 
     public List<Store> listStore() throws Exception {
         StoreService service = RetrofitClient.createService(StoreService.class);
-        Call<List<Store>> call = service.findAll("");
+        Call<List<Store>> call = service.findAll(TokenCache.getToken());
         Response<List<Store>> response = call.execute();
         return response.body();
     }

@@ -5,6 +5,7 @@
  */
 package com.mycompany.sales.sytem.frontend;
 
+import com.mycompany.sales.sytem.frontend.config.TokenCache;
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
 import com.mycompany.sales.sytem.frontend.model.Store;
 import com.mycompany.sales.sytem.frontend.model.UserSystem;
@@ -13,6 +14,7 @@ import com.mycompany.sales.sytem.frontend.restclient.UserService;
 import com.mycompany.sales.sytem.frontend.view.MDI;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,17 +51,20 @@ public class Login extends javax.swing.JFrame {
     public UserSystem login(UserSystem userSystem) throws Exception {
         UserService service = RetrofitClient.createService(UserService.class);
         Call<UserSystem> call = service.login(userSystem);
+        try {
         Response<UserSystem> response = call.execute();
-        
         int codeHttp = response.code();
 
-        if (HttpStatus.valueOf(codeHttp) == HttpStatus.NOT_FOUND) {
-
+        if (codeHttp == HttpStatus.NOT_FOUND.value()) {
             JOptionPane.showMessageDialog(null, "Usuario o password incorrecto");
             throw new Exception("Usuario o password incorrecto");
         }
 
         return response.body();
+    } catch (IOException e) {
+        // Handle IO exception if it occurs during the API call
+        throw new Exception("Error occurred during API call: " + e.getMessage());
+    }
     }
 
     public void logout(UserSystem userSystem) throws Exception {
@@ -101,10 +106,15 @@ public class Login extends javax.swing.JFrame {
             
             //save token in cache         
             String token = systemDB.getToken();
+            TokenCache tokenCache = new TokenCache();
+            tokenCache.saveToken(token);
+            
+            System.err.println("print token: " + tokenCache.getToken());
+            
             
             
 
-            if (systemDB.getTypeUser().equals("Staff")) {
+            if (systemDB.getTypeUser().equals("staff")) {
 
                 MDI mdi = new MDI();
                 mdi.setVisible(true);
@@ -117,7 +127,7 @@ public class Login extends javax.swing.JFrame {
                 mdi.mnuTien.setEnabled(false);
                 mdi.mnuProvee.setEnabled(false);
 
-            } else if (systemDB.getTypeUser().equals("Admin")) {
+            } else if (systemDB.getTypeUser().equals("admin")) {
 
                 MDI mdi = new MDI();
                 mdi.setVisible(true);

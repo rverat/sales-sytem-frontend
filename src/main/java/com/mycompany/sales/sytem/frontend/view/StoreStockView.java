@@ -5,6 +5,7 @@
 package com.mycompany.sales.sytem.frontend.view;
 
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
+import com.mycompany.sales.sytem.frontend.config.TokenCache;
 import com.mycompany.sales.sytem.frontend.model.StoreStock;
 import com.mycompany.sales.sytem.frontend.restclient.StoreStockService;
 import java.awt.event.KeyAdapter;
@@ -34,7 +35,7 @@ private TableRowSorter trsFiltro;
 
     public List<StoreStock> listAll() throws Exception {
         StoreStockService service = RetrofitClient.createService(StoreStockService.class);
-        Call<List<StoreStock>> call = service.findAll("");
+        Call<List<StoreStock>> call = service.findAll(TokenCache.getToken());
         Response<List<StoreStock>> response = call.execute();
         return response.body();
     }

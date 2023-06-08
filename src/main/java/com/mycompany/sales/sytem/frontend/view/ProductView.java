@@ -4,6 +4,7 @@
  */
 package com.mycompany.sales.sytem.frontend.view;
 
+import com.mycompany.sales.sytem.frontend.config.TokenCache;
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
 import com.mycompany.sales.sytem.frontend.model.Product;
 import com.mycompany.sales.sytem.frontend.model.ProductCategory;
@@ -14,19 +15,16 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
 import javax.swing.RowFilter;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -34,9 +32,11 @@ import retrofit2.Response;
  *
  * @author ro
  */
+@Component
 public class ProductView extends javax.swing.JInternalFrame {
 
-    private TableRowSorter trsFiltro;
+    private TableRowSorter trsFiltro;   
+    
 
     public ProductView() {
         initComponents();
@@ -45,35 +45,36 @@ public class ProductView extends javax.swing.JInternalFrame {
         UtilValidateImput.configureSpinner(spnPrice);
     }
 
-    public List<Product> listAll() throws Exception {
+
+    public List<Product> listAll() throws Exception {      
+        
         ProductService service = RetrofitClient.createService(ProductService.class);
-        String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYWNvIiwiZXhwIjoxNjg1NTkxMTQ1LCJpYXQiOjE2ODU1OTExNDV9.t1TGvTPMNPVAOTAfgucJrAjvwAx0bDlzJLvo51OMbqw";
-        Call<List<Product>> call = service.findAll(token);
+        Call<List<Product>> call = service.findAll(TokenCache.getToken());
         Response<List<Product>> response = call.execute();
         return response.body();
     }
 
     public void save(Product product) throws Exception {
         ProductService service = RetrofitClient.createService(ProductService.class);
-        Call<HttpStatus> call = service.save("", product);
+        Call<HttpStatus> call = service.save(TokenCache.getToken(), product);
         call.execute();
     }
 
     public void update(Product product) throws Exception {
         ProductService service = RetrofitClient.createService(ProductService.class);
-        Call<HttpStatus> call = service.update("", product);
+        Call<HttpStatus> call = service.update(TokenCache.getToken(), product);
         call.execute();
     }
 
     public void delete(int id) throws Exception {
         ProductService service = RetrofitClient.createService(ProductService.class);
-        Call<HttpStatus> call = service.delete("", id);
+        Call<HttpStatus> call = service.delete(TokenCache.getToken(), id);
         call.execute();
     }
 
     public List<ProductCategory> listAllProductCategory() throws Exception {
         ProductCategoryService categoryService = RetrofitClient.createService(ProductCategoryService.class);
-        Call<List<ProductCategory>> call = categoryService.findAll("");
+        Call<List<ProductCategory>> call = categoryService.findAll(TokenCache.getToken());
         Response<List<ProductCategory>> response = call.execute();
         return response.body();
     }

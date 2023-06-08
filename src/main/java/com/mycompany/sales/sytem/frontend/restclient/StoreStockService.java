@@ -26,22 +26,22 @@ import retrofit2.http.Query;
  */
 public interface StoreStockService {
 
-    @GET("/store-stock")
+    @GET("/v1/store-stock")
     Call<List<StoreStock>> findAll(@Header("Authorization") String token);
 
-    @POST("/store-stock")
+    @POST("/v1/store-stock")
     Call<HttpStatus> save(@Header("Authorization") String token, @Body StoreStock storeStock);
 
-    @POST("/store-stock/stock")
+    @POST("/v1/store-stock/stock")
     Call<StoreStock> findByProductIdAndStoreId(
             @Header("Authorization") String token, 
             @Query("productId") int productId,
             @Query("storeId") int storeId);
 
-    @PATCH("/store-stock")
+    @PATCH("/v1/store-stock")
     Call<HttpStatus> update(@Header("Authorization") String token, @Body StoreStock storeStock);
 
-    @DELETE("/store-stock/{id}")
+    @DELETE("/v1/store-stock/{id}")
     Call<HttpStatus> delete(@Header("Authorization") String token, @Path("id") int id);
 
 }

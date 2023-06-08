@@ -5,6 +5,7 @@
 package com.mycompany.sales.sytem.frontend.view;
 
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
+import com.mycompany.sales.sytem.frontend.config.TokenCache;
 import com.mycompany.sales.sytem.frontend.model.Store;
 import com.mycompany.sales.sytem.frontend.restclient.StoreService;
 import java.awt.HeadlessException;
@@ -35,26 +36,26 @@ public class StoreView extends javax.swing.JInternalFrame {
 
     public List<Store> listAll() throws Exception {
         StoreService service = RetrofitClient.createService(StoreService.class);
-        Call<List<Store>> call = service.findAll("");
+        Call<List<Store>> call = service.findAll(TokenCache.getToken());
         Response<List<Store>> response = call.execute();
         return response.body();
     }
 
     public void save(Store store) throws Exception {
         StoreService service = RetrofitClient.createService(StoreService.class);
-        Call<HttpStatus> call = service.save("", store);
+        Call<HttpStatus> call = service.save(TokenCache.getToken(), store);
         call.execute();
     }
 
     public void update(Store store) throws Exception {
         StoreService service = RetrofitClient.createService(StoreService.class);
-        Call<HttpStatus> call = service.update("", store);
+        Call<HttpStatus> call = service.update(TokenCache.getToken(), store);
         call.execute();
     }
 
     public void delete(int id) throws Exception {
         StoreService service = RetrofitClient.createService(StoreService.class);
-        Call<HttpStatus> call = service.delete("", id);
+        Call<HttpStatus> call = service.delete(TokenCache.getToken(), id);
         call.execute();
     }
 

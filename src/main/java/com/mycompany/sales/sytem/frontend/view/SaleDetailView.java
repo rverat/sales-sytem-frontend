@@ -5,14 +5,10 @@
 package com.mycompany.sales.sytem.frontend.view;
 
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
+import com.mycompany.sales.sytem.frontend.config.TokenCache;
 import com.mycompany.sales.sytem.frontend.model.SaleDetail;
 import com.mycompany.sales.sytem.frontend.restclient.SaleDetailService;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import org.springframework.http.HttpStatus;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -32,26 +28,26 @@ public class SaleDetailView extends javax.swing.JInternalFrame {
 
     public List<SaleDetail> listAll() throws Exception {
         SaleDetailService service = RetrofitClient.createService(SaleDetailService.class);
-        Call<List<SaleDetail>> call = service.findAll("");
+        Call<List<SaleDetail>> call = service.findAll(TokenCache.getToken());
         Response<List<SaleDetail>> response = call.execute();
         return response.body();
     }
 
     public void save(SaleDetail saleDetail) throws Exception {
         SaleDetailService service = RetrofitClient.createService(SaleDetailService.class);
-        Call<HttpStatus> call = service.save("", saleDetail);
+        Call<HttpStatus> call = service.save(TokenCache.getToken(), saleDetail);
         call.execute();
     }
 
     public void update(SaleDetail saleDetail) throws Exception {
         SaleDetailService service = RetrofitClient.createService(SaleDetailService.class);
-        Call<HttpStatus> call = service.update("", saleDetail);
+        Call<HttpStatus> call = service.update(TokenCache.getToken(), saleDetail);
         call.execute();
     }
 
     public void delete(int id) throws Exception {
         SaleDetailService service = RetrofitClient.createService(SaleDetailService.class);
-        Call<HttpStatus> call = service.delete("", id);
+        Call<HttpStatus> call = service.delete(TokenCache.getToken(), id);
         call.execute();
     }
 
