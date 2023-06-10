@@ -5,19 +5,18 @@
  */
 package com.mycompany.sales.sytem.frontend;
 
+import com.google.gson.Gson;
 import com.mycompany.sales.sytem.frontend.config.TokenCache;
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
-import com.mycompany.sales.sytem.frontend.model.Store;
+import com.mycompany.sales.sytem.frontend.config.UserCache;
 import com.mycompany.sales.sytem.frontend.model.UserSystem;
-import com.mycompany.sales.sytem.frontend.restclient.StoreService;
 import com.mycompany.sales.sytem.frontend.restclient.UserService;
 import com.mycompany.sales.sytem.frontend.view.MDI;
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -41,30 +40,30 @@ public class Login extends javax.swing.JFrame {
         txtNombre.requestFocus();
     }
 
+    public UserSystem login(UserSystem userSystem) throws Exception {
+        UserService service = RetrofitClient.createService(UserService.class);
+        Call<UserSystem> call = service.login(userSystem);
+        try {
+            Response<UserSystem> response = call.execute();
+            int codeHttp = response.code();
+
+            if (codeHttp == HttpStatus.NOT_FOUND.value()) {
+                JOptionPane.showMessageDialog(null, "Usuario o password incorrecto");
+                throw new Exception("Usuario o password incorrecto");
+            }
+
+            return response.body();
+        } catch (IOException e) {
+            // Handle IO exception if it occurs during the API call
+            throw new Exception("Error occurred during API call: " + e.getMessage());
+        }
+    }
+
     public List<UserSystem> listAll() throws Exception {
         UserService service = RetrofitClient.createService(UserService.class);
         Call<List<UserSystem>> call = service.findAll("");
         Response<List<UserSystem>> response = call.execute();
         return response.body();
-    }
-
-    public UserSystem login(UserSystem userSystem) throws Exception {
-        UserService service = RetrofitClient.createService(UserService.class);
-        Call<UserSystem> call = service.login(userSystem);
-        try {
-        Response<UserSystem> response = call.execute();
-        int codeHttp = response.code();
-
-        if (codeHttp == HttpStatus.NOT_FOUND.value()) {
-            JOptionPane.showMessageDialog(null, "Usuario o password incorrecto");
-            throw new Exception("Usuario o password incorrecto");
-        }
-
-        return response.body();
-    } catch (IOException e) {
-        // Handle IO exception if it occurs during the API call
-        throw new Exception("Error occurred during API call: " + e.getMessage());
-    }
     }
 
     public void logout(UserSystem userSystem) throws Exception {
@@ -96,23 +95,26 @@ public class Login extends javax.swing.JFrame {
     }
 
     private void login() throws Exception {
-        
+
         UserSystem userSystem = new UserSystem();
         userSystem.setUserName(txtNombre.getText());
         userSystem.setUserPassword(String.valueOf(txtContrasena.getPassword()));
 
         try {
-            UserSystem systemDB  = login(userSystem);
-            
+            UserSystem systemDB = login(userSystem);
+
             //save token in cache         
             String token = systemDB.getToken();
             TokenCache tokenCache = new TokenCache();
             tokenCache.saveToken(token);
             
-            System.err.println("print token: " + tokenCache.getToken());
+            UserCache userCache  = new UserCache();
+            userCache.saveUser(systemDB);
             
-            
-            
+            Gson gson = new Gson();
+            String json = gson.toJson(userCache);
+            System.err.println(json);
+
 
             if (systemDB.getTypeUser().equals("staff")) {
 

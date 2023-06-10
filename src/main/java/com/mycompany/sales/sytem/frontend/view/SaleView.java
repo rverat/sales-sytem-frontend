@@ -7,6 +7,7 @@ package com.mycompany.sales.sytem.frontend.view;
 import com.google.gson.Gson;
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
 import com.mycompany.sales.sytem.frontend.config.TokenCache;
+import com.mycompany.sales.sytem.frontend.config.UserCache;
 import com.mycompany.sales.sytem.frontend.model.Customer;
 import com.mycompany.sales.sytem.frontend.model.Product;
 import com.mycompany.sales.sytem.frontend.model.Sale;
@@ -46,6 +47,12 @@ public class SaleView extends javax.swing.JInternalFrame {
         initComponents();
         loadCustomersProductsStores();
         listSales();
+        
+        btnAddSale.setEnabled(true);
+        btnNewSale.setEnabled(true);
+        btnCancelSale.setEnabled(true);
+        btnCancelEditSale.setEnabled(false);
+        btnUpdateSale.setEnabled(false);
     }
 
     public List<Sale> listAll() throws Exception {
@@ -61,9 +68,9 @@ public class SaleView extends javax.swing.JInternalFrame {
         call.execute();
     }
 
-    public void update(Sale sale) throws Exception {
+    public void update(List<SaleDetail> saleDetail) throws Exception {
         SaleService service = RetrofitClient.createService(SaleService.class);
-        Call<HttpStatus> call = service.update(TokenCache.getToken(), sale);
+        Call<HttpStatus> call = service.update(TokenCache.getToken(), saleDetail);
         call.execute();
     }
 
@@ -84,9 +91,9 @@ public class SaleView extends javax.swing.JInternalFrame {
         Call<HttpStatus> call = service.update(TokenCache.getToken(), saleDetail);
         call.execute();
     }
-    
+
     public void cancelSale(int saleId) throws Exception {
-        SaleDetailService service = RetrofitClient.createService(SaleDetailService.class);
+        SaleService service = RetrofitClient.createService(SaleService.class);
         Call<HttpStatus> call = service.cancelSale(TokenCache.getToken(), saleId);
         call.execute();
     }
@@ -221,10 +228,11 @@ public class SaleView extends javax.swing.JInternalFrame {
         lblIdSaleDetail = new javax.swing.JTextField();
         jScrollPane6 = new javax.swing.JScrollPane();
         tbSale = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnCancelSale = new javax.swing.JButton();
         btnEditSale = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        btnExecuteSaleDetail = new javax.swing.JButton();
+        btnNewSale = new javax.swing.JButton();
+        btnUpdateSale = new javax.swing.JButton();
+        btnCancelEditSale = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Ventas");
@@ -382,14 +390,14 @@ public class SaleView extends javax.swing.JInternalFrame {
 
         getContentPane().add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 458, 1166, 240));
 
-        jButton1.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
-        jButton1.setText("Cancelar venta");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelSale.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        btnCancelSale.setText("Cancelar venta");
+        btnCancelSale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCancelSaleActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 400, -1, -1));
+        getContentPane().add(btnCancelSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 400, -1, -1));
 
         btnEditSale.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         btnEditSale.setText("Editar Venta");
@@ -398,25 +406,34 @@ public class SaleView extends javax.swing.JInternalFrame {
                 btnEditSaleActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEditSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 400, -1, -1));
+        getContentPane().add(btnEditSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 400, -1, -1));
 
-        jButton3.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
-        jButton3.setText("Nueva Venta");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnNewSale.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        btnNewSale.setText("Nueva Venta");
+        btnNewSale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnNewSaleActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, -1, -1));
+        getContentPane().add(btnNewSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, -1, -1));
 
-        btnExecuteSaleDetail.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
-        btnExecuteSaleDetail.setText("Actualizar");
-        btnExecuteSaleDetail.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdateSale.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        btnUpdateSale.setText("Actualizar");
+        btnUpdateSale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExecuteSaleDetailActionPerformed(evt);
+                btnUpdateSaleActionPerformed(evt);
             }
         });
-        getContentPane().add(btnExecuteSaleDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 400, -1, -1));
+        getContentPane().add(btnUpdateSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 400, -1, -1));
+
+        btnCancelEditSale.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        btnCancelEditSale.setText("Cancelar Edicion");
+        btnCancelEditSale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelEditSaleActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCancelEditSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 400, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -443,33 +460,33 @@ public class SaleView extends javax.swing.JInternalFrame {
         // Verificar si hay una fila seleccionada
         if (rowIndex != -1) {
 
-            int isCancel = Integer.parseInt(String.valueOf(tbSaleDetail.getValueAt(rowIndex, 0)));
+            int isCancel = Integer.parseInt(String.valueOf(tbSaleDetail.getValueAt(rowIndex, 7)));
 
-            if (isCancel != 1 || isCancel != 0) {
+            if (isCancel == 2) {
                 //update sale detail not saved
 
-                chbCancelSaleDetail.setEnabled(true);
+                chbCancelSaleDetail.setEnabled(false);
                 lblIdSaleDetail.setText(String.valueOf(tbSaleDetail.getValueAt(rowIndex, 0)));
                 lblId.setText(String.valueOf(tbSaleDetail.getValueAt(rowIndex, 1)));
                 cboProducts.setSelectedItem(String.valueOf(tbSaleDetail.getValueAt(rowIndex, 2)));
-                spnQuantity.setValue(BigDecimal.valueOf(Double.parseDouble(tbSaleDetail.getValueAt(rowIndex, 7).toString())));
+                spnQuantity.setValue(Integer.parseInt(tbSaleDetail.getValueAt(rowIndex, 3).toString()));
 
             } else if (isCancel == 1 || isCancel == 0) {
 
                 //update sale detail saved in db
-                chbCancelSaleDetail.setEnabled(false);
+                chbCancelSaleDetail.setEnabled(true);
                 lblIdSaleDetail.setText(String.valueOf(tbSaleDetail.getValueAt(rowIndex, 0)));
                 cboProducts.setSelectedItem(String.valueOf(tbSaleDetail.getValueAt(rowIndex, 2)));
 
                 boolean canceledProduct = false;
 
-                int canceledP = Integer.parseInt(String.valueOf(tbSaleDetail.getValueAt(rowIndex, 3)));
+                int canceledP = Integer.parseInt(String.valueOf(tbSaleDetail.getValueAt(rowIndex, 7)));
 
                 if (canceledP == 1) {
                     canceledProduct = true;
                 }
                 chbCancelSaleDetail.setSelected(canceledProduct);
-                spnQuantity.setValue(BigDecimal.valueOf(Double.parseDouble(tbSaleDetail.getValueAt(rowIndex, 7).toString())));
+                spnQuantity.setValue(Integer.parseInt(tbSaleDetail.getValueAt(rowIndex, 3).toString()));
 
             }
         } else {
@@ -496,11 +513,17 @@ public class SaleView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnAddProductActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCancelSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelSaleActionPerformed
         cancelSale();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCancelSaleActionPerformed
 
     private void btnEditSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditSaleActionPerformed
+
+        btnAddSale.setEnabled(false);
+        btnNewSale.setEnabled(false);
+        btnCancelSale.setEnabled(false);
+        btnCancelEditSale.setEnabled(true);
+        btnUpdateSale.setEnabled(true);
         try {
             listSalesDetails();
         } catch (Exception ex) {
@@ -508,9 +531,9 @@ public class SaleView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEditSaleActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnNewSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewSaleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnNewSaleActionPerformed
 
     private void btnDeleteProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteProductActionPerformed
 
@@ -525,13 +548,30 @@ public class SaleView extends javax.swing.JInternalFrame {
         clearFormDetail();
     }//GEN-LAST:event_btnCancelSaleDetailActionPerformed
 
-    private void btnExecuteSaleDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecuteSaleDetailActionPerformed
+    private void btnUpdateSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateSaleActionPerformed
+
+        btnAddSale.setEnabled(true);
+        btnNewSale.setEnabled(true);
+        btnCancelSale.setEnabled(true);
+        btnCancelEditSale.setEnabled(false);
+        btnUpdateSale.setEnabled(false);
         try {
             updateSale();
         } catch (Exception ex) {
             Logger.getLogger(SaleView.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnExecuteSaleDetailActionPerformed
+    }//GEN-LAST:event_btnUpdateSaleActionPerformed
+
+    private void btnCancelEditSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelEditSaleActionPerformed
+
+        btnAddSale.setEnabled(true);
+        btnNewSale.setEnabled(true);
+        btnCancelSale.setEnabled(true);
+        btnCancelEditSale.setEnabled(false);
+        btnUpdateSale.setEnabled(false);
+        clearProducts();
+        clearForm();
+    }//GEN-LAST:event_btnCancelEditSaleActionPerformed
 
     ArrayList<SaleDetail> saleDetailsListInCache = new ArrayList<>();
     String cabecera[] = {"Id", "Venta", "Producto", "Cantidad", "Precio unitario", "Descuento", "Precio total", "Cancelado"};
@@ -553,9 +593,9 @@ public class SaleView extends javax.swing.JInternalFrame {
             String[] registros = new String[9];
             for (Sale response : lista) {
                 registros[0] = String.valueOf(response.getId());
-                registros[1] = response.getUserSystem().getName();
-                registros[2] = response.getCustomer().getName();
-                registros[3] = response.getStore().getName();
+                registros[1] = response.getUserSystem().getName() + ", " + response.getUserSystem().getName();
+                registros[2] = response.getCustomer().getId() + ", " + response.getCustomer().getName();
+                registros[3] = response.getStore().getId() + ", " + response.getStore().getName();
                 registros[4] = response.getDate();
                 registros[5] = String.valueOf(response.getPrice());
                 registros[6] = String.valueOf(response.getDiscount());
@@ -595,24 +635,27 @@ public class SaleView extends javax.swing.JInternalFrame {
         saleDetailsListInCache.clear();
 
         if (saleDetailListFromDB != null) {
-            String cabeceras[] = {"Id", "Id Venta", "Id Producto", "Cantidad", "Precio Unitario", "Descuento", "Precio Total", "Cancelado"};
-            DefaultTableModel table = new DefaultTableModel(null, cabeceras);
+
             String[] registros = new String[8];
             for (SaleDetail response : saleDetailListFromDB) {
                 registros[0] = String.valueOf(response.getId());
                 registros[1] = String.valueOf(response.getSale().getId());
-                registros[2] = String.valueOf(response.getProduct().getId());
+                registros[2] = String.valueOf(response.getProduct().getId() + ", " + response.getProduct().getName());
                 registros[3] = String.valueOf(response.getQuantity());
                 registros[4] = String.valueOf(response.getUnitPrice());
                 registros[5] = String.valueOf(response.getDiscount());
                 registros[6] = String.valueOf(response.getTotalPrice());
                 registros[7] = String.valueOf(response.getCancelSaleDetail());
                 saleDetailsListInCache.add(response);
-                table.addRow(registros);
+                model.addRow(registros);
             }
-            tbSaleDetail.setModel(table);
+            tbSaleDetail.setModel(model);
 
         }
+
+        lblId.setText(String.valueOf(tbSale.getValueAt(rowIndex, 0)));
+        cboCustomer.setSelectedItem(String.valueOf(tbSale.getValueAt(rowIndex, 2)));
+        cboProducts.setSelectedItem(String.valueOf(tbSale.getValueAt(rowIndex, 3)));
 
     }
     //params for build sale details
@@ -660,9 +703,11 @@ public class SaleView extends javax.swing.JInternalFrame {
                 store.setId(storeId);
 
                 sale.setId(0);
-                sale.setUserSystem(new UserSystem(2, "", "", "", "", "", ""));
+                sale.setUserSystem(new UserSystem(Integer.parseInt(UserCache.getId()), "", "", "", "", "", ""));
                 sale.setCustomer(customer);
                 sale.setStore(store);
+
+                saleDetail.setCancelSaleDetail(0);
 
                 saleDetail.setId(0);
                 saleDetail.setSale(sale);
@@ -696,9 +741,12 @@ public class SaleView extends javax.swing.JInternalFrame {
         int storeIdforDB = Integer.parseInt(selectedItemS.substring(0, selectedItemS.indexOf(",")));
 
         int quantity = (int) spnQuantity.getValue();
-        if (quantity <= 0) {
-            JOptionPane.showMessageDialog(null, "Seleccione una cantidad valida");
-            throw new Exception("Cantidad ingresada es incorrecta");
+
+        if (action == 1) {
+            if (quantity <= 0) {
+                JOptionPane.showMessageDialog(null, "Seleccione una cantidad valida");
+                throw new Exception("Cantidad ingresada es incorrecta");
+            }
         }
 
         int zise = saleDetailsListInCache.size();
@@ -753,7 +801,9 @@ public class SaleView extends javax.swing.JInternalFrame {
 
             saleDetail.setId(saleDetailsListInCache.size() + 1);
 
-            Object[] row = new Object[7];
+            //saleDetail.setId(0);
+            saleDetailsListInCache.add(saleDetail);
+            Object[] row = new Object[8];
             row[0] = saleDetail.getId();
             row[1] = saleDetail.getSale().getId();
             row[2] = saleDetail.getProduct().getId() + "," + saleDetail.getProduct().getName();
@@ -763,27 +813,26 @@ public class SaleView extends javax.swing.JInternalFrame {
             row[6] = saleDetail.getTotalPrice();
             row[7] = saleDetail.getCancelSaleDetail();
             model.addRow(row);
-
-            saleDetail.setId(0);
-
-            saleDetailsListInCache.add(saleDetail);
-
             tbSaleDetail.setModel(model);
             model.fireTableDataChanged();
 
         } else if (action == 0) {
-            int selectedRowIndex = tbSaleDetail.getSelectedRow();
-            if (selectedRowIndex >= 0 && selectedRowIndex < saleDetailsListInCache.size()) {
 
-                int value = Integer.parseInt(String.valueOf(tbSaleDetail.getValueAt(selectedRowIndex, 7)));
+            int rowIndex = tbSaleDetail.getSelectedRow();
+            // Verificar si hay una fila seleccionada
+            if (rowIndex != -1) {
 
-                if (value != 0 || value != 1) {
-                    saleDetailsListInCache.remove(selectedRowIndex);
-                    model.removeRow(selectedRowIndex);
-                    model.fireTableDataChanged();
-                } else {
+                int isCancel = Integer.parseInt(String.valueOf(tbSaleDetail.getValueAt(rowIndex, 7)));
+
+                if (isCancel == 1 || isCancel == 0) {
                     JOptionPane.showMessageDialog(null, "No se puede eliminar este producto");
                     throw new Exception("No se puede eliminar este producto");
+                }
+
+                if (isCancel == 2) {
+                    saleDetailsListInCache.remove(rowIndex);
+                    model.removeRow(rowIndex);
+                    model.fireTableDataChanged();
                 }
             }
         }
@@ -802,7 +851,6 @@ public class SaleView extends javax.swing.JInternalFrame {
         int idSaleDetail = Integer.parseInt(lblIdSaleDetail.getText().toString());
         String selectedItem = (String) cboProducts.getSelectedItem();
         int productId = Integer.parseInt(selectedItem.substring(0, selectedItem.indexOf(",")));
-        String productName = selectedItem.substring(selectedItem.indexOf(",") + 2);
 
         int quantity = (int) spnQuantity.getValue();
         if (quantity <= 0) {
@@ -816,6 +864,7 @@ public class SaleView extends javax.swing.JInternalFrame {
         Product product = new Product();
         product.setId(productId);
         product.setPrice(p.getPrice());
+        product.setName(p.getName());
 
         BigDecimal quantityB = new BigDecimal(quantity);
         BigDecimal unitPrice = product.getPrice();
@@ -835,17 +884,33 @@ public class SaleView extends javax.swing.JInternalFrame {
                     for (SaleDetail saleDetail : saleDetailsListInCache) {
 
                         if (saleDetail.getId() == idSaleDetail) {
-                            //uodate sale detail
+                            // Update sale detail properties
                             saleDetail.setSale(sale);
                             saleDetail.setProduct(product);
                             saleDetail.setQuantity(0);
+                            saleDetail.setUnitPrice(BigDecimal.ZERO);
                             saleDetail.setTotalPrice(BigDecimal.ZERO);
                             saleDetail.setCancelSaleDetail(1);
 
-                        }
-                        //update table
+                            // Create the updated row
+                            Object[] row = new Object[8];
+                            row[0] = saleDetail.getId();
+                            row[1] = saleDetail.getSale().getId();
+                            row[2] = saleDetail.getProduct().getId() + "," + saleDetail.getProduct().getName();
+                            row[3] = saleDetail.getQuantity();
+                            row[4] = saleDetail.getUnitPrice();
+                            row[5] = saleDetail.getDiscount();
+                            row[6] = saleDetail.getTotalPrice();
+                            row[7] = saleDetail.getCancelSaleDetail();
 
+                            // Update the table row
+                            int rowIndex = saleDetailsListInCache.indexOf(saleDetail);
+                            for (int i = 0; i < row.length; i++) {
+                                model.setValueAt(row[i], rowIndex, i);
+                            }
+                        }
                     }
+                    model.fireTableDataChanged();
                 }
             } else {
 
@@ -860,18 +925,33 @@ public class SaleView extends javax.swing.JInternalFrame {
                 for (SaleDetail saleDetail : saleDetailsListInCache) {
 
                     if (saleDetail.getId() == idSaleDetail) {
-                        //uodate sale detail
                         saleDetail.setSale(sale);
                         saleDetail.setProduct(product);
                         saleDetail.setQuantity(quantity);
+                        saleDetail.setUnitPrice(unitPrice);
                         saleDetail.setTotalPrice(finalPrice);
                         saleDetail.setCancelSaleDetail(0);
-                        //update table row
+                        // howupdate table row
 
+                        // Create the updated row
+                        Object[] row = new Object[8];
+                        row[0] = saleDetail.getId();
+                        row[1] = saleDetail.getSale().getId();
+                        row[2] = saleDetail.getProduct().getId() + "," + saleDetail.getProduct().getName();
+                        row[3] = saleDetail.getQuantity();
+                        row[4] = saleDetail.getUnitPrice();
+                        row[5] = saleDetail.getDiscount();
+                        row[6] = saleDetail.getTotalPrice();
+                        row[7] = saleDetail.getCancelSaleDetail();
+
+                        // Update the table row
+                        int rowIndex = saleDetailsListInCache.indexOf(saleDetail);
+                        for (int i = 0; i < row.length; i++) {
+                            model.setValueAt(row[i], rowIndex, i);
+                        }
                     }
-
                 }
-
+                model.fireTableDataChanged();
             }
 
         } else {
@@ -894,9 +974,25 @@ public class SaleView extends javax.swing.JInternalFrame {
                     saleDetail.setCancelSaleDetail(2); //2 for product not saled
                     //update table row
 
-                }
+                    // Create the updated row
+                    Object[] row = new Object[8];
+                    row[0] = saleDetail.getId();
+                    row[1] = saleDetail.getSale().getId();
+                    row[2] = saleDetail.getProduct().getId() + "," + saleDetail.getProduct().getName();
+                    row[3] = saleDetail.getQuantity();
+                    row[4] = saleDetail.getUnitPrice();
+                    row[5] = saleDetail.getDiscount();
+                    row[6] = saleDetail.getTotalPrice();
+                    row[7] = saleDetail.getCancelSaleDetail();
 
+                    // Update the table row
+                    int rowIndex = saleDetailsListInCache.indexOf(saleDetail);
+                    for (int i = 0; i < row.length; i++) {
+                        model.setValueAt(row[i], rowIndex, i);
+                    }
+                }
             }
+            model.fireTableDataChanged();
         }
     }
 
@@ -926,8 +1022,8 @@ public class SaleView extends javax.swing.JInternalFrame {
             customer.setId(customerId);
             store.setId(storeId);
 
-            sale.setId(0);
-            sale.setUserSystem(new UserSystem(2, "", "", "", "", "", ""));
+            sale.setId(Integer.parseInt(lblId.getText()));
+            sale.setUserSystem(new UserSystem(Integer.parseInt(UserCache.getId()), "", "", "", "", "", ""));
             sale.setCustomer(customer);
             sale.setStore(store);
 
@@ -938,7 +1034,7 @@ public class SaleView extends javax.swing.JInternalFrame {
             saleDetailList.add(saleDetail);
         }
 
-        save(saleDetailList);
+        update(saleDetailList);
 
         JOptionPane.showMessageDialog(null, "Registrado");
         listSales();
@@ -957,9 +1053,9 @@ public class SaleView extends javax.swing.JInternalFrame {
         clearProducts();
 
     }
-    
+
     private void cancelSale() {
-       int idSale = 0;
+        int idSale = 0;
 
         // Obtener el índice de la fila seleccionada
         int rowIndex = tbSale.getSelectedRow();
@@ -975,15 +1071,19 @@ public class SaleView extends javax.swing.JInternalFrame {
             }
         }
 
-        Sale sale = new Sale();
-        sale.setId(idSale);
-        sale.setCancelSale(1);
-        
-        
-        
-        
+        try {
+            cancelSale(idSale);
+        } catch (Exception ex) {
+            Logger.getLogger(SaleView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        JOptionPane.showMessageDialog(null, "Venta cancelada");
+        listSales();
+        clearProducts();
+        clearForm();
+
     }
-    
+
     private void clearFormDetail() {
         lblIdSaleDetail.setText("");
         cboProducts.setSelectedIndex(0);
@@ -1011,17 +1111,18 @@ public class SaleView extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddProduct;
     private javax.swing.JButton btnAddSale;
+    private javax.swing.JButton btnCancelEditSale;
+    private javax.swing.JButton btnCancelSale;
     private javax.swing.JButton btnCancelSaleDetail;
     private javax.swing.JButton btnDeleteProduct;
     private javax.swing.JButton btnEditSale;
-    private javax.swing.JButton btnExecuteSaleDetail;
+    private javax.swing.JButton btnNewSale;
+    private javax.swing.JButton btnUpdateSale;
     private javax.swing.JButton btnUpdateSaleDetail;
     private javax.swing.JComboBox<String> cboCustomer;
     private javax.swing.JComboBox<String> cboProducts;
     private javax.swing.JComboBox<String> cboStore;
     private javax.swing.JCheckBox chbCancelSaleDetail;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
@@ -1040,6 +1141,5 @@ public class SaleView extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbSale;
     private javax.swing.JTable tbSaleDetail;
     // End of variables declaration//GEN-END:variables
-
 
 }

@@ -347,11 +347,11 @@ public class ProductView extends javax.swing.JInternalFrame {
             Product product = new Product();
 
             String selectedItem = (String) cboCategory.getSelectedItem();
-            int number = Integer.parseInt(selectedItem.substring(0, selectedItem.indexOf(",")));
+            int categoryId = Integer.parseInt(selectedItem.substring(0, selectedItem.indexOf(",")));
 
             product.setId(0);
 
-            setProductDetail(product, number);
+            setProductDetail(product, categoryId);
 
             save(product);
             JOptionPane.showMessageDialog(null, "Producto registrado");
@@ -374,11 +374,11 @@ public class ProductView extends javax.swing.JInternalFrame {
             Product product = new Product();
 
             String selectedItem = (String) cboCategory.getSelectedItem();
-            int number = Integer.parseInt(selectedItem.substring(0, selectedItem.indexOf(",")));
+            int categoryId = Integer.parseInt(selectedItem.substring(0, selectedItem.indexOf(",")));
 
             product.setId(Integer.parseInt(lblId.getText()));
 
-            setProductDetail(product, number);
+            setProductDetail(product, categoryId);
 
             update(product);
             JOptionPane.showMessageDialog(null, "Ptoducto actualizado");
@@ -390,12 +390,14 @@ public class ProductView extends javax.swing.JInternalFrame {
         }
     }
 
-    private void setProductDetail(Product product, int number) {
+    private void setProductDetail(Product product, int categoryId) {
         product.setName(txtNombre.getText());
-        product.setProductCategory(new ProductCategory(number, ""));
+        product.setProductCategory(new ProductCategory(categoryId, ""));
         product.setDescription(txaDescription.getText());
-        BigDecimal price = BigDecimal.valueOf((Double) spnPrice.getValue());
-        product.setPrice(price);
+        
+        BigDecimal doubleValue = (BigDecimal) spnPrice.getValue();
+        //BigDecimal price = BigDecimal.valueOf(doubleValue);
+        product.setPrice(doubleValue);
     }
 
     private boolean deleteProduct() {

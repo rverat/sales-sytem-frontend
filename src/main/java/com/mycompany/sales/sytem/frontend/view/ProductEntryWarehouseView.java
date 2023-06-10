@@ -6,6 +6,7 @@ package com.mycompany.sales.sytem.frontend.view;
 
 import com.mycompany.sales.sytem.frontend.config.RetrofitClient;
 import com.mycompany.sales.sytem.frontend.config.TokenCache;
+import com.mycompany.sales.sytem.frontend.config.UserCache;
 import com.mycompany.sales.sytem.frontend.model.Product;
 import com.mycompany.sales.sytem.frontend.model.ProductEntryWarehouse;
 import com.mycompany.sales.sytem.frontend.model.Supplier;
@@ -320,7 +321,7 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
             supplier.setId(Integer.parseInt(supplierId));
 
             productEntryWarehouse.setId(0);
-            productEntryWarehouse.setUserSystem(new UserSystem(1, "", "", "", "", "",""));
+            productEntryWarehouse.setUserSystem(new UserSystem(Integer.parseInt(UserCache.getId()), "", "", "", "", "",""));
             productEntryWarehouse.setProduct(product);
             productEntryWarehouse.setSupplier(supplier);
             productEntryWarehouse.setQuantity(Integer.parseInt(spnQuantity.getValue().toString()));
@@ -359,7 +360,7 @@ public class ProductEntryWarehouseView extends javax.swing.JInternalFrame {
             supplier.setId(Integer.parseInt(supplierId));
 
             productEntryWarehouse.setId(Integer.parseInt(lblId.getText()));
-            productEntryWarehouse.setUserSystem(new UserSystem(1, "", "", "", "","", ""));
+            productEntryWarehouse.setUserSystem(new UserSystem(Integer.parseInt(UserCache.getId()), "", "", "", "","", ""));
             productEntryWarehouse.setProduct(product);
             productEntryWarehouse.setSupplier(supplier);
             productEntryWarehouse.setQuantity(Integer.parseInt(spnQuantity.getValue().toString()));

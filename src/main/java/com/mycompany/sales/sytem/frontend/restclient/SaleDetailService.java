@@ -30,7 +30,7 @@ public interface SaleDetailService {
     @GET("/v1/sale-detail/{saleId}")
     Call<List<SaleDetail>> getSaleDetails(@Header("Authorization") String token, @Path("saleId") int saleId);
     
-    @GET("/v1/sale-detail/{saleDetailId}")
+    @GET("/v1/sale-detail/detail/{saleDetailId}")
     Call<SaleDetail> getSaleDetail(@Header("Authorization") String token, @Path("saleDetailId") int saleDetailId);
     
     @POST("/v1/sale-detail")
@@ -41,8 +41,5 @@ public interface SaleDetailService {
     
     @DELETE("/v1/sale-detail/{id}")
     Call<HttpStatus> delete(@Header("Authorization") String token, @Path("id") int id);
-
-    @PATCH("/v1/sale-detail/{saleId}")
-    public Call<HttpStatus> cancelSale(String token, @Path("saleId") int saleId);
 
 }

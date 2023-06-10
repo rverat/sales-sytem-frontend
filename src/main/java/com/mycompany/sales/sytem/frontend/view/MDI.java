@@ -4,6 +4,8 @@
  */
 package com.mycompany.sales.sytem.frontend.view;
 
+import com.mycompany.sales.sytem.frontend.components.DesktopPaneBackground;
+import com.mycompany.sales.sytem.frontend.components.ImageBackground;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,8 +21,13 @@ public class MDI extends javax.swing.JFrame {
         initComponents();
         setTitle("Inversiones y Representaciones JOE Glass");
         this.setExtendedState(MDI.MAXIMIZED_BOTH);
+        String imagePath = "images/imageBack.jpg";
+        //desktopPane.setBorder(new DesktopPaneBackground(imagePath));
+        //desktopPane.setBackground(new ImageBackground(""));
+
 
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,7 +38,7 @@ public class MDI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane = new javax.swing.JDesktopPane();
+        desktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuCloseSession = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -62,16 +69,16 @@ public class MDI extends javax.swing.JFrame {
             }
         });
 
-        jDesktopPane.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        desktopPane.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
 
-        javax.swing.GroupLayout jDesktopPaneLayout = new javax.swing.GroupLayout(jDesktopPane);
-        jDesktopPane.setLayout(jDesktopPaneLayout);
-        jDesktopPaneLayout.setHorizontalGroup(
-            jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout desktopPaneLayout = new javax.swing.GroupLayout(desktopPane);
+        desktopPane.setLayout(desktopPaneLayout);
+        desktopPaneLayout.setHorizontalGroup(
+            desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1200, Short.MAX_VALUE)
         );
-        jDesktopPaneLayout.setVerticalGroup(
-            jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        desktopPaneLayout.setVerticalGroup(
+            desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 687, Short.MAX_VALUE)
         );
 
@@ -82,6 +89,11 @@ public class MDI extends javax.swing.JFrame {
 
         jMenuItem6.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jMenuItem6.setText("Administrador de usuarios");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         mnuCloseSession.add(jMenuItem6);
 
         jMenuItem1.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
@@ -237,13 +249,13 @@ public class MDI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1200, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jDesktopPane, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(desktopPane, javax.swing.GroupLayout.Alignment.TRAILING))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 687, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jDesktopPane))
+                .addComponent(desktopPane, javax.swing.GroupLayout.Alignment.TRAILING))
         );
 
         pack();
@@ -258,7 +270,7 @@ public class MDI extends javax.swing.JFrame {
         if (enr.isShowing()) {
         } else {
             enr.setVisible(true);
-            jDesktopPane.add(enr);
+            desktopPane.add(enr);
         } // TODO add your handling code here:
     }//GEN-LAST:event_mnuOuputProductToInvenActionPerformed
 
@@ -267,7 +279,7 @@ public class MDI extends javax.swing.JFrame {
         if (enr.isShowing()) {
         } else {
             enr.setVisible(true);
-            jDesktopPane.add(enr);
+            desktopPane.add(enr);
         }
     }//GEN-LAST:event_mnuSeeProductActionPerformed
 
@@ -276,7 +288,7 @@ public class MDI extends javax.swing.JFrame {
         if (enr.isShowing()) {
         } else {
             enr.setVisible(true);
-            jDesktopPane.add(enr);
+            desktopPane.add(enr);
         }
     }//GEN-LAST:event_mnuSeeCategoryActionPerformed
 
@@ -285,7 +297,7 @@ public class MDI extends javax.swing.JFrame {
         if (enr.isShowing()) {
         } else {
             enr.setVisible(true);
-            jDesktopPane.add(enr);
+            desktopPane.add(enr);
         }
     }//GEN-LAST:event_mnuAddProductToInvenActionPerformed
 
@@ -294,7 +306,7 @@ public class MDI extends javax.swing.JFrame {
         if (enr.isShowing()) {
         } else {
             enr.setVisible(true);
-            jDesktopPane.add(enr);
+            desktopPane.add(enr);
         }
     }//GEN-LAST:event_mnuStoreActionPerformed
 
@@ -303,7 +315,7 @@ public class MDI extends javax.swing.JFrame {
         if (enr.isShowing()) {
         } else {
             enr.setVisible(true);
-            jDesktopPane.add(enr);
+            desktopPane.add(enr);
         }
     }//GEN-LAST:event_mnuSupplierActionPerformed
 
@@ -312,7 +324,7 @@ public class MDI extends javax.swing.JFrame {
         if (enr.isShowing()) {
         } else {
             enr.setVisible(true);
-            jDesktopPane.add(enr);
+            desktopPane.add(enr);
         }
     }//GEN-LAST:event_mnuWerehouseStockActionPerformed
 
@@ -321,7 +333,7 @@ public class MDI extends javax.swing.JFrame {
         if (enr.isShowing()) {
         } else {
             enr.setVisible(true);
-            jDesktopPane.add(enr);
+            desktopPane.add(enr);
         }
     }//GEN-LAST:event_mnuStoreStockActionPerformed
 
@@ -331,7 +343,7 @@ public class MDI extends javax.swing.JFrame {
             //enr.getFocusListeners();
         } else {
             enr.setVisible(true);
-            jDesktopPane.add(enr);
+            desktopPane.add(enr);
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -341,7 +353,7 @@ public class MDI extends javax.swing.JFrame {
             //enr.getFocusListeners();
         } else {
             enr.setVisible(true);
-            jDesktopPane.add(enr);
+            desktopPane.add(enr);
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
@@ -354,9 +366,18 @@ public class MDI extends javax.swing.JFrame {
         if (enr.isShowing()) {
         } else {
             enr.setVisible(true);
-            jDesktopPane.add(enr);
+            desktopPane.add(enr);
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        UserView enr = new UserView();
+        if (enr.isShowing()) {
+        } else {
+            enr.setVisible(true);
+            desktopPane.add(enr);
+        }
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void cerrar() {
         Object[] opciones = {"Aceptar", "Cancelar"};
@@ -369,7 +390,7 @@ public class MDI extends javax.swing.JFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane;
+    private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;

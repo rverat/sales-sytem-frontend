@@ -30,7 +30,10 @@ public interface SaleService {
     Call<HttpStatus> save(@Header("Authorization") String token, @Body List<SaleDetail> saleDetail);
     
     @PATCH("/v1/sale")
-    Call<HttpStatus> update(@Header("Authorization") String token, @Body Sale sale);
+    Call<HttpStatus> update(@Header("Authorization") String token, @Body List<SaleDetail> saleDetail);
+    
+    @PATCH("/v1/sale/{id}")
+    Call<HttpStatus> cancelSale(@Header("Authorization") String token, @Path("id") int id);
     
     @DELETE("/v1/sale/{id}")
     Call<HttpStatus> delete(@Header("Authorization") String token, @Path("id") int id);
