@@ -3,12 +3,12 @@
  */
 package com.mycompany.sales.system.frontend;
 
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import javax.swing.*;
+import javax.swing.UIManager.LookAndFeelInfo;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.UnsupportedLookAndFeelException;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  *

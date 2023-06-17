@@ -7,7 +7,6 @@ package com.mycompany.sales.system.frontend;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.File;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;

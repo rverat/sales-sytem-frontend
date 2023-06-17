@@ -22,12 +22,10 @@ public class TokenCache {
     private static final Map<String, String> tokenCache = new HashMap<>();
     
     public static void saveToken(String token) {
-        System.out.println("save token : " + token);
         tokenCache.put("token", token);
     }
     
    public static String getToken() {
-        System.out.println("get token : " + tokenCache.get("token"));
         return tokenCache.get("token");
     }
 }

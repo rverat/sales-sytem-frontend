@@ -25,6 +25,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -762,8 +763,15 @@ public class SaleView extends javax.swing.JInternalFrame {
                 }
 
             }
+            
+            String discount =  spnDiscount.getValue().toString();
+            
+            BigDecimal bigdecimalDicount = new BigDecimal(BigInteger.ZERO);
+            
+            if(!discount.equals("0.00")){
+                bigdecimalDicount = (BigDecimal) spnDiscount.getValue();
+            }
 
-            BigDecimal bigdecimalDicount = (BigDecimal) spnDiscount.getValue();
 
             //fin de validacion
             ArrayList<SaleDetail> saleDetailList = new ArrayList<>();
@@ -1085,8 +1093,20 @@ public class SaleView extends javax.swing.JInternalFrame {
     private void updateSale() throws Exception {
 
         ArrayList<SaleDetail> saleDetailList = new ArrayList<>();
+        
 
-        BigDecimal bigdecimalDicount = (BigDecimal) spnDiscount.getValue();
+          double discountValue = (double) spnDiscount.getValue();
+
+
+         String discount =  spnDiscount.getValue().toString();
+            
+            BigDecimal bigdecimalDicount = new BigDecimal(BigInteger.ZERO);
+            
+            if(!discount.equals("0.00")){
+                bigdecimalDicount = (BigDecimal) spnDiscount.getValue();
+            }
+                
+        //BigDecimal bigdecimalDicount = (BigDecimal) spnDiscount.getValue();
 
         for (SaleDetail saleDetail : saleDetailsListInCache) {
 

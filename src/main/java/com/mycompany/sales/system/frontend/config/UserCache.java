@@ -33,7 +33,6 @@ public class UserCache {
     }
 
     public static String getTypeUser() {
-        System.out.println("get token : " + userCache.get("token"));
         return userCache.get("type");
     }
 

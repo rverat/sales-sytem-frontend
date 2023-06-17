@@ -29,7 +29,7 @@ public class PaintRowsTable extends DefaultTableCellRenderer {
         Color darkGreen = new Color(0, 100, 0);
 
         if (numeroDecimal.compareTo(BigDecimal.ZERO) != 0) {
-          setForeground(darkGreen);
+          //setForeground(Color.BLUE);
           Font font = getFont();
           setFont(font.deriveFont(font.getStyle() | Font.BOLD));
           
